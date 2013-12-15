@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/base.css" type="text/css" />
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
+
+
+<title>Alumnus</title>
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="logo-wrap">
+    	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
+    </div>
+    
+    
+    <div class="nav-wrap base-clear">
+    	<ul class="nav">
+        	<li><a href="javascript:;">首页</a></li>
+        	<li class="active"><a href="javascript:;">母校动态</a></li>
+        	<li><a href="javascript:;">个人</a></li>
+        	<li><a href="javascript:;">管理</a></li>
+        	<li><a href="javascript:;">设置</a></li>
+        </ul>
+        <div class="search-box">
+        	<input class="search-text" placeholder="找同学" type="text" />
+            <input class="search-btn" type="button"/>
+        </div>
+    </div>
+    
+    
+    <div class="big-banner">
+    	<div class="b-item">
+        	<div class="pre"></div>
+        	<div class="next"></div>
+        	<ul>
+            	<li>
+                	<img src="images/banner.jpg" />
+                </li>
+            	<li></li>
+            	<li></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="menu-wrap">
+    	<ul class="base-clear">
+        	<li class="active" id="li-news-1" data-id="1">
+            	<a href="javascript:">
+                	<h3>母校动态</h3>
+                    <p>校友动态校友动态</p>
+                </a>
+            </li>
+        	<li id="li-news-2" data-id="2">
+            	<a href="javascript:" data-id="2">
+                	<h3>回馈母校</h3>
+                    <p>校友动态校友动态</p>
+                </a>
+            </li id="li-news-3" data-id="3">
+        	<li>
+            	<a href="javascript:;">
+                	<h3>印象首师</h3>
+                    <p>校友动态校友动态</p>
+                </a>
+            </li>
+        	<li>
+            	<a href="javascript:;">
+                	<h3>数据母校</h3>
+                    <p>校友动态校友动态</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    
+    <div class="news-wrap">
+    	<h3 class="title">校友动态</h3>
+
+        <div class="news-list" id="d-news-list">
+
+        </div>
+    </div>
+    
+</div>
+
+<div class="footer">
+<p>
+    备案号：京公网安备:110402430068号<br>
+    校友会地址：北京市海淀区西三环北路105号首都师范大学学校办公室校友会 邮编：100048   邮箱：cnuxyh@126.com<br>
+    联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
+</p>
+</div>
+
+
+
+<script id="t:tpl-new-list" type="text/html">
+<% if(list.length>0) { %>
+<ul>
+    <%for(var i=0;i<list.length;i++){%>
+    <li>
+        <div class="item-pic">
+            <a href="#"><img src="<%=list[i].pic%>" /></a>
+        </div>
+        <div class="item-text">
+            <h2><%=list[i].title%></h2>
+            <p><%=list[i].time%></p>
+            <h5><%=list[i].preview%>...</h5>
+            <a class="input-btn" href="#">查看详情</a>
+        </div>
+    </li>
+    <%}%>
+</ul>
+<% }else{ %>
+    <ul><li><p>暂无数据</p></li></ul>
+<% } %>
+<p>
+    <div class="jogger"><a href="javascript:;" id="a-prev-page" date-page-no="0"> &lt; </a>
+    <a href="javascript:;" id="a-next-page" data-page-no="2"> &gt; </a></div>
+</p>
+</script>
+
+<script type="text/javascript">
+var current_type;
+$(function() {
+    $('#li-news-1, #li-news-2, #li-news-3').click(function(event) {
+        $('.menu-wrap ul li').removeClass('active');
+        $(this).attr('class', 'active');
+        current_type = $(this).attr('data-id');
+        $.cnuAction.mediaList(current_type);
+        $.cnuAction.mediaTopList(current_type);
+    });
+    $.cnuAction.mediaList(1);
+    $.cnuAction.mediaTopList(1);
+});
+</script>
+</body>
+</html>

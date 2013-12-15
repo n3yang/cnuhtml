@@ -9,37 +9,7 @@
 <script type="text/javascript" src="js/placeholder.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
-<script type="text/javascript">
-$(function() {
-    var current_type;
-    $('#li-news-1, #li-news-2, #li-news-3').click(function(event) {
-        $('.menu-wrap ul li').removeClass('active');
-        $(this).attr('class', 'active');
-        current_type = $(this).attr('data-id');
-        $.cnuAction.mediaList(current_type);
-        $.cnuAction.mediaTopList(current_type);
-    });
 
-    $('#a-prev-page').click(function(event) {
-        
-        if ($(this).attr('data-page-no')<1) {
-            return false;
-        }
-        $cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
-        $(this).attr('data-page-no', $(this).attr('data-page-no')-1);
-        $('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')-1);
-        console.log($('#a-prev-page').attr('data-page-no'));
-    });
-    $('#a-next-page').click(function(event) {
-        $cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
-        $(this).attr('data-page-no', $(this).attr('data-page-no')+1);
-        $('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')+1);
-        console.log($('#a-next-page').attr('data-page-no'));
-    });
-    $.cnuAction.mediaList(1);
-    $.cnuAction.mediaTopList(1);
-});
-</script>
 
 <title>Alumnus</title>
 </head>
@@ -132,7 +102,7 @@ $(function() {
 
 
 <script id="t:tpl-new-list" type="text/html">
-<% if(list.length>1) { %>
+<% if(list.length>0) { %>
 <ul>
     <%for(var i=0;i<list.length;i++){%>
     <li>
@@ -148,13 +118,28 @@ $(function() {
     </li>
     <%}%>
 </ul>
-<p>
-    <div class="jogger"><a href="###" id="a-prev-page" date-page-no="0"> &lt; </a>
-    <a href="###" id="a-next-page" data-page-no="2"> &gt; </a></div>
-</p>
 <% }else{ %>
     <ul><li><p>暂无数据</p></li></ul>
 <% } %>
+<p>
+    <div class="jogger"><a href="javascript:;" id="a-prev-page" date-page-no="0"> &lt; </a>
+    <a href="javascript:;" id="a-next-page" data-page-no="2"> &gt; </a></div>
+</p>
+</script>
+
+<script type="text/javascript">
+var current_type;
+$(function() {
+    $('#li-news-1, #li-news-2, #li-news-3').click(function(event) {
+        $('.menu-wrap ul li').removeClass('active');
+        $(this).attr('class', 'active');
+        current_type = $(this).attr('data-id');
+        $.cnuAction.mediaList(current_type);
+        $.cnuAction.mediaTopList(current_type);
+    });
+    $.cnuAction.mediaList(1);
+    $.cnuAction.mediaTopList(1);
+});
 </script>
 </body>
 </html>

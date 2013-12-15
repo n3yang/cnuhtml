@@ -34,7 +34,7 @@ jQuery.cnuAction = {
         sid = $.cookie('sid');
         if (!type) type=1;
         if (!page) {page=1};
-        if (!num) {num=10};
+        if (!num) {num=3};
         if (!previewLen) {previewLen=200};
         $.ajax({
             // url: 'proxy.php?pa=media/list?v=1&cid=1',
@@ -52,12 +52,31 @@ jQuery.cnuAction = {
                 // template render
                 bt=baidu.template;
                 document.getElementById('d-news-list').innerHTML = bt('t:tpl-new-list',d);
+				
+				$('#a-prev-page').click(function(event) {
+					
+					if ($(this).attr('data-page-no')<1) {
+						return false;
+					}
+					$.cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
+					$(this).attr('data-page-no', $(this).attr('data-page-no')-1);
+					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')-1);
+					console.log($('#a-prev-page').attr('data-page-no'));
+				});
+				$('#a-next-page').click(function(event) {
+					$.cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
+					$(this).attr('data-page-no', $(this).attr('data-page-no')+1);
+					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')+1);
+					console.log($('#a-next-page').attr('data-page-no'));
+				});
                 // $('.news-wrap .news-list').innerHTML = bt('t:_1234-abcd-1',d);
                 // $.each(d.list, function(index, val) {
                 //     $('.news-list ul').
                 // });
             } else if (d.ec==-1 || ec==-5){
                 alert('操作超时，请重新登陆');
+				$.cookie("sid",null);
+				location.href = './login.html';
             }
         })
         .fail(function() {

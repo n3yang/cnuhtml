@@ -321,6 +321,10 @@ h1, h2, h3, h4, h5, h6, .title, .input-btn{
 	-o-border-radius:  10px;
 	border-radius:  10px;
 }
+.item-pic img {
+	width:253px;
+	height:189px;
+}
 .item-text{
 	padding-left:20px;
 	overflow:hidden;
