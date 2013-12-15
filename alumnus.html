@@ -11,14 +11,31 @@
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
 <script type="text/javascript">
 $(function() {
+    var current_type;
     $('#li-news-1, #li-news-2, #li-news-3').click(function(event) {
         $('.menu-wrap ul li').removeClass('active');
         $(this).attr('class', 'active');
-        type = $(this).attr('data-id');
-        $.cnuAction.mediaList(type);
-        $.cnuAction.mediaTopList(type);
+        current_type = $(this).attr('data-id');
+        $.cnuAction.mediaList(current_type);
+        $.cnuAction.mediaTopList(current_type);
     });
 
+    $('#a-prev-page').click(function(event) {
+        
+        if ($(this).attr('data-page-no')<1) {
+            return false;
+        }
+        $cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
+        $(this).attr('data-page-no', $(this).attr('data-page-no')-1);
+        $('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')-1);
+        console.log($('#a-prev-page').attr('data-page-no'));
+    });
+    $('#a-next-page').click(function(event) {
+        $cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
+        $(this).attr('data-page-no', $(this).attr('data-page-no')+1);
+        $('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')+1);
+        console.log($('#a-next-page').attr('data-page-no'));
+    });
     $.cnuAction.mediaList(1);
     $.cnuAction.mediaTopList(1);
 });
@@ -132,7 +149,8 @@ $(function() {
     <%}%>
 </ul>
 <p>
-    <div class="jogger"><a class="disabled"> < </a><a class="current">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>...<a href="#">199</a><a href="#">200</a><a href="#"> > </a></div>
+    <div class="jogger"><a href="###" id="a-prev-page" date-page-no="0"> &lt; </a>
+    <a href="###" id="a-next-page" data-page-no="2"> &gt; </a></div>
 </p>
 <% }else{ %>
     <ul><li><p>暂无数据</p></li></ul>
