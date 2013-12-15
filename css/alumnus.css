@@ -1,0 +1,57 @@
+/*
+ *	Theme Name: SSD
+ *	Theme URI: 
+ *	Description: 
+ *	Author: Robin Wang
+ *	Version: 1.0
+ *	Date: 2013-12-15
+*/
+
+@charset "utf-8";
+/* CSS Document */
+
+html{
+	background:#fff
+}
+body{
+	background:#fff url(../images/sub-bg.gif) center top repeat-x;
+}
+
+.wrap{
+	width:1000px;
+	margin:0 auto;
+	padding-bottom:50px;
+}
+.logo-wrap{
+	height:180px;
+	padding-top:50px;
+	background:url(../images/Stone.gif) 800px bottom no-repeat;
+}
+#logo{
+}
+
+
+.big-banner{
+	width:100%;
+	height:420px;
+	position:relative;
+	overflow:hidden;
+	position:relative;
+}
+.b-item{
+	width:100%;
+	height:420px;
+	overflow:hidden;
+	position:relative;
+}
+.b-item ul{
+	position:absolute;
+	width:1000px;
+	height:420px;
+	top:0;
+	left:0;
+}
+.b-item li{
+	width:1000px;
+	height:420px;
+}

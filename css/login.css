@@ -1,0 +1,52 @@
+/*
+ *	Theme Name: SSD
+ *	Theme URI: 
+ *	Description: 
+ *	Author: Robin Wang
+ *	Version: 1.0
+ *	Date: 2013-12-15
+*/
+
+@charset "utf-8";
+/* CSS Document */
+
+html{
+	background:#e4ecf5
+}
+body{
+	background:#e4ecf5 url(../images/login-bg.jpg) center top no-repeat
+}
+
+.wrap{
+	width:840px;
+	margin:0 auto;
+	padding-bottom:230px;
+	background:url(../images/Stone.gif) right bottom no-repeat;
+}
+.logo-wrap{
+	height:180px;
+	padding-top:50px;
+}
+#logo{
+}
+
+.login-wrap{
+	height:295px;
+	background:#e6edf5 url(../images/x-line.gif) center top repeat-y;
+	-webkit-box-shadow: 0 2px 4px rgba(195,195,195,.75);
+	-moz-box-shadow: 0 2px 4px rgba(195,195,195,.75);
+	box-shadow: 0 2px 4px rgba(195,195,195,.75);
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
+.reg-box{
+	width:50%;
+	float:left;
+}
+.login-box{
+	width:50%;
+	float:right;
+}
