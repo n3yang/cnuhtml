@@ -8,13 +8,23 @@
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
 <script type="text/javascript">
 $(function() {
-    $.cnuAction.mediaList(1);
-});
+    $('#li-news-1, #li-news-2, #li-news-3').click(function(event) {
+        $('.menu-wrap ul li').removeClass('active');
+        $(this).attr('class', 'active');
+        type = $(this).attr('data-id');
+        $.cnuAction.mediaList(type);
+        $.cnuAction.mediaTopList(type);
+    });
 
+    $.cnuAction.mediaList(1);
+    $.cnuAction.mediaTopList(1);
+});
 </script>
-<title>login</title>
+
+<title>Alumnus</title>
 </head>
 
 <body>
@@ -56,18 +66,18 @@ $(function() {
     
     <div class="menu-wrap">
     	<ul class="base-clear">
-        	<li class="active">
-            	<a href="javascript:;">
+        	<li class="active" id="li-news-1" data-id="1">
+            	<a href="javascript:">
                 	<h3>校友动态</h3>
                     <p>校友动态校友动态</p>
                 </a>
             </li>
-        	<li>
-            	<a href="javascript:;">
+        	<li id="li-news-2" data-id="2">
+            	<a href="javascript:" data-id="2">
                 	<h3>通知公告</h3>
                     <p>校友动态校友动态</p>
                 </a>
-            </li>
+            </li id="li-news-3" data-id="3">
         	<li>
             	<a href="javascript:;">
                 	<h3>校友龙卡</h3>
@@ -86,54 +96,9 @@ $(function() {
     
     <div class="news-wrap">
     	<h3 class="title">校友动态</h3>
-        <div class="news-list">
-        	<ul>
-            	<li>
-                	<div class="item-pic">
-                    	<a href="#"><img src="images/555.jpg" /></a>
-                    </div>
-                    <div class="item-text">
-                    	<h2>生命科学论坛：Targeting Protein-Protein Interactions</h2>
-                        <p>2013-12-31</p>
-                        <h5>
-							校标是学校的象征，是学校办学理念和学校精神的具体体现，是学校办学历史、现状和未来的文化凝练。为了进一步强化我校的办学理念，培育和提升我校人文精神，建设高品位的校园文...
-                        </h5>
-                        <a class="input-btn" href="#">查看详情</a>
-                    </div>
-                </li>
-            	<li>
-                	<div class="item-pic">
-                    	<a href="#"><img src="images/555.jpg" /></a>
-                    </div>
-                    <div class="item-text">
-                    	<h2>生命科学论坛：Targeting Protein-Protein Interactions</h2>
-                        <p>2013-12-31</p>
-                        <h5>
-							校标是学校的象征，是学校办学理念和学校精神的具体体现，是学校办学历史、现状和未来的文化凝练。为了进一步强化我校的办学理念，培育和提升我校人文精神，建设高品位的校园文...
-                        </h5>
-                        <a class="input-btn" href="#">查看详情</a>
-                    </div>
-                </li>
-            	<li>
-                	<div class="item-pic">
-                    	<a href="#"><img src="images/555.jpg" /></a>
-                    </div>
-                    <div class="item-text">
-                    	<h2>生命科学论坛：Targeting Protein-Protein Interactions</h2>
-                        <p>2013-12-31</p>
-                        <h5>
-							校标是学校的象征，是学校办学理念和学校精神的具体体现，是学校办学历史、现状和未来的文化凝练。为了进一步强化我校的办学理念，培育和提升我校人文精神，建设高品位的校园文...
-                        </h5>
-                        <a class="input-btn" href="#">查看详情</a>
-                    </div>
-                </li>
-            </ul>
-            
 
-            <p>
-                <div class="jogger"><a class="disabled"> < </a><a class="current">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>...<a href="#">199</a><a href="#">200</a><a href="#"> > </a></div>
-            </p>
-            
+        <div class="news-list" id="d-news-list">
+
         </div>
     </div>
     
@@ -147,5 +112,31 @@ $(function() {
 </p>
 </div>
 
+
+
+<script id="t:tpl-new-list" type="text/html">
+<% if(list.length>1) { %>
+<ul>
+    <%for(var i=0;i<list.length;i++){%>
+    <li>
+        <div class="item-pic">
+            <a href="#"><img src="<%=list[i].pic%>" /></a>
+        </div>
+        <div class="item-text">
+            <h2><%=list[i].title%></h2>
+            <p><%=list[i].time%></p>
+            <h5><%=list[i].preview%>...</h5>
+            <a class="input-btn" href="#">查看详情</a>
+        </div>
+    </li>
+    <%}%>
+</ul>
+<p>
+    <div class="jogger"><a class="disabled"> < </a><a class="current">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>...<a href="#">199</a><a href="#">200</a><a href="#"> > </a></div>
+</p>
+<% }else{ %>
+    <ul><li><p>暂无数据</p></li></ul>
+<% } %>
+</script>
 </body>
 </html>
