@@ -315,6 +315,9 @@ h1, h2, h3, h4, h5, h6, .title, .input-btn{
 }
 .item-pic{
 	float:left;
+	width:253px;
+	height:189px;
+	overflow:hidden;
 	-webkit-border-radius: 10px;
 	-moz-border-radius:  10px;
 	-ms-border-radius:  10px;

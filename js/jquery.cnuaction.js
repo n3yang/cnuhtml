@@ -48,6 +48,8 @@ jQuery.cnuAction = {
                 // set title
                 if (type==1) {title='校友动态';}
                 else if(type==2) {title='通知公告';}
+                else if(type==3) {title='母校动态';}
+                else if(type==4) {title='回馈母校';}
                 $('.news-wrap .title').text(title);
                 // template render
                 bt=baidu.template;
@@ -75,7 +77,6 @@ jQuery.cnuAction = {
                 // });
             } else if (d.ec==-1 || ec==-5){
                 alert('操作超时，请重新登陆');
-				$.cookie("sid",null);
 				location.href = './login.html';
             }
         })
