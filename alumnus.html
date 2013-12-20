@@ -4,9 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
 <link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+<link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
 
@@ -38,16 +40,7 @@
     
     
     <div class="big-banner">
-    	<div class="b-item">
-        	<div class="pre"></div>
-        	<div class="next"></div>
-        	<ul>
-            	<li>
-                	<img src="images/banner.jpg" />
-                </li>
-            	<li></li>
-            	<li></li>
-            </ul>
+    	<div id="b_item" class="b-item">
         </div>
     </div>
     
@@ -107,13 +100,13 @@
     <%for(var i=0;i<list.length;i++){%>
     <li>
         <div class="item-pic">
-            <a href="#"><img src="<%=list[i].pic%>" /></a>
+            <a data-id="<%=list[i].id%>" href="#"><img src="<%=list[i].pic%>" /></a>
         </div>
         <div class="item-text">
             <h2><%=list[i].title%></h2>
             <p><%=list[i].time%></p>
             <h5><%=list[i].preview%>...</h5>
-            <a class="input-btn" href="#">查看详情</a>
+            <a class="input-btn" data-id="<%=list[i].id%>" href="javascript:;">查看详情</a>
         </div>
     </li>
     <%}%>
@@ -125,6 +118,31 @@
     <div class="jogger"><a href="javascript:;" id="a-prev-page" date-page-no="0"> &lt; </a>
     <a href="javascript:;" id="a-next-page" data-page-no="2"> &gt; </a></div>
 </p>
+</script>
+
+<script id="t:tpl-banner-list" type="text/html">
+<% if(list.length>0) { %>
+<div class="flexslider">
+	<ul class="slides">
+		<%for(var i=0;i<list.length;i++){%>
+		<li>
+			<a data-id="<%=list[i].id%>" href="javascript:;" target="_blank">
+				<img src="<%=list[i].pic%>" />
+				<h1><%=list[i].title%></h1>
+			</a>
+		</li>
+		<%}%>
+	</ul>
+</div>
+<% }else{ %>
+<div class="flexslider">
+	<ul class="slides">
+		<li>
+			<img src="images/banner.jpg"/>
+		</li>
+	</ul>
+</div>
+<% } %>
 </script>
 
 <script type="text/javascript">

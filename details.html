@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/base.css" type="text/css" />
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
+
+
+<title>Alumnus</title>
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="logo-wrap">
+    	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
+    </div>
+    
+    
+    <div class="nav-wrap base-clear">
+    	<ul class="nav">
+        	<li><a href="./alumnus.html">首页</a></li>
+        	<li><a href="./dynamic.html">母校动态</a></li>
+        	<li><a href="personal.html">个人</a></li>
+        	<li id="sid_admin"><a href="./administration.html">管理</a></li>
+        	<li><a href="./setup.html">设置</a></li>
+        </ul>
+        <div class="search-box">
+        	<input class="search-text" placeholder="找同学" type="text" />
+            <input class="search-btn" type="button"/>
+        </div>
+    </div>
+    
+    <div class="m-d-20">
+    </div>
+    
+    <div id="details_wrap" class="details-wrap">
+    	<h3 class="details-title">校友动态</h3>
+
+        <div class="details">
+			
+        </div>
+    </div>
+    
+</div>
+
+<div class="footer">
+<p>
+    备案号：京公网安备:110402430068号<br>
+    校友会地址：北京市海淀区西三环北路105号首都师范大学学校办公室校友会 邮编：100048   邮箱：cnuxyh@126.com<br>
+    联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
+</p>
+</div>
+
+<script id="t:tpl-new-detail" type="text/html">
+
+	<h3 class="details-title"><%=title%></h3>
+	<h4>发布时间：<%=time%></h4>
+	<div class="details">
+		<% if(pics.length>0) { %>
+			<%for(var i=0;i<pics.length;i++){%>
+				<p class="p-img"><a title="点击查看大图" href="<%=pics[i].url%>" target="_blank"><img id="<%=pics[i].id%>" src="<%=pics[i].url%>"></a></p>
+			<%}%>
+		<% }else{ %>
+		<% } %>
+		<p id="detail_content">
+			<%=content%>
+		</p>
+	</div>
+
+</script>
+
+
+
+<script type="text/javascript">
+$(function(){
+	 $.cnuAction.mediaDetail()
+});
+</script>
+</body>
+</html>

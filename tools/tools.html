@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript">
+
+var i = 0;
+function addFile() {
+	i += 1;
+	$('#ctn').append($('<div>图片' + i + ':<input type="file" name="pic-'+ i + '" /></div>'));
+}
+$(function(){
+
+	
+	var url = "http://115.47.56.228:8080/alumni/service/admin/media/create?v=1&amp;cid=1&amp;sid=" + $.cookie('sid');
+	
+	
+	$("#ff").attr("action", url)
+	
+})
+
+</script>
+</head>
+<body>
+	<form id="ff" method="post" action="" enctype="multipart/form-data">
+		类型：<input type="text" name="type"/><br>
+		标题：<input type="text" name="title"/><br>
+		置顶：<input type="text" name="top"/><br>
+		正文：<textarea name="content" cols="50" rows="10"></textarea><br>
+		<input type="button" value="加图片" onClick="addFile()"/><br>
+		<div id="ctn">
+		</div>
+		<input type="submit" value="提交"/>
+	</form>
+</body>
+</html>

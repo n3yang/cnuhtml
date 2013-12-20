@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/base.css" type="text/css" />
+<link rel="stylesheet" href="css/login.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript">
+$(function() {
+    $("#login-btn").click(function() {
+        username = $("#login-email").val();
+        password = $("#login-password").val();
+        if (username=='') {
+            alert('请输入邮箱');
+        } else if (password=='') {
+            alert('请输入密码')
+        } else {
+           $.cnuAction.login(username, password);
+        }
+    });
+});
+</script>
+<title>login</title>
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="logo-wrap">
+    	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
+    </div>
+    <div class="login-wrap base-clear" style="width:50%; height:200px; background:#e6edf5; margin:0 auto;">
+    	
+        <div class="reg-box" style="width:100%;">
+        	<div class="form-box">
+            	<h2 class="form-row-nolabel">您还差一步完成注册</h2>
+            	<div class="form-row">
+                	<label class="label-text">学号</label>
+                    <input class="input-text" type="text" />
+                    <div class="tips-box"></div>
+                </div>
+            	<div class="form-row form-row-nolabel">
+                    <input class="input-btn" type="button" value="注册" />
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+<div class="footer">
+<p>
+    备案号：京公网安备:110402430068号<br>
+    校友会地址：北京市海淀区西三环北路105号首都师范大学学校办公室校友会 邮编：100048   邮箱：cnuxyh@126.com<br>
+    联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
+</p>
+</div>
+</body>
+</html>
