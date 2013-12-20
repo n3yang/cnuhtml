@@ -58,7 +58,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
     },
 
@@ -86,7 +86,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            this.accessFail();
+            $.cnuAction.accessFail();
         })
         
     },
@@ -146,7 +146,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
         
     },
@@ -179,12 +179,12 @@ jQuery.cnuAction = {
 				});
 				
 				$(".slides a").each(function(){
-					this.setDetailHerf($(this));
+					$.cnuAction.setDetailHerf($(this));
 				});
             };
         })
         .fail(function() {
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
         
     },
@@ -213,24 +213,24 @@ jQuery.cnuAction = {
 			   
 			   $('#details_wrap').html( bt('t:tpl-new-detail',d) );
 			   
-			   $("#detail_content").html(this.convert2HTML(d.content))
+			   $("#detail_content").html($.cnuAction.convert2HTML(d.content))
 			   
             };
         })
         .fail(function() {
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
 		
 	},
 
-    timeLineList: {},
-    timeLine: function (id) {
+    timelineList: {},
+    timeline: function (id) {
         if (!id) {id='me'}
         $.ajax({
-            url: 'time/'+id+'/list',
+            url: this.getBaseUrl()+'/timeline/'+id+'/list?v=1&cid=1',
             type: 'get',
             dataType: 'json',
-            data: {sid:$.cookie('sid'), id:id},
+            data: {sid:$.cookie('sid')},
         })
         .done(function(d) {
             if (d.rc==-1) {
@@ -242,11 +242,11 @@ jQuery.cnuAction = {
                 return;
             }
             if (d.ec==1 && d.rc==1) {
-                this.timeLineList = d.list;
+                $.cnuAction.timeLineList = d.list;
             }
         })
         .fail(function() {
-            this.accessFail();
+            $.cnuAction.accessFail();
         })
         
     },
@@ -263,11 +263,11 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                this.deptList = d.list;
+                $.cnuAction.deptList = d.list;
             }
         })
         .fail(function(){
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
     },
 
@@ -283,11 +283,11 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                this.orgList = d.list;
+                $.cnuAction.orgList = d.list;
             }
         })
         .fail(function(){
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
     },
 
@@ -303,11 +303,11 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                this.industryList = d.list;
+                $.cnuAction.industryList = d.list;
             }
         })
         .fail(function(){
-            this.accessFail();
+            $.cnuAction.accessFail();
         });
     },
 }
