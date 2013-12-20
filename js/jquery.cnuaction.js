@@ -13,7 +13,9 @@ jQuery.cnuAction = {
     },
 
     isAdmin: function(){
-
+		if($.cookie('admin')!=1){
+			$("#sid_admin").hide();
+		}
     },
 
     accessFail: function(){
