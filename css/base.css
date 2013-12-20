@@ -164,6 +164,19 @@ h1, h2, h3, h4, h5, h6, .title, .input-btn{
 	margin-right:5px;
 }
 
+.form-box .form-row select{
+	display: inline-block;
+	height: 28px;
+	padding: 4px;
+	margin: 0;
+	vertical-align: middle;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 18px;
+	border: 1px solid #bfbfbf;
+	margin-right: 5px;
+}
+
 .input-btn{
 	width:96px;
 	height:35px;

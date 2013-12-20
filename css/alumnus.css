@@ -189,3 +189,58 @@ body{
 .newfriends-list li.active .newfriends-name h4{
 	color:#0f3192;
 }
+
+
+
+
+.search-wrap{
+}
+.search-title{
+	padding-left:20px;
+	height:40px;
+	line-height:40px;
+	background:#f3f3f3;
+	font-size:16px;
+	-webkit-border-radius: 10px 10px 0 0;
+	-moz-border-radius:  10px 10px 0 0;
+	-ms-border-radius:  10px 10px 0 0;
+	-o-border-radius:  10px 10px 0 0;
+	border-radius:  10px 10px 0 0;
+}
+.search-list{
+	border:1px solid #f3f3f3;
+	padding-top:20px;
+	background:#f9f9f9;
+}
+.search-list ul{
+	width:965px;
+	margin:0 auto;
+	border-left:1px dotted #ddd;
+	border-top:1px dotted #ddd;
+}
+.search-list li{
+	float:left;
+	width:220px;
+	overflow:hidden;
+	zoom:1;
+	padding:10px;
+	border-bottom:1px dotted #ddd;
+	border-right:1px dotted #ddd;
+	cursor:pointer;
+}
+.search-list li.active{
+	background:#fff url(../images/li-active-bg.gif) right center no-repeat;
+}
+.search-list li .search-pic{
+	float:left;
+}
+.search-list li .search-name{
+	overflow:hidden;
+	zoom:1;
+	padding-left:10px;
+}
+.search-list li.active .search-name h4{
+	color:#0f3192;
+}
+
+
