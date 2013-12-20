@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/base.css" type="text/css" />
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
+
+
+<title>Alumnus</title>
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="logo-wrap">
+    	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
+    </div>
+    
+    
+    <div class="nav-wrap base-clear">
+    	<ul class="nav">
+        	<li><a href="./alumnus.html">校友信息</a></li>
+        	<li><a href="./dynamic.html">母校信息</a></li>
+        	<li><a href="personal.html">个人信息</a></li>
+        	<li id="sid_admin"><a href="./administration.html">管理</a></li>
+        	<li><a href="./setup.html">系统设置</a></li>
+        </ul>
+        <div class="search-box">
+        	<input class="search-text" placeholder="找同学" type="text" />
+            <input class="search-btn" type="button"/>
+        </div>
+    </div>
+    
+    <div class="m-d-20">
+    </div>
+    
+    <div id="search_wrap" class="setup-wrap">
+    	<h3 class="setup-title">系统设置</h3>
+        <div class="setup-box base-clear">
+        	<div class="setup-left">
+            	<form>
+                <div class="form-box">
+                    <h2 class="form-row-nolabel">修改密码</h2>
+                    <div class="form-row">
+                        <label class="label-text">初始密码</label>
+                        <input id="" class="input-text" type="text" />
+                        <div class="tips-box"></div>
+                    </div>
+                    <div class="form-row">
+                        <label class="label-text">新密码</label>
+                        <input id="" class="input-text" type="text" />
+                        <div class="tips-box"></div>
+                    </div>
+                    <div class="form-row">
+                        <label class="label-text">确认新密码</label>
+                        <input id="" class="input-text" type="text" />
+                        <div class="tips-box"></div>
+                    </div>
+                    <div class="form-row form-row-nolabel">
+                        <input id="reg-btn" class="input-btn" type="submit" value="保存" />
+                    </div>
+                </div>
+                </form>
+            </div>
+        	<div class="setup-right">
+            
+				<div class="form-box">
+                    <div class="form-row form-row-nolabel">
+                        <input id="reg-btn" class="input-btn w-200" type="button" value="退出" />
+                    </div>
+                </div>
+                               
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+<div class="footer">
+<p>
+    备案号：京公网安备:110402430068号<br>
+    校友会地址：北京市海淀区西三环北路105号首都师范大学学校办公室校友会 邮编：100048   邮箱：cnuxyh@126.com<br>
+    联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
+</p>
+</div>
+
+<script id="t:tpl-search" type="text/html">
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+$(function(){
+	$(".search-list li").hover(function(){
+		$(this).addClass("active");
+	},function(){
+		$(this).removeClass("active");
+	})
+    $.cnuAction.configDeptList();
+    console.log($.cnuAction.deptList);
+
+});
+</script>
+</body>
+</html>
