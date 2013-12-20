@@ -244,3 +244,36 @@ body{
 }
 
 
+
+
+.setup-wrap{
+	width:600px;
+	margin:0 auto;
+}
+.setup-title{
+	padding-left:20px;
+	height:40px;
+	line-height:40px;
+	background:#f3f3f3;
+	font-size:16px;
+	-webkit-border-radius: 10px 10px 0 0;
+	-moz-border-radius:  10px 10px 0 0;
+	-ms-border-radius:  10px 10px 0 0;
+	-o-border-radius:  10px 10px 0 0;
+	border-radius:  10px 10px 0 0;
+}
+.setup-box{
+	border:1px solid #f3f3f3;
+	padding-top:20px;
+	background:#f9f9f9;
+}
+.setup-left{
+	float:left;
+	width:100%;
+}
+/*
+.setup-right{
+	float:right;
+	width:50%;
+}
+*/
