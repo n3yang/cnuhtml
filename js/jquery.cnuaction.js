@@ -19,7 +19,7 @@ jQuery.cnuAction = {
     },
 
     accessFail: function(){
-        alert('connection fail, try later please!');
+        alert('网络访问失败，请稍后重试');
     },
 	
 	convert2HTML: function ( str ){
