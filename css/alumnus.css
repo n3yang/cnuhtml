@@ -185,6 +185,8 @@ body{
 }
 .newfriends-list{
 	border:1px solid #f3f3f3;
+	min-height:600px;
+	*height:600px;
 }
 .newfriends-list li{
 	overflow:hidden;
@@ -198,6 +200,10 @@ body{
 }
 .newfriends-list li .newfriends-pic{
 	float:left;
+}
+.newfriends-list li .newfriends-pic img{
+	width:36px;
+	height:36px;
 }
 .newfriends-list li .newfriends-name{
 	overflow:hidden;
@@ -251,6 +257,10 @@ body{
 }
 .search-list li .search-pic{
 	float:left;
+}
+.search-pic img{
+	width:36px;
+	height:36px;
 }
 .search-list li .search-name{
 	overflow:hidden;

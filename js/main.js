@@ -15,10 +15,21 @@ function setTimeLine(id){
 	   bt = baidu.template;
 	   $('.main').html( bt('t:tpl-history',date) );
 	   systole('.main');
+	   
+	   $(".main li").click(function(){
+		   
+		    $.cnuAction.configNewfriendsList($(this).attr("data-id"));
+			
+		});
 	}
 };  
   
-  
+function setNewFriendsList(){
+	
+	   bt = baidu.template;
+	   $('#similar').html( bt('t:tpl-friend-list',$.cnuAction.newfriendsList) );
+	
+}  
   
   function systole(obj) {
 	  

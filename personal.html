@@ -60,7 +60,7 @@
             	相似度推荐
             </div>
             <div class="newfriends-list">
-            	<ul>
+            	<ul id="similar">
                 	<li>
                     	<div class="newfriends-pic">
                         	<img src="images/tx.gif" />
@@ -287,7 +287,7 @@
 	 	<%for(var i=a.length-1;i>=0;i--){%>
 		
 			<% if(i%2 == 1) { %>
-				<li class="blue">
+				<li data-id="<%=a[i].id%>" class="blue">
 					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
 					<dl>
 						<dt><%=a[i].org%>
@@ -296,7 +296,7 @@
 					</dl>
 				</li>
 			<% }else{ %>
-				<li>
+				<li data-id="<%=a[i].id%>">
 					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
 					<dl>
 						<dt><%=a[i].org%>
@@ -310,6 +310,34 @@
       </ul>
     </div>
   </div>
+</script>
+
+<script id="t:tpl-friend-list" type="text/html">
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li>
+			<div class="newfriends-pic">
+				<% if( list[i].pic == null) { %>
+					<img src="images/tx.gif" />
+				<% }else{ %>
+					<img src="<%=list[i].pic%>" />
+				<% } %>
+			</div>
+			<div class="newfriends-name">
+				<h4><%=list[i].name%></h4>
+				<% if( list[i].org == null) { %>
+					<p></p>
+				<% }else{ %>
+					<p><%=list[i].org%></p>
+				<% } %>
+			</div>
+		</li>
+	<%}%>
+<% }else{ %>
+		<li>
+				<h4>暂没有相似度的朋友</h4>
+		</li>
+<% } %>
 </script>
 
 <script type="text/javascript">

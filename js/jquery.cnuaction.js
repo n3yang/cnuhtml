@@ -349,4 +349,36 @@ jQuery.cnuAction = {
             $.cnuAction.accessFail();
         });
     },
+	
+	//相似度好友列表
+    newfriendsList : {},
+    configNewfriendsList: function(id,page,num){
+		if (!id) {id=$(".main li").eq(0).attr("data-id")}
+		if (!page) {page=1}
+		if (!num) {num=10}
+        $.ajax({
+            url: this.getBaseUrl() + '/timeline/me/node/'+id+'/newfriends/list?v=1&cid=1',
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),id:id,page:page,num:num},
+            async: false
+        })
+        .done(function(d){
+            if (d.rc==-1) {
+                alert('查询对象不存在');
+                return;
+            }
+            if (d.rc==0) {
+                alert('未知错误');
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.newfriendsList = d;
+				setNewFriendsList();
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+    },
 }
