@@ -99,7 +99,7 @@ body{
 .main {width:700px; float:left} 
 .main a { blr:expression(this.onFocus=this.blur()) } /*针对 IE*/
 .main a { outline:none; } /*针对firefox等*/
-.main { padding:45px 0; min-height:720px; }
+.main { padding:45px 0; min-height:540px; }
 
 
 .history { background:url(../images/line04.png) repeat-y 227px 0; overflow:hidden; zoom:1; height:auto; position:relative;}
