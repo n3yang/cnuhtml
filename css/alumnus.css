@@ -242,13 +242,20 @@ body{
 .search-list li.active .search-name h4{
 	color:#0f3192;
 }
+.node{
+	padding:20px 0;
+	border-bottom:1px dashed #CCC;
+	border-top:1px dashed #CCC;
+}
+.node form{
+	display:none;
+}
 
-
-
+.active form{
+	display:block;
+}
 
 .setup-wrap{
-	width:600px;
-	margin:0 auto;
 }
 .setup-title{
 	padding-left:20px;
@@ -269,11 +276,10 @@ body{
 }
 .setup-left{
 	float:left;
-	width:100%;
+	width:50%;
 }
-/*
+
 .setup-right{
 	float:right;
 	width:50%;
 }
-*/
