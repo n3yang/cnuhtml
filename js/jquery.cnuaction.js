@@ -13,8 +13,8 @@ jQuery.cnuAction = {
     },
 
     isAdmin: function(){
-		if($.cookie('admin')!=1){
-			$("#sid_admin").hide();
+		if($.cookie('admin')==1){
+			$("#sid_admin").show();
 		}
     },
 
