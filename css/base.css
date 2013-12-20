@@ -440,3 +440,8 @@ div.jogger a.disabled {
 #sid_admin{
 	display:none;
 }
+
+
+.menu-wrap p{
+	display:none;
+}

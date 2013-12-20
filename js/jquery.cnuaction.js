@@ -1,8 +1,8 @@
 jQuery.cnuAction = {
 
     getBaseUrl: function(){
-        return 'proxy.php?pa=';
-        // return 'http://115.47.56.228:8080/alumni/service';
+        // return 'proxy.php?pa=';
+        return 'http://115.47.56.228:8080/alumni/service';
     },
 
     isLogined: function(){
@@ -39,8 +39,8 @@ jQuery.cnuAction = {
 	//登录
     login: function (username, password, rememberme){
         $.ajax({
-            url: this.getBaseUrl() + '/login',
-            // url: this.getBaseUrl() + '/login?v=1&cid=1',
+            // url: this.getBaseUrl() + '/login',
+            url: this.getBaseUrl() + '/login?v=1&cid=1',
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
@@ -181,6 +181,9 @@ jQuery.cnuAction = {
 				$(".slides a").each(function(){
 					$.cnuAction.setDetailHerf($(this));
 				});
+            } else if (d.ec==-1 || ec==-5){
+                alert('操作超时，请重新登陆');
+				location.href = './login.html';
             };
         })
         .fail(function() {
@@ -213,8 +216,11 @@ jQuery.cnuAction = {
 			   
 			   $('#details_wrap').html( bt('t:tpl-new-detail',d) );
 			   
-			   $("#detail_content").html($.cnuAction.convert2HTML(d.content))
+			   $("#detail_content").html($.cnuAction.convert2HTML(d.content));
 			   
+            } else if (d.ec==-1 || ec==-5){
+                alert('操作超时，请重新登陆');
+				location.href = './login.html';
             };
         })
         .fail(function() {
@@ -223,7 +229,7 @@ jQuery.cnuAction = {
 		
 	},
 
-    timelineList: {},
+    timeLineList: {},
     timeline: function (id) {
         if (!id) {id='me'}
         $.ajax({
@@ -231,6 +237,7 @@ jQuery.cnuAction = {
             type: 'get',
             dataType: 'json',
             data: {sid:$.cookie('sid')},
+            async: false
         })
         .done(function(d) {
             if (d.rc==-1) {
@@ -243,6 +250,7 @@ jQuery.cnuAction = {
             }
             if (d.ec==1 && d.rc==1) {
                 $.cnuAction.timeLineList = d.list;
+				$.cnuAction.configProFile(id);
             }
         })
         .fail(function() {
@@ -250,6 +258,37 @@ jQuery.cnuAction = {
         })
         
     },
+	
+	//获取个人信息
+	proFile :{},
+	configProFile: function(id){
+        if (!id) {id='me'}
+        $.ajax({
+            url: this.getBaseUrl()+'/profile/'+id+'/detail?v=1&cid=1',
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid')},
+            async: false
+        })
+        .done(function(d) {
+            if (d.rc==-1) {
+                alert('查询对象不存在');
+                return;
+            }
+            if (d.rc==0) {
+                alert('未知错误');
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.proFile = d;
+				setTimeLine(id);
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+		
+	},
 
     deptList : {},
     // 获取院系信息
@@ -259,7 +298,7 @@ jQuery.cnuAction = {
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
-            async: false,
+            async: false
         })
         .done(function(d){
             if (d.ec==1) {

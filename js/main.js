@@ -1,28 +1,43 @@
-(function ($) {
-  if (!!window.ActiveXObject && !window.XMLHttpRequest) return;
-  $(function () {
+  
+
+function setTimeLine(id){
+	var date = {
+		a: {},
+		b: {},
+		c: id,
+	};
+	
+	date.a = $.cnuAction.timeLineList;
+	
+	date.b = $.cnuAction.proFile;
+		
+	if(id == 'me'){
+	   bt = baidu.template;
+	   $('.main').html( bt('t:tpl-history',date) );
+	   systole('.main');
+	}
+};  
+  
+  
+  
+  function systole(obj) {
 	  
-    systole();
-
-  });
-
-
-
-  function systole() {
-    if (!$(".history").length) {
+    if (!$(obj+" .history").length) {
       return;
     }
-    var $warpEle = $(".history-date"),
-      $targetA = $warpEle.find("h2 a,ul li dl dt a"),
+	
+	
+    var $warpEle = $(obj+" .history-date"),
+      $targetA = $warpEle.find("h2 a.btn"),
       parentH,
       eleTop = [];
-    parentH = $warpEle.parent().height()+160;
+    parentH = $warpEle.parent().height();
     $warpEle.parent().css({
-      "height":80
+      "height":0
     });
     setTimeout(function () {
 
-      $warpEle.find("ul").children(":not('h2:first')").each(function (idx) {
+      $warpEle.find("ul").each(function (idx) {
 		  
         eleTop.push($(this).position().top);
         $(this).css({
@@ -30,12 +45,12 @@
         }).children().hide();
       }).animate({
           "margin-top":0
-        }, 1600).children().fadeIn();
+        }, 1000).children().fadeIn();
       $warpEle.parent().animate({
         "height":parentH
-      }, 2600);
+      }, 1300);
 
-      $warpEle.find("ul").children(":not('h2:first')").addClass("bounceInDown").css({
+      $warpEle.find("ul").addClass("bounceInDown").css({
         "-webkit-animation-duration":"2s",
         "-webkit-animation-delay":"0",
         "-webkit-animation-timing-function":"ease",
@@ -43,7 +58,7 @@
       }).end().children("h2").css({
           "position":"relative"
         });
-    }, 600);
+    }, 300);
 
     $targetA.click(function () {
       $(this).parent().css({
@@ -55,6 +70,3 @@
     });
 
   };
-
-
-})(jQuery);

@@ -52,53 +52,7 @@
     <div class="news-wrap base-clear">
     
         <div class="main">
-          <div class="history">
-            <div class="history-date">
-              <ul>
-                <h2 class="first">
-                    <a href="#nogo">2013年</a>
-                    <em><img src="images/icon06.gif"></em>
-                 </h2>
-         
-                 <li class="green">
-                  <h3>10.08<span>2013</span></h3>
-                  <dl>
-                    <dt>首都师范大学
-            <span>2009-09-2013-07</span>
-            </dt>
-                  </dl>
-                </li>
-        
-               <li>
-                 <h3>07.19<span>2013</span></h3>
-                  <dl>
-                    <dt>就职于百度
-            <span>2009-09-2013-07</span>
-            </dt>
-                  </dl>
-                </li>
-        
-                 <li>
-                  <h3>07.02<span>2013</span></h3>
-                  <dl>
-                    <dt>就职于新浪
-            <span>2009-09-2013-07</span>
-            </dt>
-                  </dl>
-                </li>
-        
-               <li class="green">
-                  <h3>06.27<span>2013</span></h3>
-                  <dl>
-                    <dt>首都师范大学校友汇
-            <span>2009-09-2013-07</span>
-            </dt>
-                  </dl>
-                </li>
-              </ul>
-            </div>
-            
-          </div>
+          
         </div>
 		
         <div class="newfriends">
@@ -286,31 +240,6 @@
 
 
 
-<script id="t:tpl-new-list" type="text/html">
-<% if(list.length>0) { %>
-<ul>
-    <%for(var i=0;i<list.length;i++){%>
-    <li>
-        <div class="item-pic">
-            <a data-id="<%=list[i].id%>" href="#"><img src="<%=list[i].pic%>" /></a>
-        </div>
-        <div class="item-text">
-            <h2><%=list[i].title%></h2>
-            <p><%=list[i].time%></p>
-            <h5><%=list[i].preview%>...</h5>
-            <a class="input-btn" data-id="<%=list[i].id%>" href="javascript:;">查看详情</a>
-        </div>
-    </li>
-    <%}%>
-</ul>
-<% }else{ %>
-    <ul><li><p>暂无数据</p></li></ul>
-<% } %>
-<p>
-    <div class="jogger"><a href="javascript:;" id="a-prev-page" date-page-no="0"> &lt; </a>
-    <a href="javascript:;" id="a-next-page" data-page-no="2"> &gt; </a></div>
-</p>
-</script>
 
 <script id="t:tpl-banner-list" type="text/html">
 <% if(list.length>0) { %>
@@ -337,6 +266,52 @@
 <% } %>
 </script>
 
+
+<script id="t:tpl-history" type="text/html">
+<div class="history">
+    <div class="history-date">
+    <h2 class="first">
+        <a class="btn" href="#nogo">我的履历</a>
+        <em><img src="<%=b.pic%>"></em>
+        <span>
+            <strong><%=b.name%></strong>
+			<p></p>
+			<% if(c == 'me') { %>
+            	<a class="input-btn" href="javascript:;">完善资料</a>
+			<% }else{ %>
+            	<a class="input-btn" href="javascript:;">关注</a>
+			<% } %>
+        </span>
+     </h2>
+     <ul>
+	 	<%for(var i=a.length-1;i>=0;i--){%>
+		
+			<% if(i%2 == 1) { %>
+				<li class="blue">
+					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+					<dl>
+						<dt><%=a[i].org%>
+							<span><%=a[i].stime%>至<%=a[i].etime%></span>
+						</dt>
+					</dl>
+				</li>
+			<% }else{ %>
+				<li>
+					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+					<dl>
+						<dt><%=a[i].org%>
+							<span><%=a[i].stime%>至<%=a[i].etime%></span>
+						</dt>
+					</dl>
+				</li>
+			<% } %>
+			
+		<%}%>
+      </ul>
+    </div>
+  </div>
+</script>
+
 <script type="text/javascript">
 var current_type;
 $(function() {
@@ -360,8 +335,10 @@ $(function() {
         $.cnuAction.mediaList(current_type);
         $.cnuAction.mediaTopList(current_type);
     });
-    $.cnuAction.mediaList(1);
+	
     $.cnuAction.mediaTopList(1);
+	
+	$.cnuAction.timeline('me');
 });
 </script>
 </body>
