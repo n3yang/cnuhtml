@@ -18,23 +18,26 @@ $(function() {
         } else if (password=='') {
             alert('请输入密码')
         } else {
-			$(this).html("<img src='images/loadinfo.gif' />登录中")
-           $.cnuAction.login(username, password);
+            $(this).html("<img src='images/loadinfo.gif' />登录中")
+            $.cnuAction.login(username, password);
         }
     });
 
     $("#reg-btn").click(function() {
+        username = $("#reg-username").val();
+        password = $("#reg-password").val();
         error = '';
-        if ($("#reg-username").val()==''){
+        if (username==''){
             error = '请输入登录名';
-        } else if ($("#reg-password").val() != $("#reg-re-password").val()){
+        } else if ( password != $("#reg-re-password").val()){
             error = '两次输入的密码不一致';
         } else if ($("#reg-idcard-no").val()=='') {
             error = '请输入身份证号';
         } else {
-
+            $.cnuAction.accountCreate(username, password, $("#reg-idcard-no").val(), $("#reg-stu-no").val());
         }
     });
+
 });
 </script>
 <title>login</title>

@@ -1,6 +1,7 @@
 jQuery.cnuAction = {
 
     getBaseUrl: function(){
+        // return 'proxy.php?pa=';
         return 'http://115.47.56.228:8080/alumni/service';
     },
 	
@@ -43,10 +44,10 @@ jQuery.cnuAction = {
         });
     },
 
-    accountCreate: function(name,password,idCardNo,stuNo){
-        if (!stuNo) {stuNo=0;};
+    accountCreate: function(username,password,idCardNo,stuNo){
+        if (!stuNo) {stuNo='';};
         $.ajax({
-            url: '/account/create',
+            url: $.cnuAction.getBaseUrl() + '/account/create?v=1&cid=1',
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',
@@ -58,7 +59,8 @@ jQuery.cnuAction = {
                 alert('注册成功');
                 location.href = './alumnus.html';
             } else if (d.ec==2) {
-
+                $.cookie('sid', d.sid);
+                location.href = './setup.html';
             } else if (d.ec==-2) {
                 alert('该登录名已经被注册过');
             } else if (d.ec==0) {
@@ -69,7 +71,7 @@ jQuery.cnuAction = {
             alert('connection fail, try later please!');
         })
         
-    }
+    },
 	
 	//设置普通列表
     mediaList: function (type, page, num, previewLen) {
@@ -202,5 +204,33 @@ jQuery.cnuAction = {
         });
 		
 	},
-	
+
+    // 获取院系信息
+    configDeptList: function(){
+        $.ajax({
+            url: $.cnuAction.getBaseUrl() + '/config/dept/list?v=1&cid=1',
+            type: 'get',
+            dataType: "json",
+            data: {sid:sid}
+            async: false,
+        })
+        .done(function(d){
+            console.log(d);
+        })
+
+    },
+
+    // 获取部门组织双级列表
+	configOrgList: function(){
+        $.ajax({
+            url: $.cnuAction.getBaseUrl() + '/config/org/list?v=1&cid=1',
+            type: 'get',
+            dataType: "json",
+            data: {sid:sid}
+            async: false,
+        })
+        .done(function(d){
+            console.log(d);
+        })
+    }
 }
