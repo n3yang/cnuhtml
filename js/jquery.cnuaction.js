@@ -39,8 +39,8 @@ jQuery.cnuAction = {
 	//登录
     login: function (username, password, rememberme){
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/login',
-            // url: $.cnuAction.getBaseUrl() + '/login?v=1&cid=1',
+            url: this.getBaseUrl() + '/login',
+            // url: this.getBaseUrl() + '/login?v=1&cid=1',
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
@@ -58,14 +58,14 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
     },
 
     accountCreate: function(username,password,idCardNo,stuNo){
         if (!stuNo) {stuNo='';};
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/account/create?v=1&cid=1',
+            url: this.getBaseUrl() + '/account/create?v=1&cid=1',
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',
@@ -86,7 +86,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            $.cnuAction.accessFail();
+            this.accessFail();
         })
         
     },
@@ -99,7 +99,7 @@ jQuery.cnuAction = {
         if (!num) {num=3};
         if (!previewLen) {previewLen=200};
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/media/list?v=1&cid=1',
+            url: this.getBaseUrl() + '/media/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:sid, type:type, page:page, num:num, previewLen:previewLen}
@@ -118,11 +118,11 @@ jQuery.cnuAction = {
 				
 				
 				$(".item-text .input-btn").each(function(){
-					$.cnuAction.setDetailHerf($(this));
+					this.setDetailHerf($(this));
 				});
 				
 				$(".item-pic a").each(function(){
-					$.cnuAction.setDetailHerf($(this));
+					this.setDetailHerf($(this));
 				});
 				
 				
@@ -131,12 +131,12 @@ jQuery.cnuAction = {
 					if ($(this).attr('data-page-no')<1) {
 						return false;
 					}
-					$.cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
+					this.mediaList(current_type, $(this).attr('data-page-no'));
 					$(this).attr('data-page-no', $(this).attr('data-page-no')-1);
 					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')-1);
 				});
 				$('#a-next-page').click(function(event) {
-					$.cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
+					this.mediaList(current_type, $(this).attr('data-page-no'));
 					$(this).attr('data-page-no', $(this).attr('data-page-no')+1);
 					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')+1);
 				});
@@ -146,7 +146,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
         
     },
@@ -159,7 +159,7 @@ jQuery.cnuAction = {
         if (!num) {num=10};
         if (!previewLen) {previewLen=100};
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/media/top/list?v=1&cid=1',
+            url: this.getBaseUrl() + '/media/top/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:sid, type:type, page:page, num:num, previewLen:previewLen}
@@ -179,12 +179,12 @@ jQuery.cnuAction = {
 				});
 				
 				$(".slides a").each(function(){
-					$.cnuAction.setDetailHerf($(this));
+					this.setDetailHerf($(this));
 				});
             };
         })
         .fail(function() {
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
         
     },
@@ -196,11 +196,11 @@ jQuery.cnuAction = {
 	
 	//设置文章详情
 	mediaDetail: function(){
-		var detailId =  $.cnuAction.getQueryStringByName('detailId');
+		var detailId =  this.getQueryStringByName('detailId');
 		sid = $.cookie('sid');
 		
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/media/'+ detailId +'/detail?v=1&cid=1',
+            url: this.getBaseUrl() + '/media/'+ detailId +'/detail?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:sid}
@@ -213,21 +213,49 @@ jQuery.cnuAction = {
 			   
 			   $('#details_wrap').html( bt('t:tpl-new-detail',d) );
 			   
-			   $("#detail_content").html($.cnuAction.convert2HTML(d.content))
+			   $("#detail_content").html(this.convert2HTML(d.content))
 			   
             };
         })
         .fail(function() {
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
 		
 	},
+
+    timeLineList: {},
+    timeLine: function (id) {
+        if (!id) {id='me'}
+        $.ajax({
+            url: 'time/'+id+'/list',
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid'), id:id},
+        })
+        .done(function(d) {
+            if (d.rc==-1) {
+                alert('查询对象不存在');
+                return;
+            }
+            if (d.rc==0) {
+                alert('未知错误');
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                this.timeLineList = d.list;
+            }
+        })
+        .fail(function() {
+            this.accessFail();
+        })
+        
+    },
 
     deptList : {},
     // 获取院系信息
     configDeptList: function(){
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/config/dept/list?v=1&cid=1',
+            url: this.getBaseUrl() + '/config/dept/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
@@ -235,11 +263,11 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                $.cnuAction.deptList = d.list;
+                this.deptList = d.list;
             }
         })
         .fail(function(){
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
     },
 
@@ -247,7 +275,7 @@ jQuery.cnuAction = {
     orgList : {},
     configOrgList: function(){
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/config/org/list?v=1&cid=1',
+            url: this.getBaseUrl() + '/config/org/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
@@ -255,11 +283,11 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                $.cnuAction.orgList = d.list;
+                this.orgList = d.list;
             }
         })
         .fail(function(){
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
     },
 
@@ -267,7 +295,7 @@ jQuery.cnuAction = {
     industryList : {},
     configIndustryList: function(){
         $.ajax({
-            url: $.cnuAction.getBaseUrl() + '/config/industry/list?v=1&cid=1',
+            url: this.getBaseUrl() + '/config/industry/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
@@ -275,11 +303,11 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                $.cnuAction.industryList = d.list;
+                this.industryList = d.list;
             }
         })
         .fail(function(){
-            $.cnuAction.accessFail();
+            this.accessFail();
         });
     },
 }
