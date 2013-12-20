@@ -22,6 +22,19 @@ $(function() {
            $.cnuAction.login(username, password);
         }
     });
+
+    $("#reg-btn").click(function() {
+        error = '';
+        if ($("#reg-username").val()==''){
+            error = '请输入登录名';
+        } else if ($("#reg-password").val() != $("#reg-re-password").val()){
+            error = '两次输入的密码不一致';
+        } else if ($("#reg-idcard-no").val()=='') {
+            error = '请输入身份证号';
+        } else {
+
+        }
+    });
 });
 </script>
 <title>login</title>
@@ -40,31 +53,31 @@ $(function() {
             	<h2 class="form-row-nolabel">欢迎加入我们</h2>
             	<div class="form-row">
                 	<label class="label-text">登录名</label>
-                    <input class="input-text" type="text" />
+                    <input id="reg-username" class="input-text" type="text" />
                     <div class="tips-box"></div>
                 </div>
             	<div class="form-row">
                 	<label class="label-text">密码</label>
-                    <input class="input-text" type="password" autocomplete="off" />
+                    <input id="reg-password" class="input-text" type="password" autocomplete="off" />
                     <div class="tips-box"></div>
                 </div>
             	<div class="form-row">
                 	<label class="label-text">重复密码</label>
-                    <input class="input-text" type="password" autocomplete="off" />
+                    <input id="reg-re-password" class="input-text" type="password" autocomplete="off" />
                     <div class="tips-box"></div>
                 </div>
             	<div class="form-row">
                 	<label class="label-text">身份证号</label>
-                    <input class="input-text" type="password" autocomplete="off" />
+                    <input id="reg-idcard-no" class="input-text" type="input" autocomplete="off" />
                     <div class="tips-box"></div>
                 </div>
             	<div class="form-row">
                 	<label class="label-text">学号</label>
-                    <input class="input-text" type="password" autocomplete="off" />
+                    <input id="reg-stu-no" class="input-text" type="input" autocomplete="off" />
                     <div class="tips-box"></div>
                 </div>
             	<div class="form-row form-row-nolabel">
-                    <input class="input-btn" type="button" value="注册" />
+                    <input id="reg-btn" class="input-btn" type="button" value="注册" />
                 </div>
             </div>
         </div>

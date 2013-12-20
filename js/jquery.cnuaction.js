@@ -29,7 +29,6 @@ jQuery.cnuAction = {
         })
         .done(function(d) {
             if(d.ec==1 && d.rc==1){
-				
                 if( d.admin == 1 ){ 
                     $.cookie('admin', d.admin);
                 }
@@ -43,6 +42,34 @@ jQuery.cnuAction = {
             alert('connection fail, try later please!');
         });
     },
+
+    accountCreate: function(name,password,idCardNo,stuNo){
+        if (!stuNo) {stuNo=0;};
+        $.ajax({
+            url: '/account/create',
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: '{name:"' + username + '",password:"' + password + '",idCardNo:"' + idCardNo + '",stuNo:"' + stuNo + '"}'
+        })
+        .done(function(d) {
+            if (d.ec==1){
+                $.cookie('sid', d.sid);
+                alert('注册成功');
+                location.href = './alumnus.html';
+            } else if (d.ec==2) {
+
+            } else if (d.ec==-2) {
+                alert('该登录名已经被注册过');
+            } else if (d.ec==0) {
+                alert('注册失败，请稍后再试');
+            }
+        })
+        .fail(function() {
+            alert('connection fail, try later please!');
+        })
+        
+    }
 	
 	//设置普通列表
     mediaList: function (type, page, num, previewLen) {
