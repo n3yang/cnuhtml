@@ -18,6 +18,7 @@ $(function() {
         } else if (password=='') {
             alert('请输入密码')
         } else {
+			$(this).html("<img src='images/loadinfo.gif' />登录中")
            $.cnuAction.login(username, password);
         }
     });

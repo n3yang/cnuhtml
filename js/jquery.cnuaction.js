@@ -29,6 +29,7 @@ jQuery.cnuAction = {
         })
         .done(function(d) {
             if(d.ec==1 && d.rc==1){
+				
                 if( d.admin == 1 ){ 
                     $.cookie('admin', d.admin);
                 }

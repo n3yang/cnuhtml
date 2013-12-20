@@ -49,3 +49,6 @@ body{
 	width:50%;
 	float:right;
 }
+#login-btn img{
+	vertical-align:middle;
+}
