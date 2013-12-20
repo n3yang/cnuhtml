@@ -4,6 +4,10 @@ jQuery.cnuAction = {
         // return 'proxy.php?pa=';
         return 'http://115.47.56.228:8080/alumni/service';
     },
+
+    accessFail: function(){
+        alert('connection fail, try later please!');
+    },
 	
 	convert2HTML: function ( str ){
 		var re = /[\r\n]+/mg;
@@ -22,6 +26,7 @@ jQuery.cnuAction = {
 	//登录
     login: function (username, password, rememberme){
         $.ajax({
+            // url: $.cnuAction.getBaseUrl() + '/login',
             url: $.cnuAction.getBaseUrl() + '/login?v=1&cid=1',
             type: 'POST',
             contentType: 'application/json',
@@ -40,7 +45,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            alert('connection fail, try later please!');
+            $.cnuAction.accessFail();
         });
     },
 
@@ -60,7 +65,7 @@ jQuery.cnuAction = {
                 location.href = './alumnus.html';
             } else if (d.ec==2) {
                 $.cookie('sid', d.sid);
-                location.href = './setup.html';
+                location.href = './profile-update.html';
             } else if (d.ec==-2) {
                 alert('该登录名已经被注册过');
             } else if (d.ec==0) {
@@ -68,7 +73,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            alert('connection fail, try later please!');
+            $.cnuAction.accessFail();
         })
         
     },
@@ -128,7 +133,7 @@ jQuery.cnuAction = {
             }
         })
         .fail(function() {
-            alert('connection fail, try later please!');
+            $.cnuAction.accessFail();
         });
         
     },
@@ -166,7 +171,7 @@ jQuery.cnuAction = {
             };
         })
         .fail(function() {
-            alert('connection fail, try later please!');
+            $.cnuAction.accessFail();
         });
         
     },
@@ -200,24 +205,29 @@ jQuery.cnuAction = {
             };
         })
         .fail(function() {
-            alert('connection fail, try later please!');
+            $.cnuAction.accessFail();
         });
 		
 	},
 
+    deptList : {},
     // 获取院系信息
     configDeptList: function(){
         $.ajax({
             url: $.cnuAction.getBaseUrl() + '/config/dept/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
-            data: {sid:sid}
+            data: {sid:$.cookie('sid')},
             async: false,
         })
         .done(function(d){
-            console.log(d);
+            if (d.ec==1) {
+                $.cnuAction.deptList = d;
+            }
         })
-
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
     },
 
     // 获取部门组织双级列表
@@ -226,11 +236,13 @@ jQuery.cnuAction = {
             url: $.cnuAction.getBaseUrl() + '/config/org/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
-            data: {sid:sid}
-            async: false,
+            data: {sid:$.cookie('sid')},
         })
         .done(function(d){
             console.log(d);
         })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
     }
 }
