@@ -1,8 +1,19 @@
 jQuery.cnuAction = {
 
     getBaseUrl: function(){
-        // return 'proxy.php?pa=';
-        return 'http://115.47.56.228:8080/alumni/service';
+        return 'proxy.php?pa=';
+        // return 'http://115.47.56.228:8080/alumni/service';
+    },
+
+    isLogined: function(){
+        if ($.cookie('sid')=='undefinded' || $.cookie('sid')==null) {
+            alert('请先登陆');
+            location.href='./login.html';
+        }
+    },
+
+    isAdmin: function(){
+
     },
 
     accessFail: function(){
@@ -26,8 +37,8 @@ jQuery.cnuAction = {
 	//登录
     login: function (username, password, rememberme){
         $.ajax({
-            // url: $.cnuAction.getBaseUrl() + '/login',
-            url: $.cnuAction.getBaseUrl() + '/login?v=1&cid=1',
+            url: $.cnuAction.getBaseUrl() + '/login',
+            // url: $.cnuAction.getBaseUrl() + '/login?v=1&cid=1',
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
@@ -222,7 +233,7 @@ jQuery.cnuAction = {
         })
         .done(function(d){
             if (d.ec==1) {
-                $.cnuAction.deptList = d;
+                $.cnuAction.deptList = d.list;
             }
         })
         .fail(function(){
@@ -231,18 +242,42 @@ jQuery.cnuAction = {
     },
 
     // 获取部门组织双级列表
-	configOrgList: function(){
+    orgList : {},
+    configOrgList: function(){
         $.ajax({
             url: $.cnuAction.getBaseUrl() + '/config/org/list?v=1&cid=1',
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
+            async: false,
         })
         .done(function(d){
-            console.log(d);
+            if (d.ec==1) {
+                $.cnuAction.orgList = d.list;
+            }
         })
         .fail(function(){
             $.cnuAction.accessFail();
         });
-    }
+    },
+
+    // 行业列表信息
+    industryList : {},
+    configIndustryList: function(){
+        $.ajax({
+            url: $.cnuAction.getBaseUrl() + '/config/industry/list?v=1&cid=1',
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid')},
+            async: false,
+        })
+        .done(function(d){
+            if (d.ec==1) {
+                $.cnuAction.industryList = d.list;
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+    },
 }

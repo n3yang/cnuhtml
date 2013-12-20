@@ -48,77 +48,70 @@
                     <h2 class="form-row-nolabel">完善个人信息</h2>
                     <div class="form-row">
                         <label class="label-text">姓名</label>
-                        <input id="" class="input-text" type="text" />
+                        <input id="p-name" class="input-text" type="text" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">性别</label>
-                        <select class="" id="" name="">
-                            <option value="" selected="selected">男</option>
-                            <option value="" selected="selected">女</option>
+                        <select class="" id="p-gender" name="">
+                            <option value="1" selected="selected">男</option>
+                            <option value="0" selected="selected">女</option>
                         </select>
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">身份</label>
-                        <select class="" id="" name="">
-                            <option value="" selected="selected">学生校友</option>
-                            <option value="" selected="selected">教工校友</option>
+                        <select class="" id="p-type" name="">
+                            <option value="1" selected="selected">学生校友</option>
+                            <option value="2" selected="selected">教工校友</option>
                         </select>
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">院系</label>
-                        <select class="" id="" name="">
-                            <option value="" selected="selected">院系</option>
-                            <option value="" selected="selected">院系</option>
-                            <option value="" selected="selected">院系</option>
-                            <option value="" selected="selected">院系</option>
+                        <select class="" id="p-deptId" name="">
                         </select>
-                        <select class="" id="" name="">
+                        <select class="" id="p-majorId" name="">
                             <option value="" selected="selected">专业</option>
                         </select>
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">班级</label>
-                        <input id="" class="input-text" type="input" />
+                        <input id="p-clazz" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">入学年份</label>
-                        <input id="" class="input-text" type="input" />
+                        <input id="p-adYear" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">组织结构</label>
-                        <select class="" id="" name="">
-                            <option value="" selected="selected">一级组织</option>
-                            <option value="" selected="selected">一级组织</option>
+                        <select class="" id="p-org1Id" name="">
                         </select>
-                        <select class="" id="" name="">
-                            <option value="" selected="selected">二级组织</option>
+                        <select class="" id="p-org2Id" name="">
                         </select>
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">工号</label>
-                        <input id="" class="input-text" type="input" />
+                        <input id="p-empNo" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">手机号</label>
-                        <input id="" class="input-text" type="input" />
+                        <input id="p-mobile" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">邮箱</label>
-                        <input id="" class="input-text" type="input" />
+                        <input id="p-email" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">QQ号</label>
-                        <input id="" class="input-text" type="input" />
+                        <input id="p-qq" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
@@ -127,7 +120,7 @@
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row form-row-nolabel">
-                        <input id="reg-btn" class="input-btn" type="submit" value="保存" />
+                        <input id="addnew-btn" class="input-btn" type="submit" value="保存" />
                     </div>
                 </div>
                 </form>
@@ -141,30 +134,28 @@
                     	<form>
                         <div class="form-row">
                             <label class="label-text">身份</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="" class="input-text" type="text" placeholder="比如硕士研究生、工程师"/>
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">组织名称</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="" class="input-text" type="text" placeholder="组织名称，比如学校名或公司名" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">所属行业</label>
                             <select class="" id="" name="">
-                                <option value="" selected="selected">行业1</option>
-                                <option value="" selected="selected">行业2</option>
                             </select>
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">省份</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">城市</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="" class="input-text" type="text" placeholder="比如石家庄市、海淀区" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
@@ -296,8 +287,66 @@ $(function(){
 	},function(){
 		$(this).removeClass("active");
 	})
+
+    //------- select type 
+    function selectType(type){
+        if ($('#p-type').val()==1) {
+            $('#p-org1Id, #p-empNo').parent().hide();
+            $('#p-deptId, #p-clazz, #p-adYear').parent().show();
+        } else {
+            $('#p-deptId, #p-clazz, #p-adYear').parent().hide();
+            $('#p-org1Id, #p-empNo').parent().show();
+        }
+    }
+    $('#p-type').change(function() {
+        selectType($('#p-type').val());
+    });
+    selectType(1);
+    //------- select type end
+    //------- select Dept
     $.cnuAction.configDeptList();
-    console.log($.cnuAction.deptList);
+    $.each($.cnuAction.deptList, function(i, v) {
+        $('#p-deptId').append($("<option>").val(v.id).text(v.display));
+        $('#p-deptId').find('option').eq(0).attr('selected', true);
+    });
+    $('#p-deptId').change(function() {
+        $.each($.cnuAction.deptList, function(i, v) {
+            if (v.id==$('#p-deptId').val()) {
+                $('#p-majorId').empty();
+                $.each(v.list, function(mi, mv){
+                    $('#p-majorId').append($("<option>").val(mv.id).text(mv.display));
+                });
+                $('#p-majorId').find('option').eq(0).attr('selected', true);
+            }
+        });
+    });
+    //------- select dept end
+    //------- select org
+    $.cnuAction.configOrgList();
+    $.each($.cnuAction.orgList, function(i, v) {
+        $('#p-org1Id').append($("<option>").val(v.id).text(v.display));
+        $('#p-org1Id').find('option').eq(0).attr('selected', true);
+    });
+    $('#p-org1Id').change(function() {
+        $.each($.cnuAction.orgList, function(i, v) {
+            if (v.id==$('#p-org1Id').val()) {
+                $('#p-org2Id').empty();
+                $.each(v.list, function(mi, mv){
+                    $('#p-org2Id').append($("<option>").val(mv.id).text(mv.display));
+                });
+                $('#p-org2Id').find('option').eq(0).attr('selected', true);
+            }
+        });
+    });
+    //------- select org end
+
+
+
+
+    //------- right: add new 
+
+
+
 
 });
 </script>
