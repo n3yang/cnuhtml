@@ -424,3 +424,15 @@ div.jogger a.disabled {
 	text-decoration:none;
 	background:url(../images/btn-hover-bg2.gif) no-repeat;
 }
+
+
+/*alert-box*/
+.alert-box{
+	padding:10px;
+	display:none;
+}
+
+.alert-box h1{
+	text-align:center;
+	padding:20px 0;
+}

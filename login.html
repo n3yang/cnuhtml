@@ -4,10 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
 <link rel="stylesheet" href="css/login.css" type="text/css" />
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+
+
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+
+
 <script type="text/javascript">
 $(function() {
     $("#login-btn").click(function() {
@@ -37,6 +43,11 @@ $(function() {
             $.cnuAction.accountCreate(username, password, $("#reg-idcard-no").val(), $("#reg-stu-no").val());
         }
     });
+	
+
+	
+	$.fancybox($("#reg_tips_boxs"))
+	
 
 });
 </script>
@@ -119,5 +130,11 @@ $(function() {
     联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
 </p>
 </div>
+
+
+<div id="reg_tips_boxs" class="alert-box">
+	<h1>这里是内容</h1>
+</div>
+
 </body>
 </html>
