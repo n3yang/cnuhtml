@@ -5,10 +5,12 @@
 <link rel="stylesheet" href="css/base.css" type="text/css" />
 <link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 <link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
 <script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
 
@@ -315,7 +317,7 @@
 <script id="t:tpl-friend-list" type="text/html">
 <% if(list.length>0) { %>
 	<%for(var i=0;i<list.length;i++){%>
-		<li>
+		<li data-id="<%=list[i].id%>">
 			<div class="newfriends-pic">
 				<% if( list[i].pic == null) { %>
 					<img src="images/tx.gif" />
@@ -341,29 +343,8 @@
 </script>
 
 <script type="text/javascript">
-var current_type;
 $(function() {
-	
-	$(".newfriends-list li").hover(function(){
-		$(this).addClass("active");
-	},function(){
-		$(this).removeClass("active");
-	})
-	
-	$(".search-list li").hover(function(){
-		$(this).addClass("active");
-	},function(){
-		$(this).removeClass("active");
-	})
-	
-    $('#li-news-1, #li-news-2, #li-news-3').click(function(event) {
-        $('.menu-wrap ul li').removeClass('active');
-        $(this).attr('class', 'active');
-        current_type = $(this).attr('data-id');
-        $.cnuAction.mediaList(current_type);
-        $.cnuAction.mediaTopList(current_type);
-    });
-	
+
     $.cnuAction.mediaTopList(1);
 	
 	$.cnuAction.timeline('me');

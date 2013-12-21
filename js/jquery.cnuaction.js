@@ -251,6 +251,9 @@ jQuery.cnuAction = {
             if (d.ec==1 && d.rc==1) {
                 $.cnuAction.timeLineList = d.list;
 				$.cnuAction.configProFile(id);
+            } else if (d.ec==-1 || ec==-5){
+                alert('操作超时，请重新登陆');
+				location.href = './login.html';
             }
         })
         .fail(function() {
