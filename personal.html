@@ -274,7 +274,13 @@
     <div class="history-date">
     <h2 class="first">
         <a class="btn" href="#nogo">我的履历</a>
-        <em><img src="<%=b.pic%>"></em>
+        <em>
+			<% if( b.pic == null) { %>
+				<img src="images/icon06.gif" />
+			<% }else{ %>
+				<img src="<%=b.pic%>" />
+			<% } %>
+		</em>
         <span>
             <strong><%=b.name%></strong>
 			<p></p>

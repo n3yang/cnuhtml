@@ -118,11 +118,11 @@ jQuery.cnuAction = {
 				
 				
 				$(".item-text .input-btn").each(function(){
-					this.setDetailHerf($(this));
+					$.cnuAction.setDetailHerf($(this));
 				});
 				
 				$(".item-pic a").each(function(){
-					this.setDetailHerf($(this));
+					$.cnuAction.setDetailHerf($(this));
 				});
 				
 				
