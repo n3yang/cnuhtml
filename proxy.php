@@ -9,7 +9,7 @@ $base_uri = 'http://115.47.56.228:8080/alumni/service';
 
 if (preg_match('/login|logout|account\/password\/update/', $_GET['pa'], $m)) {
 
-	$request_uri = $base_uri . $_GET['pa'] . '?v=1&cid=1';
+	$request_uri = $base_uri . $_GET['pa'] . '?v=1&cid=1&sid='.$_GET['sid'];
 	$data = file_get_contents('php://input');
 	$option = array(
 		CURLOPT_URL				=> $request_uri,

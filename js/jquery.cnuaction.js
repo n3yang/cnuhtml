@@ -1,8 +1,16 @@
 jQuery.cnuAction = {
 
-    getBaseUrl: function(p){
-        return 'proxy.php?pa='+p+'&v=1&cid=1';
-        //return 'http://115.47.56.228:8080/alumni/service'+p+'?v=1&cid=1';
+    getBaseUrl: function(p,sid,v,cid){
+        var r = {},rq='';
+        if (sid) {r.sid=sid};
+        if (v) {r.v=r} else {r.v=1};
+        if (cid) {r.cid=cid} else {r.cid=1};
+        $.each(r, function(index, val) {
+            rq = rq + '&' + index + '=' + val;
+        });
+        rq = rq.substring(1, rq.length);
+        return 'proxy.php?pa='+p+'&'+rq;
+        //return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
@@ -116,11 +124,11 @@ jQuery.cnuAction = {
 	
     accountPasswordUpdate: function(oldpwd, newpwd) {
         $.ajax({
-            url: this.getBaseUrl('/account/password/update'),
+            url: this.getBaseUrl('/account/password/update', $.cookie('sid')),
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
-            data: '{sid:"' + $.cookie('sid') + '",old:"' + oldpwd + '",new:"' + newpwd + '"}'
+            data: '{old:"' + oldpwd + '",new:"' + newpwd + '"}'
         })
         .done(function(d) {
             console.log(d);
