@@ -9,13 +9,12 @@ jQuery.cnuAction = {
             rq = rq + '&' + index + '=' + val;
         });
         rq = rq.substring(1, rq.length);
-        return 'proxy.php?pa='+p+'&'+rq;
-        //return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
+        //return 'proxy.php?pa='+p+'&'+rq;
+        return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
         if (d.ec!='undefined' && d.ec!=1) {
-            console.log(d);
             location.href = 'login.html';
         }
         if ($.cookie('sid')=='undefined' || $.cookie('sid')==null) {
@@ -86,6 +85,7 @@ jQuery.cnuAction = {
             $.cookie('sid', '');
             $.cookie('admin', '');
             alert('退出成功');
+			location.href = 'login.html';
         })
         .fail(function() {
             $.cnuAction.accessFail();
