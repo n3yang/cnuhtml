@@ -1,6 +1,5 @@
 <?php
 
-
 $base_uri = 'http://115.47.56.228:8080/alumni/service';
 // $_POST['type'] = 1;
 // $_POST['page']=1;
@@ -8,7 +7,7 @@ $base_uri = 'http://115.47.56.228:8080/alumni/service';
 // $_POST['previewLen']=100;
 // $_POST['sid'] = 'bb3676615e121d64628926de85bc544637cd46e7c7a095978dba7e45134327d487487d1f9b65940d';
 
-if ($_GET['pa'] == '/login') {
+if (preg_match('/login|logout|account\/password\/update/', $_GET['pa'], $m)) {
 
 	$request_uri = $base_uri . $_GET['pa'] . '?v=1&cid=1';
 	$data = file_get_contents('php://input');
@@ -30,8 +29,9 @@ if ($_GET['pa'] == '/login') {
 		if ($key=='pa') {
 			continue;
 		}
-		$r.= '&' . $key . '=' . $value;
+		$r.= $key . '=' . $value . '&';
 	}
-	$request_uri.=$r;
+
+	$request_uri.= '?'.$r;
 	echo file_get_contents($request_uri);
 }

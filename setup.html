@@ -11,7 +11,7 @@
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
 
 
-<title>Alumnus</title>
+<title>Setup</title>
 </head>
 
 <body>
@@ -43,35 +43,33 @@
     	<h3 class="setup-title">系统设置</h3>
         <div class="setup-box base-clear">
         	<div class="setup-left">
-            	<form>
                 <div class="form-box">
                     <h2 class="form-row-nolabel">修改密码</h2>
                     <div class="form-row">
                         <label class="label-text">初始密码</label>
-                        <input id="" class="input-text" type="text" />
+                        <input id="oldpwd" name="oldpwd" class="input-text" type="text" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">新密码</label>
-                        <input id="" class="input-text" type="text" />
+                        <input id="newpwd" class="input-text" type="text" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">确认新密码</label>
-                        <input id="" class="input-text" type="text" />
+                        <input id="re-newpwd" class="input-text" type="text" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row form-row-nolabel">
-                        <input id="reg-btn" class="input-btn" type="submit" value="保存" />
+                        <input id="update-btn" class="input-btn" type="submit" value="保存" />
                     </div>
                 </div>
-                </form>
             </div>
         	<div class="setup-right">
             
 				<div class="form-box">
                     <div class="form-row form-row-nolabel">
-                        <input id="reg-btn" class="input-btn w-200" type="button" value="退出" />
+                        <input id="logout-btn" class="input-btn w-200" type="button" value="退出" />
                     </div>
                 </div>
                                
@@ -105,8 +103,27 @@ $(function(){
 	},function(){
 		$(this).removeClass("active");
 	})
+
     $.cnuAction.configDeptList();
-    console.log($.cnuAction.deptList);
+    console.log($.cnuAction.deptList)
+
+    $('#update-btn').click(function() {
+        var oldpwd = $('#oldpwd').val();
+        var newpwd = $('#newpwd').val();
+        if (oldpwd=='' || newpwd==''){
+            alert('请输入原密码和新密码');
+            return false;
+        }
+        if (newpwd!=$('#re-newpwd').val()){
+            alert('两次输入的新密码不一致');
+            return false;
+        }
+        $.cnuAction.accountPasswordUpdate(oldpwd, newpwd);
+    });
+
+    $('#logout-btn').click(function() {
+        $.cnuAction.logout();
+    });
 
 });
 </script>

@@ -1,14 +1,18 @@
 jQuery.cnuAction = {
 
-    getBaseUrl: function(){
-        // return 'proxy.php?pa=';
-        return 'http://115.47.56.228:8080/alumni/service';
+    getBaseUrl: function(p){
+        return 'proxy.php?pa='+p+'&v=1&cid=1';
+        //return 'http://115.47.56.228:8080/alumni/service'+p+'?v=1&cid=1';
     },
 
-    isLogined: function(){
-        if ($.cookie('sid')=='undefinded' || $.cookie('sid')==null) {
+    isLogined: function(d){
+        if (d.ec!='undefined' && d.ec!=1) {
+            console.log(d);
+            location.href = 'login.html';
+        }
+        if ($.cookie('sid')=='undefined' || $.cookie('sid')==null) {
             alert('请先登陆');
-            location.href='./login.html';
+            location.href = 'login.html';
         }
     },
 
@@ -39,15 +43,15 @@ jQuery.cnuAction = {
 	//登录
     login: function (username, password, rememberme){
         $.ajax({
-            // url: this.getBaseUrl() + '/login',
-            url: this.getBaseUrl() + '/login?v=1&cid=1',
+            url: this.getBaseUrl('/login'),
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
             data: '{name:"' + username + '",password:"' + password + '"}'
         })
         .done(function(d) {
-            if(d.ec==1 && d.rc==1){
+            $.cnuAction.isLogined(d);
+            if(d.rc==1){
                 if( d.admin == 1 ){ 
                     $.cookie('admin', d.admin);
                 }
@@ -62,10 +66,29 @@ jQuery.cnuAction = {
         });
     },
 
+    logout: function(){
+        $.ajax({
+            url: this.getBaseUrl('/logout'),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{sid:"' + $.cookie('sid') + '"}'
+        })
+        .done(function(d) {
+            $.cookie('sid', '');
+            $.cookie('admin', '');
+            alert('退出成功');
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+        
+    },
+
     accountCreate: function(username,password,idCardNo,stuNo){
         if (!stuNo) {stuNo='';};
         $.ajax({
-            url: this.getBaseUrl() + '/account/create?v=1&cid=1',
+            url: this.getBaseUrl('/account/create'),
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',
@@ -91,6 +114,30 @@ jQuery.cnuAction = {
         
     },
 	
+    accountPasswordUpdate: function(oldpwd, newpwd) {
+        $.ajax({
+            url: this.getBaseUrl('/account/password/update'),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{sid:"' + $.cookie('sid') + '",old:"' + oldpwd + '",new:"' + newpwd + '"}'
+        })
+        .done(function(d) {
+            console.log(d);
+            // $.cnuAction.isLogined(d);
+            if (d.rc==1) {
+                alert('修改成功');
+            }else if (d.rc=-1) {
+                alert('原密码错误');
+            }else {
+                alert('未知错误');
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+    },
+
 	//设置普通列表
     mediaList: function (type, page, num, previewLen) {
         sid = $.cookie('sid');
@@ -99,13 +146,14 @@ jQuery.cnuAction = {
         if (!num) {num=3};
         if (!previewLen) {previewLen=200};
         $.ajax({
-            url: this.getBaseUrl() + '/media/list?v=1&cid=1',
+            url: this.getBaseUrl('/media/list'),
             type: 'get',
             dataType: "json",
             data: {sid:sid, type:type, page:page, num:num, previewLen:previewLen}
         })
         .done(function(d) {
-            if (d.ec==1 && d.rc==1) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==1) {
                 // set title
                 if (type==1) {title='校友动态';}
                 else if(type==2) {title='通知公告';}
@@ -140,9 +188,6 @@ jQuery.cnuAction = {
 					$(this).attr('data-page-no', $(this).attr('data-page-no')+1);
 					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')+1);
 				});
-            } else if (d.ec==-1 || ec==-5){
-                alert('操作超时，请重新登陆');
-				location.href = './login.html';
             }
         })
         .fail(function() {
@@ -159,13 +204,14 @@ jQuery.cnuAction = {
         if (!num) {num=10};
         if (!previewLen) {previewLen=100};
         $.ajax({
-            url: this.getBaseUrl() + '/media/top/list?v=1&cid=1',
+            url: this.getBaseUrl('/media/top/list'),
             type: 'get',
             dataType: "json",
             data: {sid:sid, type:type, page:page, num:num, previewLen:previewLen}
         })
         .done(function(d) {
-            if (d.ec==1 && d.rc==1) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==1) {
                bt = baidu.template;
 			   $('#b_item').html( bt('t:tpl-banner-list',d) );
 			   
@@ -181,10 +227,7 @@ jQuery.cnuAction = {
 				$(".slides a").each(function(){
 					$.cnuAction.setDetailHerf($(this));
 				});
-            } else if (d.ec==-1 || ec==-5){
-                alert('操作超时，请重新登陆');
-				location.href = './login.html';
-            };
+            }
         })
         .fail(function() {
             $.cnuAction.accessFail();
@@ -203,25 +246,18 @@ jQuery.cnuAction = {
 		sid = $.cookie('sid');
 		
         $.ajax({
-            url: this.getBaseUrl() + '/media/'+ detailId +'/detail?v=1&cid=1',
+            url: this.getBaseUrl('/media/'+ detailId +'/detail'),
             type: 'get',
             dataType: "json",
             data: {sid:sid}
         })
         .done(function(d) {
-			
-            if (d.ec==1 && d.rc==1) {
-				
+			$.cnuAction.isLogined(d);
+            if (d.rc==1) {
                bt = baidu.template;
-			   
 			   $('#details_wrap').html( bt('t:tpl-new-detail',d) );
-			   
 			   $("#detail_content").html($.cnuAction.convert2HTML(d.content));
-			   
-            } else if (d.ec==-1 || ec==-5){
-                alert('操作超时，请重新登陆');
-				location.href = './login.html';
-            };
+            }
         })
         .fail(function() {
             $.cnuAction.accessFail();
@@ -233,13 +269,14 @@ jQuery.cnuAction = {
     timeline: function (id) {
         if (!id) {id='me'}
         $.ajax({
-            url: this.getBaseUrl()+'/timeline/'+id+'/list?v=1&cid=1',
+            url: this.getBaseUrl('/timeline/'+id+'/list'),
             type: 'get',
             dataType: 'json',
             data: {sid:$.cookie('sid')},
             async: false
         })
         .done(function(d) {
+            $.cnuAction.isLogined(d);
             if (d.rc==-1) {
                 alert('查询对象不存在');
                 return;
@@ -267,13 +304,14 @@ jQuery.cnuAction = {
 	configProFile: function(id){
         if (!id) {id='me'}
         $.ajax({
-            url: this.getBaseUrl()+'/profile/'+id+'/detail?v=1&cid=1',
+            url: this.getBaseUrl('/profile/'+id+'/detail'),
             type: 'get',
             dataType: 'json',
             data: {sid:$.cookie('sid')},
             async: false
         })
         .done(function(d) {
+            $.cnuAction.isLogined(d);
             if (d.rc==-1) {
                 alert('查询对象不存在');
                 return;
@@ -297,13 +335,14 @@ jQuery.cnuAction = {
     // 获取院系信息
     configDeptList: function(){
         $.ajax({
-            url: this.getBaseUrl() + '/config/dept/list?v=1&cid=1',
+            url: this.getBaseUrl('/config/dept/list'),
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
             async: false
         })
         .done(function(d){
+            $.cnuAction.isLogined(d);
             if (d.ec==1) {
                 $.cnuAction.deptList = d.list;
             }
@@ -317,13 +356,14 @@ jQuery.cnuAction = {
     orgList : {},
     configOrgList: function(){
         $.ajax({
-            url: this.getBaseUrl() + '/config/org/list?v=1&cid=1',
+            url: this.getBaseUrl('/config/org/list'),
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
             async: false,
         })
         .done(function(d){
+            $.cnuAction.isLogined(d);
             if (d.ec==1) {
                 $.cnuAction.orgList = d.list;
             }
@@ -337,13 +377,14 @@ jQuery.cnuAction = {
     industryList : {},
     configIndustryList: function(){
         $.ajax({
-            url: this.getBaseUrl() + '/config/industry/list?v=1&cid=1',
+            url: this.getBaseUrl('/config/industry/list'),
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
             async: false,
         })
         .done(function(d){
+            $.cnuAction.isLogined(d);
             if (d.ec==1) {
                 $.cnuAction.industryList = d.list;
             }
@@ -360,13 +401,14 @@ jQuery.cnuAction = {
 		if (!page) {page=1}
 		if (!num) {num=10}
         $.ajax({
-            url: this.getBaseUrl() + '/timeline/me/node/'+id+'/newfriends/list?v=1&cid=1',
+            url: this.getBaseUrl('/timeline/me/node/'+id+'/newfriends/list'),
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid'),id:id,page:page,num:num},
             async: false
         })
         .done(function(d){
+            $.cnuAction.isLogined(d);
             if (d.rc==-1) {
                 alert('查询对象不存在');
                 return;

@@ -9,6 +9,7 @@
 <script type="text/javascript" src="js/placeholder.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
 
 
 <title>Alumnus</title>
@@ -43,17 +44,17 @@
     	<h3 class="setup-title">系统设置</h3>
         <div class="setup-box base-clear">
         	<div class="setup-left">
-            	<form>
+            	<form id="p-form" method="post" enctype="multipart/form-data" action="http://115.47.56.228:8080/alumni/service/profile/me/create" onSubmit="return saveProfile(this)">
                 <div class="form-box">
                     <h2 class="form-row-nolabel">完善个人信息</h2>
                     <div class="form-row">
                         <label class="label-text">姓名</label>
-                        <input id="p-name" class="input-text" type="text" />
+                        <input id="p-name" name="name" class="input-text" type="text" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">性别</label>
-                        <select class="" id="p-gender" name="">
+                        <select class="" id="p-gender" name="gender">
                             <option value="1" selected="selected">男</option>
                             <option value="0" selected="selected">女</option>
                         </select>
@@ -61,7 +62,7 @@
                     </div>
                     <div class="form-row">
                         <label class="label-text">身份</label>
-                        <select class="" id="p-type" name="">
+                        <select class="" id="p-type" name="type">
                             <option value="1" selected="selected">学生校友</option>
                             <option value="2" selected="selected">教工校友</option>
                         </select>
@@ -69,54 +70,54 @@
                     </div>
                     <div class="form-row">
                         <label class="label-text">院系</label>
-                        <select class="" id="p-deptId" name="">
+                        <select class="" id="p-deptId" name="deptId">
                         </select>
-                        <select class="" id="p-majorId" name="">
+                        <select class="" id="p-majorId" name="majorId">
                             <option value="" selected="selected">专业</option>
                         </select>
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">班级</label>
-                        <input id="p-clazz" class="input-text" type="input" />
+                        <input id="p-clazz" name="clazz" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">入学年份</label>
-                        <input id="p-adYear" class="input-text" type="input" />
+                        <input id="p-adYear" name="adYear" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">组织结构</label>
-                        <select class="" id="p-org1Id" name="">
+                        <select class="" id="p-org1Id" name="org1Id">
                         </select>
-                        <select class="" id="p-org2Id" name="">
+                        <select class="" id="p-org2Id" name="org2Id">
                         </select>
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">工号</label>
-                        <input id="p-empNo" class="input-text" type="input" />
+                        <input id="p-empNo" name="empNo" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">手机号</label>
-                        <input id="p-mobile" class="input-text" type="input" />
+                        <input id="p-mobile" name="mobile" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">邮箱</label>
-                        <input id="p-email" class="input-text" type="input" />
+                        <input id="p-email" name="email" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">QQ号</label>
-                        <input id="p-qq" class="input-text" type="input" />
+                        <input id="p-qq" name="qq" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
                         <label class="label-text">设置头像</label>
-                        <input id="" class="input-text" type="file" />
+                        <input id="p-pic" name="pic" class="input-text" type="file" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row form-row-nolabel">
@@ -341,9 +342,46 @@ $(function(){
     //------- select org end
 
 
+    //------- submit profile 
+    function saveReport(submitForm) {
+        // 表单判断
+        if ($('#p-name').val==''
+            || $('#p-gender').val()
+            || $('#p-type').val()) {
+            alert('姓名、性别、类型不能为空！');
+        }
+        if ($('#p-type').val()==1){
+            // deptId majorId clazz adYear no null
+        }
+        if ($('#p-type').val()==2){
+            // org1Id org2Id empNo no null
+        }
 
 
 
+        // jquery 表单提交
+        $(submitForm).ajaxSubmit(function(d) {
+            if( d.rc == 1 ){
+                alert("提交成功");
+                if( d.id != undefined ){}
+            }else{
+                alert("提交失败");
+            }
+        });
+        return false;
+    }
+
+
+    //------- submit profile end
+
+
+
+    // the industry
+    $.cnuAction.configIndustryList();
+    // console.log($.cnuAction.industryList);
+    $.each($.cnuAction.industryList, function(i,v) {
+        // $('#p-org1Id').append($("<option>").val(v.id).text(v.display));
+    });
     //------- get timeline
     $.cnuAction.timeline();
     console.log($.cnuAction.timelineList);
