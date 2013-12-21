@@ -1,4 +1,10 @@
-  
+
+$(function(){
+	$.cnuAction.isAdmin();
+	$.cnuAction.setFriendsSearch();
+})
+
+
 
 function setTimeLine(id){
 	var date = {
@@ -44,6 +50,17 @@ function setNewFriendsList(){
 	
 };
 
+function setSearchList(){
+	
+	   bt = baidu.template;
+	   $('#search_box').html( bt('t:tpl-search-list',$.cnuAction.newSearchList) ).find("li").hover(function(event){
+			$(this).toggleClass("active");
+		}).click(function(){
+			$.cnuAction.timeline($(this).attr("data-id"));
+		});
+	
+};
+
 function setFancyBox(msg){
 	var tmp = "<div id=\"reg_tips_boxs\" class=\"alert-box\">"+ msg +"</div>";
 	
@@ -52,10 +69,10 @@ function setFancyBox(msg){
 	}else{
 		$(document.body).append(tmp);
 	}
-	
+
 	$.fancybox.open($("#reg_tips_boxs"),{
-		minWidth: 600,
-		minHeight : 400
+		minWidth: "auto",
+		minHeight : "auto"
 	});
 }
   
@@ -109,3 +126,7 @@ $targetA.click(function () {
 });
 
 };
+
+function feedBack(){
+	$.fancybox($(".feedback_wrap .form-box"));
+}

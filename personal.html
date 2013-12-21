@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
-<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 <link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -13,11 +12,12 @@
 <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
-
 <script type="text/javascript" src="js/main.js"></script>
 
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 
-<title>personal</title>
+<title>首都师范大学校友会</title>
+
 </head>
 
 <body>
@@ -287,7 +287,7 @@
 			<% if(c == 'me') { %>
             	<a class="input-btn" href="javascript:;">完善资料</a>
 			<% }else{ %>
-            	<a class="input-btn" href="javascript:;">关注</a>
+            	<a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsFollow(this.id)">关注</a>
 			<% } %>
         </span>
      </h2>

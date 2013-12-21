@@ -46,9 +46,14 @@
     </div>
     
     <div id="details_wrap" class="details-wrap">
-    	<h3 class="details-title">校友动态</h3>
-
-        <div class="details">
+    	<h3 class="details-title">印象首师</h3>
+        <div class="m-d-20">
+        </div>
+        <div class="details" id="galary_wrap">
+        
+        	<ul id="galary_box" class="base-clear">
+            	<li><a class="fancybox-thumbs" data-fancybox-group="thumb" href="4_b.jpg"><img src="images/icon06.gif"></a></li>
+            </ul>
 			
         </div>
     </div>
@@ -63,29 +68,21 @@
 </p>
 </div>
 
-<script id="t:tpl-new-detail" type="text/html">
+<script id="t:tpl-galary-list" type="text/html">
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li><a class="fancybox-thumbs" data-fancybox-group="thumb" data-id="<%=list[i].id%>" href="<%=list[i].thumbnail%>"><img src="<%=list[i].thumbnail%>"></a></li>
+	<%}%>
+<% }else{ %>
 
-	<h3 class="details-title"><%=title%></h3>
-	<h4>发布时间：<%=time%></h4>
-	<div class="details">
-		<% if(pics.length>0) { %>
-			<%for(var i=0;i<pics.length;i++){%>
-				<p class="p-img"><a title="点击查看大图" href="<%=pics[i].url%>" target="_blank"><img id="<%=pics[i].id%>" src="<%=pics[i].url%>"></a></p>
-			<%}%>
-		<% }else{ %>
-		<% } %>
-		<p id="detail_content">
-			<%=content%>
-		</p>
-	</div>
-
+<% } %>
 </script>
 
 
 
 <script type="text/javascript">
 $(function(){
-	 $.cnuAction.mediaDetail()
+	 $.cnuAction.configGalaryList()
 });
 </script>
 </body>

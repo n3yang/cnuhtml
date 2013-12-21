@@ -23,8 +23,8 @@ body{
 	padding-bottom:50px;
 }
 .logo-wrap{
-	height:180px;
-	padding-top:50px;
+	height:130px;
+	padding-top:25px;
 	background:url(../images/Stone.gif) 800px bottom no-repeat;
 }
 #logo{
@@ -47,15 +47,10 @@ body{
 	position:relative;
 }
 .b-item ul{
-	position:absolute;
-	width:1000px;
-	height:210px;
-	top:0;
-	left:0;
+
 }
 .b-item li{
-	width:1000px;
-	height:210px;
+
 }
 .b-item li img{
 	width:1000px;
@@ -145,7 +140,7 @@ body{
 .history-date ul li:after{content:" "; display:block; height:0; clear:both; visibility:hidden;}
 .history-date ul li h3 { float:left; width:230px; text-align:right; padding-right:19px;color:#c3c3c3; font:normal 18px/16px Arial;}
 .history-date ul li h3 span { display:block; color:#d0d0d0; font-size:12px;}
-.history-date ul li dl { float:left; padding-left:41px;  font-family:微软雅黑;}
+.history-date ul li dl { float:left; padding-left:41px;  font-family:微软雅黑; cursor:pointer;}
 .history-date ul li dl dt { font:20px/22px 微软雅黑; color:#737373; }
 .history-date ul li dl dt span { display:block; color:#787878; font-size:12px;}
 .history-date ul li.blue h3 { color:#0f3192;}
@@ -310,4 +305,57 @@ body{
 .setup-right{
 	float:right;
 	width:50%;
+}
+
+.lk{
+	width:710px;
+	display:none;
+}
+.lkl{
+	float:left;
+	width:300px;
+}
+.lkr{
+	float:right;
+	width:400px;
+}
+
+.lkr h4{
+	height:50px;
+	line-height:50px;
+	font-size:16px;
+	border-bottom:1px solid #999;
+	margin-bottom:20px;
+}
+.lkr h3{
+	height:20px;
+	padding-top:20px;
+	text-align:center;
+}
+
+.feedback_wrap{
+	display:none;
+}
+.feedback-box .form-row label.label-text{
+	width:60px;
+}
+.feedback-box .form-row-nolabel{
+	padding-left:65px;
+}
+
+#galary_wrap ul{
+	width:910px;
+	margin:0 auto;	
+}
+
+#galary_wrap ul li{
+	width:120px;
+	height:120px;
+	float:left;
+	margin:5px;
+}
+
+#galary_wrap ul li img{
+	width:120px;
+	height:120px;
 }

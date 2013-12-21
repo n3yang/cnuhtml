@@ -3,23 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
-<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 <link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
 <script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 
-<title>dynamic</title>
+<title>首都师范大学校友会</title>
+
 </head>
 
 <body>
 
 <div class="wrap">
-    <div class="logo-wrap">
+  <div class="logo-wrap">
     	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
     </div>
     
@@ -59,13 +63,13 @@
                 </a>
             </li id="li-news-3">
         	<li>
-            	<a href="javascript:;">
+            	<a href="galary.html">
                 	<h3>印象首师</h3>
                     <p>校友动态校友动态</p>
                 </a>
             </li>
         	<li>
-            	<a href="javascript:;">
+            	<a href="datacun.html">
                 	<h3>数据母校</h3>
                     <p>校友动态校友动态</p>
                 </a>
@@ -92,6 +96,30 @@
 </p>
 </div>
 
+
+<div class="feedback_wrap">
+    <div class="form-box feedback-box">
+        <h2 class="form-row-nolabel">回馈母校</h2>
+        <div class="form-row">
+            <label class="label-text">姓名</label>
+            <input id="name" class="input-text" type="password" />
+            <div class="tips-box"></div>
+        </div>
+        <div class="form-row">
+            <label class="label-text">电子邮箱</label>
+            <input id="email" class="input-text" type="password" />
+            <div class="tips-box"></div>
+        </div>
+        <div class="form-row">
+            <label class="label-text">手机号</label>
+            <input id="tel" class="input-text" type="password" />
+            <div class="tips-box"></div>
+        </div>
+        <div class="form-row form-row-nolabel">
+            <input id="card_btn" class="input-btn" type="submit" value="回馈母校" />
+        </div>
+    </div>
+</div>
 
 
 <script id="t:tpl-new-list" type="text/html">
@@ -139,7 +167,9 @@
 <div class="flexslider">
 	<ul class="slides">
 		<li>
-			<img src="images/banner.jpg"/>
+			<a onclick="feedBack()" href="javascript:;">
+				<img src="images/banner.jpg"/>
+			</a>
 		</li>
 	</ul>
 </div>

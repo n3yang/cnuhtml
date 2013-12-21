@@ -3,21 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
-<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+<link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 
-<title>Alumnus</title>
+<title>首都师范大学校友会</title>
+
 </head>
 
 <body>
 
 <div class="wrap">
-    <div class="logo-wrap">
+  <div class="logo-wrap">
     	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
     </div>
     
@@ -42,7 +48,7 @@
     <div id="search_wrap" class="search-wrap">
     	<h3 class="search-title">找同学</h3>
         <div class="search-list">
-        	<ul class="base-clear">
+        	<ul class="base-clear" id="search_box">
                 <li>
                     <div class="search-pic">
                         <img src="images/tx.gif" />
@@ -115,21 +121,91 @@
 </p>
 </div>
 
-<script id="t:tpl-search" type="text/html">
+<script id="t:tpl-search-list" type="text/html">
 
-
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li data-id="<%=list[i].id%>">
+			<div class="newfriends-pic">
+				<% if( list[i].pic == null) { %>
+					<img src="images/tx.gif" />
+				<% }else{ %>
+					<img src="<%=list[i].pic%>" />
+				<% } %>
+			</div>
+			<div class="newfriends-name">
+				<h4><%=list[i].name%></h4>
+				<% if( list[i].org == null) { %>
+					<p></p>
+				<% }else{ %>
+					<p><%=list[i].org%></p>
+				<% } %>
+			</div>
+		</li>
+	<%}%>
+<% }else{ %>
+		<li>
+				<h4>没有搜索到结果</h4>
+		</li>
+<% } %>
 
 </script>
 
 
+<script id="t:tpl-history" type="text/html">
+<div class="history">
+    <div class="history-date">
+    <h2 class="first">
+        <a class="btn" href="#nogo">我的履历</a>
+        <em>
+			<% if( b.pic == null) { %>
+				<img src="images/icon06.gif" />
+			<% }else{ %>
+				<img src="<%=b.pic%>" />
+			<% } %>
+		</em>
+        <span>
+            <strong><%=b.name%></strong>
+			<p></p>
+			<% if(c == 'me') { %>
+            	<a class="input-btn" href="javascript:;">完善资料</a>
+			<% }else{ %>
+            	<a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsFollow(this.id)">关注</a>
+			<% } %>
+        </span>
+     </h2>
+     <ul>
+	 	<%for(var i=a.length-1;i>=0;i--){%>
+		
+			<% if(i%2 == 1) { %>
+				<li data-id="<%=a[i].id%>" class="blue">
+					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+					<dl>
+						<dt><%=a[i].org%>
+							<span><%=a[i].stime%>至<%=a[i].etime%></span>
+						</dt>
+					</dl>
+				</li>
+			<% }else{ %>
+				<li data-id="<%=a[i].id%>">
+					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+					<dl>
+						<dt><%=a[i].org%>
+							<span><%=a[i].stime%>至<%=a[i].etime%></span>
+						</dt>
+					</dl>
+				</li>
+			<% } %>
+			
+		<%}%>
+      </ul>
+    </div>
+  </div>
+</script>
 
 <script type="text/javascript">
 $(function(){
-	$(".search-list li").hover(function(){
-		$(this).addClass("active");
-	},function(){
-		$(this).removeClass("active");
-	})
+	$.cnuAction.configFriendsSearch()
 });
 </script>
 </body>

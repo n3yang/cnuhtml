@@ -3,15 +3,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
-<link rel="stylesheet" href="css/login.css" type="text/css" />
+<link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
-<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
-
-
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
 <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+<link rel="stylesheet" href="css/login.css" type="text/css" />
+
+<title>首都师范大学校友会</title>
+
 
 
 <script type="text/javascript">
@@ -20,9 +26,9 @@ $(function() {
         username = $("#login-email").val();
         password = $("#login-password").val();
         if (username=='') {
-            alert('请输入邮箱');
+			setFancyBox('请输入邮箱');
         } else if (password=='') {
-            alert('请输入密码')
+			setFancyBox('请输入密码');
         } else {
             $(this).html("<img src='images/loadinfo.gif' />登录中")
             $.cnuAction.login(username, password);
@@ -35,10 +41,13 @@ $(function() {
         error = '';
         if (username==''){
             error = '请输入登录名';
+			setFancyBox(error);
         } else if ( password != $("#reg-re-password").val()){
             error = '两次输入的密码不一致';
+			setFancyBox(error);
         } else if ($("#reg-idcard-no").val()=='') {
             error = '请输入身份证号';
+			setFancyBox(error);
         } else {
             $.cnuAction.accountCreate(username, password, $("#reg-idcard-no").val(), $("#reg-stu-no").val());
         }
@@ -51,7 +60,7 @@ $(function() {
 
 });
 </script>
-<title>login</title>
+<title>首都师范大学校友会</title>
 </head>
 
 <body>

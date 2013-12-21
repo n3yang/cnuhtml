@@ -18,19 +18,24 @@ jQuery.cnuAction = {
             location.href = 'login.html';
         }
         if ($.cookie('sid')=='undefined' || $.cookie('sid')==null) {
-            alert('请先登陆');
+			setFancyBox('请先登录，2秒后自动跳转')
+			setTimeout(function(){
+				location.href = 'login.html';
+			},2000)
             location.href = 'login.html';
         }
     },
 
     isAdmin: function(){
-		if($.cookie('admin')==1){
+		if($.cookie('admin')!=1){
+			$("#sid_admin").hide();
+		}else{
 			$("#sid_admin").show();
 		}
     },
 
     accessFail: function(){
-        alert('网络访问失败，请稍后重试');
+		setFancyBox('网络访问失败，请稍后重试')
     },
 	
 	convert2HTML: function ( str ){
@@ -61,11 +66,13 @@ jQuery.cnuAction = {
             if(d.rc==1){
                 if( d.admin == 1 ){ 
                     $.cookie('admin', d.admin);
-                }
+                }else{
+					$.cookie('admin', 0);
+				}
                 $.cookie('sid', d.sid);
                 location.href = './alumnus.html';
             } else {
-                alert('用户名或密码错误');
+				setFancyBox('用户名或密码错误')
             }
         })
         .fail(function() {
@@ -84,8 +91,10 @@ jQuery.cnuAction = {
         .done(function(d) {
             $.cookie('sid', '');
             $.cookie('admin', '');
-            alert('退出成功');
-			location.href = 'login.html';
+			setFancyBox('退出成功')
+			setTimeout(function(){
+				location.href = 'login.html';
+			},2000)
         })
         .fail(function() {
             $.cnuAction.accessFail();
@@ -105,15 +114,18 @@ jQuery.cnuAction = {
         .done(function(d) {
             if (d.ec==1){
                 $.cookie('sid', d.sid);
-                alert('注册成功');
-                location.href = './alumnus.html';
+				setFancyBox('注册成功,2秒后自动跳转')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+                
             } else if (d.ec==2) {
                 $.cookie('sid', d.sid);
                 location.href = './profile-update.html';
             } else if (d.ec==-2) {
-                alert('该登录名已经被注册过');
+				setFancyBox('该登录名已经被注册过')
             } else if (d.ec==0) {
-                alert('注册失败，请稍后再试');
+				setFancyBox('注册失败，请稍后再试')
             }
         })
         .fail(function() {
@@ -131,14 +143,13 @@ jQuery.cnuAction = {
             data: '{old:"' + oldpwd + '",new:"' + newpwd + '"}'
         })
         .done(function(d) {
-            console.log(d);
             // $.cnuAction.isLogined(d);
             if (d.rc==1) {
-                alert('修改成功');
+				setFancyBox('修改成功')
             }else if (d.rc=-1) {
-                alert('原密码错误');
+				setFancyBox('原密码错误')
             }else {
-                alert('未知错误');
+				setFancyBox('未知错误')
             }
         })
         .fail(function() {
@@ -232,7 +243,7 @@ jQuery.cnuAction = {
 					$('.flex-direction-nav li a.next').css('display', 'none');
 				});
 				
-				$(".slides a").each(function(){
+				$(".slides a[data-id]").each(function(){
 					$.cnuAction.setDetailHerf($(this));
 				});
             }
@@ -246,6 +257,40 @@ jQuery.cnuAction = {
 	//设置文章按钮链接
 	setDetailHerf: function(obj){
 		obj.attr("href", './details.html?detailId=' + obj.attr("data-id"));
+	},
+	
+	setFriendsSearch:function(){
+		$(".search-btn").click(function(){
+			console.log(12)
+			if($(".search-text").val()!=''){
+				location.href = './search.html?keywords='+$(".search-text").val();
+			}
+		})
+	},
+	//找人
+	newSearchList:{},
+	configFriendsSearch: function(page,num,keywords){
+		if (!page) {page=1}
+		if (!num) {num=50}
+		if (!keywords) {keywords=''}
+		sid = $.cookie('sid');
+        $.ajax({
+            url: this.getBaseUrl('/friends/search'),
+            type: 'get',
+            dataType: "json",
+            data: {sid:sid,page:page,num:num,keywords:$.cnuAction.getQueryStringByName("keywords")}
+        })
+        .done(function(d) {
+			$.cnuAction.isLogined(d);
+            if (d.rc==1) {
+			   $.cnuAction.newSearchList=d;
+			   setSearchList();
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+		
 	},
 	
 	//设置文章详情
@@ -273,6 +318,7 @@ jQuery.cnuAction = {
 		
 	},
 
+	//时间轴
     timeLineList: {},
     timeline: function (id) {
         if (!id) {id='me'}
@@ -286,19 +332,21 @@ jQuery.cnuAction = {
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-                alert('查询对象不存在');
+				setFancyBox('查询对象不存在')
                 return;
             }
             if (d.rc==0) {
-                alert('未知错误');
+				setFancyBox('未知错误')
                 return;
             }
             if (d.ec==1 && d.rc==1) {
                 $.cnuAction.timeLineList = d.list;
 				$.cnuAction.configProFile(id);
             } else if (d.ec==-1 || ec==-5){
-                alert('操作超时，请重新登陆');
-				location.href = './login.html';
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
             }
         })
         .fail(function() {
@@ -321,11 +369,11 @@ jQuery.cnuAction = {
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-                alert('查询对象不存在');
+				setFancyBox('查询对象不存在')
                 return;
             }
             if (d.rc==0) {
-                alert('未知错误');
+				setFancyBox('未知错误')
                 return;
             }
             if (d.ec==1 && d.rc==1) {
@@ -418,11 +466,11 @@ jQuery.cnuAction = {
         .done(function(d){
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-                alert('查询对象不存在');
+				setFancyBox('查询对象不存在')
                 return;
             }
             if (d.rc==0) {
-                alert('未知错误');
+				setFancyBox('未知错误')
                 return;
             }
             if (d.ec==1 && d.rc==1) {
@@ -434,4 +482,132 @@ jQuery.cnuAction = {
             $.cnuAction.accessFail();
         });
     },
+	
+	
+	//关注
+	configFriendsFollow: function(id){
+        $.ajax({
+            url: this.getBaseUrl('/friends/'+id+'/follow'),
+            type: 'POST',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),id:id},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+				setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+			if(d.rc==-2){
+				setFancyBox('没有关注过此人')
+                return;
+			}
+			if(d.rc==-3){
+				setFancyBox('取消关注的对象非法')
+                return;
+			}
+            if (d.ec==1 && d.rc==1) {
+				window.location.reload(true);
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+	},
+	
+	
+	//印象首师
+	configGalaryList: function(page,num){
+        if (!page) {page=1}
+        if (!num) {num=50}
+        $.ajax({
+            url: this.getBaseUrl('/galary/list'),
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+				setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.timeLineList = d.list;
+				//$.cnuAction.configGalaryDetail(id);
+				
+				bt = baidu.template;
+				$('#galary_box').html( bt('t:tpl-galary-list',d) );
+				
+				$('.fancybox-thumbs').fancybox({
+					prevEffect : 'none',
+					nextEffect : 'none',
+	
+					closeBtn  : false,
+					arrows    : false,
+					nextClick : true,
+	
+					helpers : {
+						thumbs : {
+							width  : 50,
+							height : 50
+						}
+					}
+				});
+				
+            } else if (d.ec==-1 || ec==-5){
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+	},
+	
+	//大图
+	configGalaryDetail: function(id){
+        $.ajax({
+            url: this.getBaseUrl('/galary/'+id+'/detail'),
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid')},
+            async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+				setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.timeLineList = d.list;
+				$.cnuAction.configProFile(id);
+            } else if (d.ec==-1 || ec==-5){
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+	}
 }

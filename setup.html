@@ -3,21 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/base.css" type="text/css" />
-<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+<link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 
-<title>Setup</title>
+<title>首都师范大学校友会</title>
+
 </head>
 
 <body>
 
 <div class="wrap">
-    <div class="logo-wrap">
+  <div class="logo-wrap">
     	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
     </div>
     
@@ -111,11 +117,11 @@ $(function(){
         var oldpwd = $('#oldpwd').val();
         var newpwd = $('#newpwd').val();
         if (oldpwd=='' || newpwd==''){
-            alert('请输入原密码和新密码');
+			setFancyBox('请输入原密码和新密码');
             return false;
         }
         if (newpwd!=$('#re-newpwd').val()){
-            alert('两次输入的新密码不一致');
+			setFancyBox('两次输入的新密码不一致');
             return false;
         }
         $.cnuAction.accountPasswordUpdate(oldpwd, newpwd);
