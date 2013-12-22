@@ -11,6 +11,7 @@
 <script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
 <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript" src="js/baiduTemplate.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
@@ -49,7 +50,7 @@
     	<h3 class="setup-title">系统设置</h3>
         <div class="setup-box base-clear">
         	<div class="setup-left">
-            	<form id="p-form" method="post" enctype="multipart/form-data" action="http://115.47.56.228:8080/alumni/service/profile/me/create" onSubmit="return saveProfile(this)">
+            	<form id="p-form" method="post" enctype="multipart/form-data" action="">
                 <div class="form-box">
                     <h2 class="form-row-nolabel">完善个人信息</h2>
                     <div class="form-row">
@@ -133,14 +134,14 @@
             </div>
         	<div class="setup-right">
             
-                <div id="add-form-box" class="form-box">
+                <div id="node-form-box" class="form-box">
                     
                     <div id="node1" class="node active">
-                    	<h2 class="form-row-nolabel">个人履历1</h2>
+                    	<h2 class="form-row-nolabel">个人履历</h2>
                     	<form>
                         <div class="form-row">
                             <label class="label-text">身份</label>
-                            <input id="" class="input-text" type="text" placeholder="比如硕士研究生、工程师"/>
+                            <input id="" class="input-text" type="text" placeholder="比如硕士研究生、工程师" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
@@ -188,28 +189,30 @@
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row form-row-nolabel">
-                            <input id="reg-btn" class="input-btn" type="submit" value="保存" />
-                            <input id="reg-btn" class="input-btn m-l-20" type="button" value="删除" />
+                            <input id="node-id" type="hidden" value="" />
+                            <input id="btn-node-save" class="input-btn" type="submit" value="保存" />
+                            <input id="btn-node-del" class="input-btn m-l-20" type="button" value="删除" />
                         </div>
                         </form>
                     </div>
-                    
-                    <div id="node2" class="node">
-                    	<h2 class="form-row-nolabel">个人履历2</h2>
-                    	<form>
+				</div>
+                
+                    <div id="node-tpl" class="node active" style="display: none">
+                        <h2 class="form-row-nolabel">个人履历<span class="node-seq"></span></h2>
+                        <form>
                         <div class="form-row">
                             <label class="label-text">身份</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="n-title" name="title" class="input-text" type="text" placeholder="比如硕士研究生、工程师" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">组织名称</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="n-org" name="org" class="input-text" type="text" placeholder="组织名称，比如学校名或公司名" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">所属行业</label>
-                            <select class="" id="" name="">
+                            <select class="" id="n-industry" name="industryId">
                                 <option value="" selected="selected">行业1</option>
                                 <option value="" selected="selected">行业2</option>
                             </select>
@@ -217,12 +220,12 @@
                         </div>
                         <div class="form-row">
                             <label class="label-text">省份</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" /> />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">城市</label>
-                            <input id="" class="input-text" type="text" />
+                            <input id="" class="input-text" type="text" placeholder="比如石家庄市、海淀区" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
@@ -250,16 +253,15 @@
                         </div>
                         <div class="form-row form-row-nolabel">
                             <input id="reg-btn" class="input-btn" type="submit" value="保存" />
-                            <input id="reg-btn" class="input-btn m-l-20" type="button" value="删除" />
+                            <input id="reg-btn" class="input-btn m-l-20" type="button" value="删除" onclick="return removeTimeline(this);" />
                         </div>
                         </form>
                     </div>
-				</div>
                 
 
 				<div class="form-box">
                     <div class="form-row form-row-nolabel">
-                        <input id="reg-btn" class="input-btn w-200" type="button" value="新增个人履历" />
+                        <input id="btn-node-add" class="input-btn w-200" type="button" value="新增个人履历" />
                     </div>
                 </div>
                                
@@ -314,6 +316,10 @@ $(function(){
     $.each($.cnuAction.deptList, function(i, v) {
         $('#p-deptId').append($("<option>").val(v.id).text(v.display));
         $('#p-deptId').find('option').eq(0).attr('selected', true);
+        $.each(v.list, function(mi, mv){
+            $('#p-majorId').append($("<option>").val(mv.id).text(mv.display));
+        });
+        $('#p-majorId').find('option').eq(0).attr('selected', true);
     });
     $('#p-deptId').change(function() {
         $.each($.cnuAction.deptList, function(i, v) {
@@ -332,6 +338,10 @@ $(function(){
     $.each($.cnuAction.orgList, function(i, v) {
         $('#p-org1Id').append($("<option>").val(v.id).text(v.display));
         $('#p-org1Id').find('option').eq(0).attr('selected', true);
+        $.each(v.list, function(mi, mv){
+            $('#p-org2Id').append($("<option>").val(mv.id).text(mv.display));
+        });
+        $('#p-org2Id').find('option').eq(0).attr('selected', true);
     });
     $('#p-org1Id').change(function() {
         $.each($.cnuAction.orgList, function(i, v) {
@@ -348,44 +358,66 @@ $(function(){
 
 
     //------- submit profile 
-    function saveReport(submitForm) {
+    $('#p-form').submit(function (){
+        var formAction = 'http://115.47.56.228:8080/alumni/service/profile/me/create';
+        $(this).attr('action', formAction);
+        // 'http://115.47.56.228:8080/alumni/service/profile/me/update';
         // 表单判断
-        if ($('#p-name').val==''
-            || $('#p-gender').val()
-            || $('#p-type').val()) {
-            alert('姓名、性别、类型不能为空！');
+        if ($('#p-name').val()==''
+            || $('#p-gender').val()==''
+            || $('#p-type').val()=='') {
+            setFancyBox('姓名、性别、类型为必填项！');
+            return false;
         }
         if ($('#p-type').val()==1){
-            // deptId majorId clazz adYear no null
+            if($('#p-deptId').val()==''
+                || $('#p-majorId').val()==''
+                || $('#p-clazz').val()==''
+                || $('#p-adYear').val()==''){
+                setFancyBox('请填写所属院校信息');
+                return false;
+            }
         }
         if ($('#p-type').val()==2){
             // org1Id org2Id empNo no null
+            if ($('#p-org1Id').val()==''
+                || $('#p-org2Id').val()==''
+                || $('#p-empNo').val()==''){
+                setFancyBox('请填写所属组织的信息');
+                return false;
+            }
         }
 
 
-
-        // jquery 表单提交
-        $(submitForm).ajaxSubmit(function(d) {
+        // jquery.form 表单提交
+        $(this).ajaxSubmit(function(d) {
+            console.log(d);
             if( d.rc == 1 ){
-                alert("提交成功");
+                setFancyBox("提交成功");
                 if( d.id != undefined ){}
             }else{
-                alert("提交失败");
+                setFancyBox("提交失败");
             }
         });
         return false;
-    }
+    });
 
 
     //------- submit profile end
 
 
+    //------- add new node
+    $('#btn-node-add').click(function() {
+        $('#node-tpl').clone().css('display', '').appendTo('#node-form-box');
+    });
+
+    //------- add new node end
+
 
     // the industry
     $.cnuAction.configIndustryList();
-    // console.log($.cnuAction.industryList);
     $.each($.cnuAction.industryList, function(i,v) {
-        // $('#p-org1Id').append($("<option>").val(v.id).text(v.display));
+        $('#node-tpl').append($("<option>").val(v.id).text(v.display));
     });
     //------- get timeline
     $.cnuAction.timeline();

@@ -9,8 +9,8 @@ jQuery.cnuAction = {
             rq = rq + '&' + index + '=' + val;
         });
         rq = rq.substring(1, rq.length);
-        //return 'proxy.php?pa='+p+'&'+rq;
-        return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
+        return 'proxy.php?pa='+p+'&'+rq;
+        // return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){

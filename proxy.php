@@ -7,7 +7,7 @@ $base_uri = 'http://115.47.56.228:8080/alumni/service';
 // $_POST['previewLen']=100;
 // $_POST['sid'] = 'bb3676615e121d64628926de85bc544637cd46e7c7a095978dba7e45134327d487487d1f9b65940d';
 
-if (preg_match('/login|logout|account\/password\/update/', $_GET['pa'], $m)) {
+if (preg_match('/login|logout|account\/password\/update|account\/create/', $_GET['pa'], $m)) {
 
 	$request_uri = $base_uri . $_GET['pa'] . '?v=1&cid=1&sid='.$_GET['sid'];
 	$data = file_get_contents('php://input');
