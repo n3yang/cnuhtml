@@ -141,7 +141,7 @@
                 
                     <div id="node-tpl" class="node active" style="display: none">
                         <h2 class="form-row-nolabel">个人履历<span class="node-seq"></span></h2>
-                        <form name="" action="" method="post" onsubmit="return saveNode(this);">
+                        <form name="" action="" method="post" onsubmit="return saveNode(this);" enctype="multipart/form-data">
                         <div class="form-row">
                             <label class="label-text">身份</label>
                             <input id="n-title" name="title" class="input-text" type="text" placeholder="比如硕士研究生、工程师" />
@@ -245,10 +245,11 @@ function saveNode(n){
     }
     
     if ($(n).find('input[name=id]').val()=='') {
-        $(n).attr('action', 'http://115.47.56.228:8080/alumni/service/timeline/me/node/create');
+        action = $.cnuAction.getBaseUrl('/timeline/me/node/create', $.cookie('sid'));
     } else {
-        $(n).attr('action', 'http://115.47.56.228:8080/alumni/service/timeline/me/node/update');
+        action = $.cnuAction.getBaseUrl('/timeline/me/node/update', $.cookie('sid'));
     }
+    $(n).attr('action', action);
 
     $(n).ajaxSubmit(function(d){
         if (d.rc==1) {
@@ -260,7 +261,7 @@ function saveNode(n){
             setFancyBox('保存失败');
         }
     });
-    return true;
+    return false;
 }
 //------- save node end
 
@@ -331,12 +332,26 @@ $(function(){
     });
     //------- select org end
 
-
+    //------- load & render profile
+    function loadProfile(){
+        $.cnuAction.configProFile();
+        if ($.cnuAction.proFile.rc==-1 || $.cnuAction.proFile.rc==0) {
+            return;
+        }
+        $.each($.cnuAction.proFile, function(i, v) {
+             console.log(v);
+        });
+    }
+    loadProfile();
+    //------- load & render profile end
     //------- submit profile 
     $('#p-form').submit(function (){
-        var formAction = 'http://115.47.56.228:8080/alumni/service/profile/me/create';
+        if ($.cnuAction.proFile.length==0){
+            formAction = $.cnuAction.getBaseUrl('/profile/me/create', $.cookie('sid'));
+        } else {
+            formAction = $.cnuAction.getBaseUrl('/profile/me/update', $.cookie('sid'));
+        }
         $(this).attr('action', formAction);
-        // 'http://115.47.56.228:8080/alumni/service/profile/me/update';
         // 表单判断
         if ($('#p-name').val()==''
             || $('#p-gender').val()==''

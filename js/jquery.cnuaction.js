@@ -9,8 +9,8 @@ jQuery.cnuAction = {
             rq = rq + '&' + index + '=' + val;
         });
         rq = rq.substring(1, rq.length);
-        return 'proxy.php?pa='+p+'&'+rq;
-        // return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
+        // return 'proxy.php?pa='+p+'&'+rq;
+        return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
@@ -369,7 +369,7 @@ jQuery.cnuAction = {
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-				setFancyBox('查询对象不存在')
+				// setFancyBox('查询对象不存在')
                 return;
             }
             if (d.rc==0) {
