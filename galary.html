@@ -16,6 +16,10 @@
 
 <link rel="stylesheet" href="css/alumnus.css" type="text/css" />
 
+
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-thumbs.css" />
+<script type="text/javascript" src="js/jquery.fancybox-thumbs.js"></script>
+
 <title>首都师范大学校友会</title>
 
 </head>
@@ -50,9 +54,10 @@
         <div class="m-d-20">
         </div>
         <div class="details" id="galary_wrap">
-        
+        	
+            
         	<ul id="galary_box" class="base-clear">
-            	<li><a class="fancybox-thumbs" data-fancybox-group="thumb" href="4_b.jpg"><img src="images/icon06.gif"></a></li>
+            	<li><a class="fancybox-thumbs" rel="fancybox-thumb" data-fancybox-href="images/icon06.gif"><img src="images/icon06.gif"></a></li>
             </ul>
 			
         </div>
@@ -71,7 +76,7 @@
 <script id="t:tpl-galary-list" type="text/html">
 <% if(list.length>0) { %>
 	<%for(var i=0;i<list.length;i++){%>
-		<li><a class="fancybox-thumbs" data-fancybox-group="thumb" data-id="<%=list[i].id%>" href="<%=list[i].thumbnail%>"><img src="<%=list[i].thumbnail%>"></a></li>
+		<li><a class="fancybox-thumbs" rel="fancybox-thumb" data-id="<%=list[i].id%>" data-fancybox-href="<%=list[i].pic%>"><img src="<%=list[i].thumbnail%>"></a></li>
 	<%}%>
 <% }else{ %>
 
@@ -82,7 +87,26 @@
 
 <script type="text/javascript">
 $(function(){
-	 $.cnuAction.configGalaryList()
+
+		$('.fancybox-thumbs').fancybox({
+			prevEffect : 'none',
+			nextEffect : 'none',
+
+			closeBtn  : true,
+			arrows    : false,
+			nextClick : true,
+
+			helpers : {
+				thumbs : {
+					width  : 50,
+					height : 50
+				}
+			}
+		});
+		
+		$.cnuAction.configGalaryList()
+
+		
 });
 </script>
 </body>

@@ -543,27 +543,11 @@ jQuery.cnuAction = {
                 return;
             }
             if (d.ec==1 && d.rc==1) {
-                $.cnuAction.timeLineList = d.list;
 				//$.cnuAction.configGalaryDetail(id);
 				
 				bt = baidu.template;
 				$('#galary_box').html( bt('t:tpl-galary-list',d) );
-				
-				$('.fancybox-thumbs').fancybox({
-					prevEffect : 'none',
-					nextEffect : 'none',
-	
-					closeBtn  : false,
-					arrows    : false,
-					nextClick : true,
-	
-					helpers : {
-						thumbs : {
-							width  : 50,
-							height : 50
-						}
-					}
-				});
+
 				
             } else if (d.ec==-1 || ec==-5){
 				setFancyBox('操作超时,请重新登录')
