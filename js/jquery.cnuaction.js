@@ -261,7 +261,6 @@ jQuery.cnuAction = {
 	
 	setFriendsSearch:function(){
 		$(".search-btn").click(function(){
-			console.log(12)
 			if($(".search-text").val()!=''){
 				location.href = './search.html?keywords='+$(".search-text").val();
 			}
@@ -416,7 +415,7 @@ jQuery.cnuAction = {
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
-            async: false,
+            async: false
         })
         .done(function(d){
             $.cnuAction.isLogined(d);
@@ -437,7 +436,7 @@ jQuery.cnuAction = {
             type: 'get',
             dataType: "json",
             data: {sid:$.cookie('sid')},
-            async: false,
+            async: false
         })
         .done(function(d){
             $.cnuAction.isLogined(d);

@@ -10,7 +10,7 @@ function setTimeLine(id){
 	var date = {
 		a: {},
 		b: {},
-		c: id,
+		c: id
 	};
 	
 		
