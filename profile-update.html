@@ -136,70 +136,12 @@
             
                 <div id="node-form-box" class="form-box">
                     
-                    <div id="node1" class="node active">
-                    	<h2 class="form-row-nolabel">个人履历</h2>
-                    	<form>
-                        <div class="form-row">
-                            <label class="label-text">身份</label>
-                            <input id="" class="input-text" type="text" placeholder="比如硕士研究生、工程师" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">组织名称</label>
-                            <input id="" class="input-text" type="text" placeholder="组织名称，比如学校名或公司名" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">所属行业</label>
-                            <select class="" id="" name="">
-                            </select>
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">省份</label>
-                            <input id="" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">城市</label>
-                            <input id="" class="input-text" type="text" placeholder="比如石家庄市、海淀区" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">开始时间</label>
-                            <input id="" class="input-text" type="input" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">结束时间</label>
-                            <input id="" class="input-text" type="input" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">位置（之后）</label>
-                            <select class="" id="" name="">
-                                <option value="" selected="selected">节点1</option>
-                                <option value="" selected="selected">节点1</option>
-                            </select>
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row">
-                            <label class="label-text">图片</label>
-                            <input id="" class="input-text" type="file" />
-                            <div class="tips-box"></div>
-                        </div>
-                        <div class="form-row form-row-nolabel">
-                            <input id="node-id" type="hidden" value="" />
-                            <input id="btn-node-save" class="input-btn" type="submit" value="保存" />
-                            <input id="btn-node-del" class="input-btn m-l-20" type="button" value="删除" />
-                        </div>
-                        </form>
-                    </div>
+                    
 				</div>
                 
                     <div id="node-tpl" class="node active" style="display: none">
                         <h2 class="form-row-nolabel">个人履历<span class="node-seq"></span></h2>
-                        <form name="" action="" method="post" onSubmit="return saveNode(this);">
+                        <form name="" action="" method="post" onsubmit="return saveNode(this);">
                         <div class="form-row">
                             <label class="label-text">身份</label>
                             <input id="n-title" name="title" class="input-text" type="text" placeholder="比如硕士研究生、工程师" />
@@ -239,8 +181,6 @@
                         <div class="form-row">
                             <label class="label-text">位置（之后）</label>
                             <select class="" id="n-after-id" name="afterID">
-                                <option value="" selected="selected">节点1</option>
-                                <option value="" selected="selected">节点1</option>
                             </select>
                             <div class="tips-box"></div>
                         </div>
@@ -288,6 +228,42 @@
 
 
 <script type="text/javascript">
+
+//------- save node
+function saveNode(n){
+    if ($(n).find("input[name='title']").val()==''){
+        setFancyBox('请输入身份');
+        return false;
+    }
+    if ($(n).find("input[name='org']").val()==''){
+        setFancyBox('请输入组织名称');
+        return false;
+    }
+    if ($(n).find("input[name='stime']").val()==''){
+        setFancyBox('请输入开始时间');
+        return false;
+    }
+    
+    if ($(n).find('input[name=id]').val()=='') {
+        $(n).attr('action', 'http://115.47.56.228:8080/alumni/service/timeline/me/node/create');
+    } else {
+        $(n).attr('action', 'http://115.47.56.228:8080/alumni/service/timeline/me/node/update');
+    }
+
+    $(n).ajaxSubmit(function(d){
+        if (d.rc==1) {
+            setFancyBox('保存成功');
+            if (d.id!=undefined){
+                $(n).find('input[name=id]').val(d.id);
+            }
+        } else {
+            setFancyBox('保存失败');
+        }
+    });
+    return true;
+}
+//------- save node end
+
 $(function(){
 	$(".search-list li").hover(function(){
 		$(this).addClass("active");
@@ -418,16 +394,16 @@ $(function(){
 
     } else {
         $.each($.cnuAction.timeLineList, function(i,v) {
-
+            $('#node-tpl #n-after-id').append($('<option>').val(v.id).text(v.title));
         });
     }
     //------- get the timeline end
-    //------- save node
-    function saveNode(n){
 
-        return false;
-    }
-    //------- save node end
+// $('#node-form-box form').submit(function(){
+//     alert($(this).find("input[name='title']").val());
+//     return false;
+
+// })
 
     //------- add new node
     $('#btn-node-add').click(function() {
