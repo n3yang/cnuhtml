@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	
+	var url = "http://115.47.56.228:8080/alumni/service/admin/media/create?v=1&amp;cid=1&amp;sid=" + $.cookie('sid');
+	
+	
+	$("#ff").attr("action", url)
+	
+})
+</script>
+</head>
+<body>
+	<form id="ff" method="post" action="http://115.47.56.228:8080/alumni/service/admin/galary/create?v=1&amp;cid=1&amp;sid=8e27c11289595414e067da1db8466a9a692c598d9406cf9425363a3bc7f01c6487487d1f9b65940d" enctype="multipart/form-data">
+		标题：<input type="text" name="title"/><br>
+		照片：<input type="file" name="pic" />
+		<input type="submit" value="提交"/>
+	</form>
+	<a href="http://115.47.56.228:8080/alumni/service/galary/list?page=1&amp;num=10&amp;v=1&amp;cid=1&amp;sid=8e27c11289595414e067da1db8466a9a692c598d9406cf9425363a3bc7f01c6487487d1f9b65940d" target="blank">查看已有图片</a>
+</body>
+</html>
