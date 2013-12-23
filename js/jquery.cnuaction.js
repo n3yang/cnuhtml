@@ -68,18 +68,20 @@ jQuery.cnuAction = {
                 $.cookie('sid', d.sid);
                 $.cookie('status', d.status);
                 if (d.status==-1) {
-                    setFancyBox('请完善个人资料，2秒后自动跳转')
+                    msg = '请完善个人资料，2秒后自动跳转';
                     setTimeout(function(){
                         location.href = 'profile-update.html';
-                    },2000)
+                    },2000);
+                } else if (d.status==-2){
+                    msg = '您的信息尚在审核中，请耐心等待';
+                } else {
+                    location.href = 'alumnus.html';
                 }
-                if (d.status==-2){
-                    setFancyBox('您的信息尚在审核中，请耐心等待');
-                }
-                location.href = 'alumnus.html';
             } else {
-				setFancyBox('用户名或密码错误')
+				msg = '用户名或密码错误';
             }
+            setFancyBox(msg);
+            return;
         })
         .fail(function() {
             $.cnuAction.accessFail();
@@ -120,22 +122,24 @@ jQuery.cnuAction = {
         .done(function(d) {
             if (d.rc==1){
                 $.cookie('sid', d.sid);
-				setFancyBox('注册成功，2秒后自动跳转')
+				msg = '注册成功，2秒后自动跳转';
 				setTimeout(function(){
 					location.href = 'alumnus.html';
 				},2000)
             } else if (d.rc==2) {
                 $.cookie('sid', d.sid);
                 $.cookie('status', -1);
-                setFancyBox('注册成功，请完善个人资料，2秒后自动跳转')
+                msg = '注册成功，请完善个人资料，2秒后自动跳转';
                 setTimeout(function(){
                     location.href = 'profile-update.html';
-                },2000)
+                },2000);
             } else if (d.rc==-2) {
-				setFancyBox('该登录名已经被注册过')
+				msg = '该登录名已经被注册过';
             } else if (d.rc==0) {
-				setFancyBox('注册失败，请稍后再试')
+				msg = '注册失败，请稍后再试';
             }
+            setFancyBox(msg);
+            return;
         })
         .fail(function() {
             $.cnuAction.accessFail();
@@ -360,6 +364,31 @@ jQuery.cnuAction = {
         .fail(function() {
             $.cnuAction.accessFail();
         })
+        
+    },
+
+    timelineNodeDelete: function(id, box) {
+        if (!id) {return false;}
+        $.ajax({
+            url: this.getBaseUrl('/timeline/me/node/delete', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{id:"' + id + '"}'
+        })
+        .done(function(d) {
+            if (d.rc==1) {
+                setFancyBox('删除成功');
+                $(box).remove();
+            } else if (d.rc==-1) {
+                setFancyBox('信息不存在');
+            } else {
+                setFancyBox('未知错误');
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
         
     },
 	

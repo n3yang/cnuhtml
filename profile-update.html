@@ -160,7 +160,7 @@
                         </div>
                         <div class="form-row">
                             <label class="label-text">省份</label>
-                            <input id="n-province" name="province" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" /> />
+                            <input id="n-province" name="province" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
@@ -262,6 +262,15 @@ function saveNode(n){
         }
     });
     return false;
+}
+
+function removeNode(b){
+    // id = $(b).parentsUntil('form', '#node-form-box').find("input[name='id']").val();
+    console.log(id);
+    if ( id!= ''){
+        f = $(b).parent('#node-'+id);
+        $.cnuAction.timelineNodeDelete(id, f);
+    }
 }
 //------- save node end
 
@@ -411,6 +420,19 @@ $(function(){
     } else {
         $.each($.cnuAction.timeLineList, function(i,v) {
             $('#node-tpl #n-after-id').append($('<option>').val(v.id).text(v.title));
+            c = $('#node-tpl').clone();
+            c.attr('id', 'node-'+v.id);
+            c.css('display', '')
+            c.find('input[name=title]').val(v.title)
+            c.find('input[name=org]').val(v.org)
+            c.find('select[name=industryId]').val(v.industryId)
+            c.find('input[name=province]').val(v.province)
+            c.find('input[name=city]').val(v.city)
+            c.find('input[name=stime]').val(v.stime)
+            c.find('input[name=etime]').val(v.etime)
+            c.find('select[name=afterID]').val(v.afterID)
+            c.find('input[name=id]').val(v.id)
+            c.appendTo('#node-form-box');
         });
     }
     //------- get the timeline end
