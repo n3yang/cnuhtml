@@ -332,7 +332,7 @@ jQuery.cnuAction = {
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-				setFancyBox('查询对象不存在')
+				// setFancyBox('查询对象不存在')
                 return;
             }
             if (d.rc==0) {

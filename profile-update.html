@@ -199,7 +199,7 @@
                 
                     <div id="node-tpl" class="node active" style="display: none">
                         <h2 class="form-row-nolabel">个人履历<span class="node-seq"></span></h2>
-                        <form>
+                        <form name="" action="" method="post" onSubmit="return saveNode(this);">
                         <div class="form-row">
                             <label class="label-text">身份</label>
                             <input id="n-title" name="title" class="input-text" type="text" placeholder="比如硕士研究生、工程师" />
@@ -212,35 +212,33 @@
                         </div>
                         <div class="form-row">
                             <label class="label-text">所属行业</label>
-                            <select class="" id="n-industry" name="industryId">
-                                <option value="" selected="selected">行业1</option>
-                                <option value="" selected="selected">行业2</option>
+                            <select id="n-industry-id" name="industryId">
                             </select>
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">省份</label>
-                            <input id="" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" /> />
+                            <input id="n-province" name="province" class="input-text" type="text" placeholder="地址（省或直辖市，比如河北省、北京市）" /> />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">城市</label>
-                            <input id="" class="input-text" type="text" placeholder="比如石家庄市、海淀区" />
+                            <input id="n-city"  name="city" class="input-text" type="text" placeholder="比如石家庄市、海淀区" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">开始时间</label>
-                            <input id="" class="input-text" type="input" />
+                            <input id="n-stime" name="stime" class="input-text" type="input" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">结束时间</label>
-                            <input id="" class="input-text" type="input" />
+                            <input id="n-etime" name="etime" class="input-text" type="input" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row">
                             <label class="label-text">位置（之后）</label>
-                            <select class="" id="" name="">
+                            <select class="" id="n-after-id" name="afterID">
                                 <option value="" selected="selected">节点1</option>
                                 <option value="" selected="selected">节点1</option>
                             </select>
@@ -248,12 +246,13 @@
                         </div>
                         <div class="form-row">
                             <label class="label-text">图片</label>
-                            <input id="" class="input-text" type="file" />
+                            <input id="n-pic" name="pic" class="input-text" type="file" />
                             <div class="tips-box"></div>
                         </div>
                         <div class="form-row form-row-nolabel">
-                            <input id="reg-btn" class="input-btn" type="submit" value="保存" />
-                            <input id="reg-btn" class="input-btn m-l-20" type="button" value="删除" onclick="return removeTimeline(this);" />
+                            <input id="n-id" name="id" type="hidden" value="" />
+                            <input id="btn-n-save" class="input-btn" type="submit" value="保存" />
+                            <input id="btn-n-remove" class="input-btn m-l-20" type="button" value="删除" onclick="return removeNode(this);" />
                         </div>
                         </form>
                     </div>
@@ -393,36 +392,51 @@ $(function(){
         $(this).ajaxSubmit(function(d) {
             console.log(d);
             if( d.rc == 1 ){
-                setFancyBox("提交成功");
+                setFancyBox("保存成功");
                 if( d.id != undefined ){}
             }else{
-                setFancyBox("提交失败");
+                setFancyBox("保存失败");
             }
         });
         return false;
     });
-
-
     //------- submit profile end
 
+
+    // ============================================================================
+
+    //------- select industry
+    $.cnuAction.configIndustryList();
+    $.each($.cnuAction.industryList, function(i,v) {
+        $('#node-tpl #n-industry-id').append($("<option>").val(v.id).text(v.display));
+        $('#node-tpl #n-industry-id').find('option').eq(0).attr('selected', true);
+    });
+    //------- select industry end
+    //------- get the timeline
+    $.cnuAction.timeline();
+    if ($.cnuAction.timeLineList.length==0){
+
+    } else {
+        $.each($.cnuAction.timeLineList, function(i,v) {
+
+        });
+    }
+    //------- get the timeline end
+    //------- save node
+    function saveNode(n){
+
+        return false;
+    }
+    //------- save node end
 
     //------- add new node
     $('#btn-node-add').click(function() {
         $('#node-tpl').clone().css('display', '').appendTo('#node-form-box');
     });
-
     //------- add new node end
 
 
-    // the industry
-    $.cnuAction.configIndustryList();
-    $.each($.cnuAction.industryList, function(i,v) {
-        $('#node-tpl').append($("<option>").val(v.id).text(v.display));
-    });
-    //------- get timeline
-    $.cnuAction.timeline();
-    console.log($.cnuAction.timelineList);
-    //------- get timeline end
+
     //------- right: add new 
 
 
