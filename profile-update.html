@@ -339,14 +339,15 @@ $(function(){
             return;
         }
         $.each($.cnuAction.proFile, function(i, v) {
-             console.log(v);
+            // console.log('i:'+i+','+'v:'+v);
+            $('#p-form #p-'+i).val(v);
         });
     }
     loadProfile();
     //------- load & render profile end
     //------- submit profile 
     $('#p-form').submit(function (){
-        if ($.cnuAction.proFile.length==0){
+        if ($.cookie('status')==-1){
             formAction = $.cnuAction.getBaseUrl('/profile/me/create', $.cookie('sid'));
         } else {
             formAction = $.cnuAction.getBaseUrl('/profile/me/update', $.cookie('sid'));

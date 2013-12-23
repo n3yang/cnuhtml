@@ -64,13 +64,19 @@ jQuery.cnuAction = {
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if(d.rc==1){
-                if( d.admin == 1 ){ 
-                    $.cookie('admin', d.admin);
-                }else{
-					$.cookie('admin', 0);
-				}
+                $.cookie('admin', d.admin);
                 $.cookie('sid', d.sid);
-                location.href = './alumnus.html';
+                $.cookie('status', d.status);
+                if (d.status==-1) {
+                    setFancyBox('请完善个人资料，2秒后自动跳转')
+                    setTimeout(function(){
+                        location.href = 'profile-update.html';
+                    },2000)
+                }
+                if (d.status==-2){
+                    setFancyBox('您的信息尚在审核中，请耐心等待');
+                }
+                location.href = 'alumnus.html';
             } else {
 				setFancyBox('用户名或密码错误')
             }
@@ -112,19 +118,22 @@ jQuery.cnuAction = {
             data: '{name:"' + username + '",password:"' + password + '",idCardNo:"' + idCardNo + '",stuNo:"' + stuNo + '"}'
         })
         .done(function(d) {
-            if (d.ec==1){
+            if (d.rc==1){
                 $.cookie('sid', d.sid);
-				setFancyBox('注册成功,2秒后自动跳转')
+				setFancyBox('注册成功，2秒后自动跳转')
 				setTimeout(function(){
-					location.href = './alumnus.html';
+					location.href = 'alumnus.html';
 				},2000)
-                
-            } else if (d.ec==2) {
+            } else if (d.rc==2) {
                 $.cookie('sid', d.sid);
-                location.href = './profile-update.html';
-            } else if (d.ec==-2) {
+                $.cookie('status', -1);
+                setFancyBox('注册成功，请完善个人资料，2秒后自动跳转')
+                setTimeout(function(){
+                    location.href = 'profile-update.html';
+                },2000)
+            } else if (d.rc==-2) {
 				setFancyBox('该登录名已经被注册过')
-            } else if (d.ec==0) {
+            } else if (d.rc==0) {
 				setFancyBox('注册失败，请稍后再试')
             }
         })
