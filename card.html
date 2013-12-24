@@ -58,7 +58,7 @@
                     </div>
                     <div class="lkr">
                     <div>
-                   	  <a id="card_btn_show" href="javascript:;" class="input-btn w-200">申请校友龙卡</a><a href="javascript:;" class="m-l-20">查看龙卡申请进度</a>
+                   	  <a id="card_btn_show" href="javascript:;" class="input-btn w-200">申请校友龙卡</a><a id="card_status" href="javascript:;" class="m-l-20">查看龙卡申请进度</a>
                     </div>
                         <p>
                 　　首都师范大学校友会、教育基金会联合中国建设银行共同打造的首都师范大学人专属的信用卡——"首都师范大学校友龙卡"正式推出，这是一款为学校教职工、在校生及校友专属的信用卡。有学校标识的信用卡一方面是校友身份的象征，起到学校联系校友的纽带作用，一方面也是教育基金会拓宽筹资渠道的一种新的尝试！卡片为银联标准的人民币信用卡，分为金卡和普通卡。金卡针对教职员工和校友发行，最高信用额度为5000-10万元人民币；普通卡针对在校学生发行，最高信用额度为1000-5000元人民币。</p>
@@ -287,15 +287,35 @@ $(function(){
         	cardetel = $("#card_tel").val();
         if (cardname=='') {
 			setFancyBox('请输入姓名');
+			
+			setTimeout(function(){
+				$.fancybox($("#card_form"))
+			},2000)
+			
         } else if (cardemail=='') {
 			setFancyBox('请输入邮箱');
+			
+			setTimeout(function(){
+				$.fancybox($("#card_form"))
+			},2000)
+			
         } else if (cardetel=='') {
 			setFancyBox('请输入联系电话');
+			
+			setTimeout(function(){
+				$.fancybox($("#card_form"))
+			},2000)
         } else {
             $(this).html("<img src='images/loadinfo.gif' />申请中")
             $.cnuAction.configCardApply(cardname, cardemail, cardetel);
         }
     });
+	
+	
+	$("#card_status").click(function(){
+		$.cnuAction.configCardStatus();
+	})
+	
 })
 </script>
 

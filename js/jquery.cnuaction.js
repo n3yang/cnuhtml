@@ -767,6 +767,37 @@ jQuery.cnuAction = {
         .fail(function() {
             $.cnuAction.accessFail();
         });
+	},
+	
+	//查看校友龙卡申请进度
+	configCardStatus: function(){
+		
+        $.ajax({
+            url: this.getBaseUrl('/college/card/status'),
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: "json"
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if(d.rc==1){
+				if(d.status==0){
+					msg = '您于'+ d.applyTime +'提交申请，等待审批';
+				}else{
+					msg = '审批通过，您的审批时间为'+ d.approveTime;
+				}
+            }else if(d.rc==0){
+				msg = '未知错误';
+			}else if(d.rc==-1){
+				msg = '未提交过校友卡申请';
+			}
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+	
 	}
 	
 }
