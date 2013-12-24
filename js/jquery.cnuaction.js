@@ -275,7 +275,7 @@ jQuery.cnuAction = {
 	setFriendsSearch:function(){
 		$(".search-btn").click(function(){
 			if($(".search-text").val()!=''){
-				location.href = './search.html?keywords='+$(".search-text").val();
+				location.href = './search.html?keywords='+encodeURIComponent($(".search-text").val());
 			}
 		})
 	},
@@ -290,7 +290,7 @@ jQuery.cnuAction = {
             url: this.getBaseUrl('/friends/search'),
             type: 'get',
             dataType: "json",
-            data: {sid:sid,page:page,num:num,keywords:$.cnuAction.getQueryStringByName("keywords")}
+            data: {sid:sid,page:page,num:num,keywords:decodeURIComponent($.cnuAction.getQueryStringByName("keywords"))}
         })
         .done(function(d) {
 			$.cnuAction.isLogined(d);
@@ -585,7 +585,7 @@ jQuery.cnuAction = {
                 return;
             }
 			if(d.rc==-2){
-				setFancyBox('没有关注过此人')
+				setFancyBox('已经关注过此人')
                 return;
 			}
 			if(d.rc==-3){

@@ -10,10 +10,15 @@
 $(function(){
 
 	
-	var url = "http://115.47.56.228:8080/alumni/service/admin/media/create?v=1&amp;cid=1&amp;sid=" + $.cookie('sid');
+	var url = "http://115.47.56.228:8080/alumni/service/admin/galary/create?v=1&cid=1&sid=" + $.cookie('sid');
 	
 	
 	$("#ff").attr("action", url)
+	
+	var cc = "http://115.47.56.228:8080/alumni/service/galary/list?page=1&num=10&v=1&cid=1&sid="+$.cookie('sid');
+	
+	
+	$("#cc").attr("href", cc)
 	
 })
 </script>
@@ -24,6 +29,6 @@ $(function(){
 		照片：<input type="file" name="pic" />
 		<input type="submit" value="提交"/>
 	</form>
-	<a href="http://115.47.56.228:8080/alumni/service/galary/list?page=1&amp;num=10&amp;v=1&amp;cid=1&amp;sid=8e27c11289595414e067da1db8466a9a692c598d9406cf9425363a3bc7f01c6487487d1f9b65940d" target="blank">查看已有图片</a>
+	<a id="cc" href="" target="blank">查看已有图片</a>
 </body>
 </html>

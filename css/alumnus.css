@@ -359,3 +359,7 @@ body{
 	width:120px;
 	height:120px;
 }
+
+#galary_wrap ul li a{
+	cursor:pointer;
+}

@@ -126,14 +126,14 @@
 <% if(list.length>0) { %>
 	<%for(var i=0;i<list.length;i++){%>
 		<li data-id="<%=list[i].id%>">
-			<div class="newfriends-pic">
+			<div class="search-pic">
 				<% if( list[i].pic == null) { %>
 					<img src="images/tx.gif" />
 				<% }else{ %>
 					<img src="<%=list[i].pic%>" />
 				<% } %>
 			</div>
-			<div class="newfriends-name">
+			<div class="search-name">
 				<h4><%=list[i].name%></h4>
 				<% if( list[i].org == null) { %>
 					<p></p>
