@@ -1,2 +1,4 @@
 
 *.mno
+.DS_Store
+_notes
