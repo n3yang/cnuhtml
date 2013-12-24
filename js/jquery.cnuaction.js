@@ -806,6 +806,43 @@ jQuery.cnuAction = {
             $.cnuAction.accessFail();
         });
 	
-	}
+	},
 	
+	//申请校友龙卡
+	configFeedbackApply: function(feedbackname, feedbackemail, feedbacktel){
+		
+		var msg = '';
+		
+        $.ajax({
+            url: this.getBaseUrl('/college/card/apply'),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{name:"' + feedbackname + '",email:"' + feedbackemail + '",mobile:"' + feedbacktel+ '"}'
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if(d.rc==1){
+				msg = '申请成功,感谢您，请耐心等待母校联系';
+				setTimeout(function(){
+					window.location.reload(true);
+				},5000);
+            } else if(d.rc==0) {
+				msg = '未知错误';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } else {
+				msg = '已提交过捐赠申请';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            }
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+	}
 }

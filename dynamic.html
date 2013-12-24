@@ -102,21 +102,21 @@
         <h2 class="form-row-nolabel">回馈母校</h2>
         <div class="form-row">
             <label class="label-text">姓名</label>
-            <input id="name" class="input-text" type="password" />
+            <input id="feedback_name" class="input-text" type="password" />
             <div class="tips-box"></div>
         </div>
         <div class="form-row">
             <label class="label-text">电子邮箱</label>
-            <input id="email" class="input-text" type="password" />
+            <input id="feedback_email" class="input-text" type="password" />
             <div class="tips-box"></div>
         </div>
         <div class="form-row">
             <label class="label-text">手机号</label>
-            <input id="tel" class="input-text" type="password" />
+            <input id="feedback_tel" class="input-text" type="password" />
             <div class="tips-box"></div>
         </div>
         <div class="form-row form-row-nolabel">
-            <input id="card_btn" class="input-btn" type="submit" value="回馈母校" />
+            <input id="feedback_btn" class="input-btn" type="submit" value="回馈母校" />
         </div>
     </div>
 </div>
@@ -189,6 +189,38 @@ $(function() {
     });
     $.cnuAction.mediaList(3);
     $.cnuAction.mediaTopList(3);
+	
+    $("#feedback_btn").click(function() {
+        var feedbackname = $("#feedback_name").val(),
+        	feedbackemail = $("#feedback_email").val(),
+        	feedbacktel = $("#feedback_tel").val();
+        if (feedbackname=='') {
+			setFancyBox('请输入姓名');
+			
+			setTimeout(function(){
+				$.fancybox($(".feedback_wrap .form-box"))
+			},2000)
+			
+        } else if (feedbackemail=='') {
+			setFancyBox('请输入邮箱');
+			
+			setTimeout(function(){
+				$.fancybox($(".feedback_wrap .form-box"))
+			},2000)
+			
+        } else if (feedbacktel=='') {
+			setFancyBox('请输入联系电话');
+			
+			setTimeout(function(){
+				$.fancybox($(".feedback_wrap .form-box"))
+			},2000)
+        } else {
+            $(this).html("<img src='images/loadinfo.gif' />提交中")
+            $.cnuAction.configFeedbackApply(feedbackname, feedbackemail, feedbacktel);
+        }
+    });
+	
+	
 });
 </script>
 </body>
