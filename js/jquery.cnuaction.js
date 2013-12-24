@@ -54,6 +54,9 @@ jQuery.cnuAction = {
 	
 	//登录
     login: function (username, password, rememberme){
+		
+		var msg = '';
+		
         $.ajax({
             url: this.getBaseUrl('/login'),
             type: 'POST',
@@ -736,6 +739,9 @@ jQuery.cnuAction = {
 	
 	//申请校友龙卡
 	configCardApply: function(cardname, cardemail, cardetel){
+		
+		var msg = '';
+		
         $.ajax({
             url: this.getBaseUrl('/college/card/apply'),
             type: 'POST',
@@ -771,6 +777,8 @@ jQuery.cnuAction = {
 	
 	//查看校友龙卡申请进度
 	configCardStatus: function(){
+		
+		var msg = '';
 		
         $.ajax({
             url: this.getBaseUrl('/college/card/status'),
