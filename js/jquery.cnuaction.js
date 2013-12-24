@@ -732,5 +732,41 @@ jQuery.cnuAction = {
         .fail(function() {
             $.cnuAction.accessFail();
         })
+	},
+	
+	//申请校友龙卡
+	configCardApply: function(cardname, cardemail, cardetel){
+        $.ajax({
+            url: this.getBaseUrl('/college/card/apply'),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{name:"' + cardname + '",email:"' + cardemail + '",mobile:"' + cardetel+ '"}'
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if(d.rc==1){
+				msg = '申请成功';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } else if(d.rc==0) {
+				msg = '未知错误';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } else {
+				msg = '已提交过校友卡申请，请点击右侧查看申请进度';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            }
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
 	}
+	
 }

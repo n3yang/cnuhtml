@@ -62,8 +62,8 @@
                     <p>校友动态校友动态</p>
                 </a>
             </li>
-        	<li id="lk">
-            	<a href="javascript:;">
+        	<li>
+            	<a href="card.html">
                 	<h3>校友龙卡</h3>
                     <p>校友动态校友动态</p>
                 </a>
@@ -96,42 +96,6 @@
 </p>
 </div>
 
-<div id="lk_warp">
-    <div class="lk base-clear">
-        <div class="lkl">
-            <img src="images/lk.jpg" />
-        </div>
-        <div class="lkr">
-            <h4>首都师范大学校友龙卡</h4>
-            <p>
-    　　首都师范大学校友会、教育基金会联合中国建设银行共同打造的首都师范大学人专属的信用卡——"首都师范大学校友龙卡"正式推出，这是一款为学校教职工、在校生及校友专属的信用卡。有学校标识的信用卡一方面是校友身份的象征，起到学校联系校友的纽带作用，一方面也是教育基金会拓宽筹资渠道的一种新的尝试！卡片为银联标准的人民币信用卡，分为金卡和普通卡。金卡针对教职员工和校友发行，最高信用额度为5000-10万元人民币；普通卡针对在校学生发行，最高信用额度为1000-5000元人民币。</p>
-    　　<p>
-    　　独有的卡面设计彰显校友身份的权利，持卡人除享有建行的金融服务和相关优惠外，同时享有校友商户优惠计划的优惠。目前，经过校友会的努力，已有19间商户参加计划，相信随着时间推移和发卡量的增加，加入到"首都师范大学校友龙卡"校友商户优惠计划中的商户会越来越丰富！
-            </p>
-            <div class="form-box">
-                <h2 class="form-row-nolabel">申请校友龙卡</h2>
-                <div class="form-row">
-                    <label class="label-text">姓名</label>
-                    <input id="name" class="input-text" type="password" />
-                    <div class="tips-box"></div>
-                </div>
-                <div class="form-row">
-                    <label class="label-text">电子邮箱</label>
-                    <input id="email" class="input-text" type="password" />
-                    <div class="tips-box"></div>
-                </div>
-                <div class="form-row">
-                    <label class="label-text">手机号</label>
-                    <input id="tel" class="input-text" type="password" />
-                    <div class="tips-box"></div>
-                </div>
-                <div class="form-row form-row-nolabel">
-                    <input id="card_btn" class="input-btn" type="submit" value="申请龙卡" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script id="t:tpl-new-list" type="text/html">
 <% if(list.length>0) { %>
@@ -196,15 +160,7 @@ $(function() {
     });
     $.cnuAction.mediaList(1);
     $.cnuAction.mediaTopList(1);
-	
-	
-	$("#lk").click(function(){
 		
-		$.fancybox($(".lk"))
-		
-	})
-	
-	
 });
 </script>
 

@@ -308,8 +308,7 @@ body{
 }
 
 .lk{
-	width:710px;
-	display:none;
+	
 }
 .lkl{
 	float:left;
@@ -317,7 +316,7 @@ body{
 }
 .lkr{
 	float:right;
-	width:400px;
+	width:680px;
 }
 
 .lkr h4{
@@ -326,6 +325,7 @@ body{
 	font-size:16px;
 	border-bottom:1px solid #999;
 	margin-bottom:20px;
+	color: #666;
 }
 .lkr h3{
 	height:20px;
@@ -362,4 +362,14 @@ body{
 
 #galary_wrap ul li a{
 	cursor:pointer;
+}
+
+#card_form{
+	display:none;
+}
+#card_form .form-row label.label-text{
+	width:60px;
+}
+#card_form .form-row-nolabel{
+	padding-left:65px;
 }
