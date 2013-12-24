@@ -808,13 +808,13 @@ jQuery.cnuAction = {
 	
 	},
 	
-	//申请校友龙卡
+	//申请回馈母校
 	configFeedbackApply: function(feedbackname, feedbackemail, feedbacktel){
 		
 		var msg = '';
 		
         $.ajax({
-            url: this.getBaseUrl('/college/card/apply'),
+            url: this.getBaseUrl('/college/feedback/apply'),
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
