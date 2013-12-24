@@ -263,17 +263,18 @@ function saveNode(n){
     });
     return false;
 }
-
+//------- save node end
+//------- remove node
 function removeNode(b){
-    // id = $(b).parentsUntil('form', '#node-form-box').find("input[name='id']").val();
-    console.log(id);
+    id = $(b).parents('form').find("input[name='id']").val();
     if ( id!= ''){
-        f = $(b).parent('#node-'+id);
-        $.cnuAction.timelineNodeDelete(id, f);
+        d = $(b).parents('#node-'+id);
+        $.cnuAction.timelineNodeDelete(id, d);
     }
 }
-//------- save node end
+//------- remove node end
 
+//
 $(function(){
 	$(".search-list li").hover(function(){
 		$(this).addClass("active");
@@ -348,7 +349,6 @@ $(function(){
             return;
         }
         $.each($.cnuAction.proFile, function(i, v) {
-            // console.log('i:'+i+','+'v:'+v);
             $('#p-form #p-'+i).val(v);
         });
     }
@@ -437,21 +437,10 @@ $(function(){
     }
     //------- get the timeline end
 
-// $('#node-form-box form').submit(function(){
-//     alert($(this).find("input[name='title']").val());
-//     return false;
-
-// })
-
     //------- add new node
     $('#btn-node-add').click(function() {
         $('#node-tpl').clone().css('display', '').appendTo('#node-form-box');
     });
-    //------- add new node end
-
-
-
-    //------- right: add new 
 
 
 
