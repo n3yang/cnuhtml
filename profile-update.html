@@ -348,9 +348,11 @@ $(function(){
         if ($.cnuAction.proFile.rc==-1 || $.cnuAction.proFile.rc==0) {
             return;
         }
-        $.each($.cnuAction.proFile, function(i, v) {
-            $('#p-form #p-'+i).val(v);
-        });
+        if ($.cnuAction.proFile.length>0){
+            $.each($.cnuAction.proFile, function(i, v) {
+                $('#p-form #p-'+i).val(v);
+            });
+        }
     }
     loadProfile();
     //------- load & render profile end
