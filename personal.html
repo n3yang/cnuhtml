@@ -68,89 +68,8 @@
                         	<img src="images/tx.gif" />
                         </div>
                     	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
-                        </div>
-                    </li>
-                	<li>
-                    	<div class="newfriends-pic">
-                        	<img src="images/tx.gif" />
-                        </div>
-                    	<div class="newfriends-name">
-                        	<h4>风一样的女子</h4>
-                            <p>北京市朝阳区</p>
+                        	<h4>您还没有履历</h4>
+                            <p>没有办法查询相似度</p>
                         </div>
                     </li>
                 </ul>
@@ -165,59 +84,14 @@
     <div id="myfriends_wrap" class="search-wrap">
     	<h3 class="search-title">我的好友</h3>
         <div class="search-list">
-        	<ul class="base-clear">
+        	<ul class="base-clear" id="myFriends">
                 <li>
                     <div class="search-pic">
                         <img src="images/tx.gif" />
                     </div>
                     <div class="search-name">
-                        <h4>风一样的女子</h4>
-                        <p>北京市朝阳区</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="search-pic">
-                        <img src="images/tx.gif" />
-                    </div>
-                    <div class="search-name">
-                        <h4>风一样的女子</h4>
-                        <p>北京市朝阳区</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="search-pic">
-                        <img src="images/tx.gif" />
-                    </div>
-                    <div class="search-name">
-                        <h4>风一样的女子</h4>
-                        <p>北京市朝阳区</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="search-pic">
-                        <img src="images/tx.gif" />
-                    </div>
-                    <div class="search-name">
-                        <h4>风一样的女子</h4>
-                        <p>北京市朝阳区</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="search-pic">
-                        <img src="images/tx.gif" />
-                    </div>
-                    <div class="search-name">
-                        <h4>风一样的女子</h4>
-                        <p>北京市朝阳区</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="search-pic">
-                        <img src="images/tx.gif" />
-                    </div>
-                    <div class="search-name">
-                        <h4>风一样的女子</h4>
-                        <p>北京市朝阳区</p>
+                        <h4></h4>
+                        <p></p>
                     </div>
                 </li>
             </ul>
@@ -285,36 +159,51 @@
             <strong><%=b.name%></strong>
 			<p></p>
 			<% if(c == 'me') { %>
-            	<a class="input-btn" href="javascript:;">完善资料</a>
+            	<a class="input-btn" href="profile-update.html">完善资料</a>
 			<% }else{ %>
-            	<a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsFollow(this.id)">关注</a>
+				<% if(a.d == 'myFriend') { %>
+					<a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsUnfollow(this.id)">取消关注</a>
+				<% }else{ %>
+            		<a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsFollow(this.id)">关注</a>
+				<% } %>
 			<% } %>
         </span>
      </h2>
      <ul>
-	 	<%for(var i=a.length-1;i>=0;i--){%>
-		
-			<% if(i%2 == 1) { %>
-				<li data-id="<%=a[i].id%>" class="blue">
-					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
-					<dl>
-						<dt><%=a[i].org%>
-							<span><%=a[i].stime%>至<%=a[i].etime%></span>
-						</dt>
-					</dl>
-				</li>
-			<% }else{ %>
-				<li data-id="<%=a[i].id%>">
-					<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
-					<dl>
-						<dt><%=a[i].org%>
-							<span><%=a[i].stime%>至<%=a[i].etime%></span>
-						</dt>
-					</dl>
-				</li>
-			<% } %>
+	 	<% if(a.length>0) { %>
+			<%for(var i=a.length-1;i>=0;i--){%>
 			
-		<%}%>
+				<% if(i%2 == 1) { %>
+					<li data-id="<%=a[i].id%>" class="blue">
+						<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+						<dl>
+							<dt><%=a[i].org%>
+								<span><%=a[i].stime%>至<%=a[i].etime%></span>
+							</dt>
+						</dl>
+					</li>
+				<% }else{ %>
+					<li data-id="<%=a[i].id%>" class="">
+						<h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+						<dl>
+							<dt><%=a[i].org%>
+								<span><%=a[i].stime%>至<%=a[i].etime%></span>
+							</dt>
+						</dl>
+					</li>
+				<% } %>
+				
+			<%}%>
+		<% }else{ %>
+			<li data-id="<%=c%>" class="blue">
+				<h3>&nbsp;<span>&nbsp;</span></h3>
+				<dl>
+					<dt>暂时没有履历信息
+						<span>快去添加吧</span>
+					</dt>
+				</dl>
+			</li>
+		<% } %>
       </ul>
     </div>
   </div>
@@ -348,12 +237,43 @@
 <% } %>
 </script>
 
+
+<script id="t:tpl-myFriend-list" type="text/html">
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li data-id="<%=list[i].id%>">
+			<div class="search-pic">
+				<% if( list[i].pic == null) { %>
+					<img src="images/tx.gif" />
+				<% }else{ %>
+					<img src="<%=list[i].pic%>" />
+				<% } %>
+			</div>
+			<div class="search-name">
+				<h4><%=list[i].name%></h4>
+				<% if( list[i].org == null) { %>
+					<p></p>
+				<% }else{ %>
+					<p><%=list[i].org%></p>
+				<% } %>
+			</div>
+		</li>
+	<%}%>
+<% }else{ %>
+		<li>
+				<h4>暂时没有好友</h4>
+		</li>
+<% } %>
+</script>
+
 <script type="text/javascript">
 $(function() {
 
     $.cnuAction.mediaTopList(1);
 	
 	$.cnuAction.timeline('me');
+	
+	$.cnuAction.configFriendsList();
 });
 </script>
 </body>

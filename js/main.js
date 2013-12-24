@@ -19,7 +19,6 @@ function setTimeLine(id){
 	date.b = $.cnuAction.proFile;
 	
 	bt = baidu.template;
-	   	
 		
 	if(id == 'me'){
 
@@ -46,6 +45,18 @@ function setNewFriendsList(){
 			$(this).toggleClass("active");
 		}).click(function(){
 			$.cnuAction.timeline($(this).attr("data-id"));
+		});
+	
+};
+
+
+function setFriendsList(){
+	   
+	   bt = baidu.template;
+	   $('#myFriends').html( bt('t:tpl-myFriend-list',$.cnuAction.friendsList) ).find("li").hover(function(event){
+			$(this).toggleClass("active");
+		}).click(function(){
+			$.cnuAction.timeline($(this).attr("data-id"),true);
 		});
 	
 };

@@ -332,19 +332,20 @@ jQuery.cnuAction = {
 
 	//时间轴
     timeLineList: {},
-    timeline: function (id) {
+    timeline: function (id,p) {
         if (!id) {id='me'}
         $.ajax({
             url: this.getBaseUrl('/timeline/'+id+'/list'),
             type: 'get',
             dataType: 'json',
-            data: {sid:$.cookie('sid')},
+            data: {sid:$.cookie('sid'),id:id},
             async: false
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-				// setFancyBox('查询对象不存在')
+				
+				$.cnuAction.configProFile(id);
                 return;
             }
             if (d.rc==0) {
@@ -352,7 +353,15 @@ jQuery.cnuAction = {
                 return;
             }
             if (d.ec==1 && d.rc==1) {
-                $.cnuAction.timeLineList = d.list;
+				
+				if(p){
+					$.cnuAction.timeLineList = d.list;	
+					$.cnuAction.timeLineList.d = 'myFriend';
+				}else{
+					$.cnuAction.timeLineList = d.list;	
+					$.cnuAction.timeLineList.d = '';
+				}
+                
 				$.cnuAction.configProFile(id);
             } else if (d.ec==-1 || ec==-5){
 				setFancyBox('操作超时,请重新登录')
@@ -400,13 +409,13 @@ jQuery.cnuAction = {
             url: this.getBaseUrl('/profile/'+id+'/detail'),
             type: 'get',
             dataType: 'json',
-            data: {sid:$.cookie('sid')},
+            data: {sid:$.cookie('sid'),id:id},
             async: false
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
             if (d.rc==-1) {
-				// setFancyBox('查询对象不存在')
+				//setFancyBox('查询对象不存在')
                 return;
             }
             if (d.rc==0) {
@@ -493,33 +502,68 @@ jQuery.cnuAction = {
 		if (!id) {id=$(".main li").eq(0).attr("data-id")}
 		if (!page) {page=1}
 		if (!num) {num=10}
-        $.ajax({
-            url: this.getBaseUrl('/timeline/me/node/'+id+'/newfriends/list'),
-            type: 'get',
-            dataType: "json",
-            data: {sid:$.cookie('sid'),id:id,page:page,num:num},
-            async: false
-        })
-        .done(function(d){
-            $.cnuAction.isLogined(d);
-            if (d.rc==-1) {
-				setFancyBox('查询对象不存在')
-                return;
-            }
-            if (d.rc==0) {
-				setFancyBox('未知错误')
-                return;
-            }
-            if (d.ec==1 && d.rc==1) {
-                $.cnuAction.newfriendsList = d;
-				setNewFriendsList();
-            }
-        })
-        .fail(function(){
-            $.cnuAction.accessFail();
-        });
+		
+		if( id != 'me'){
+		
+			$.ajax({
+				url: this.getBaseUrl('/timeline/me/node/'+id+'/newfriends/list'),
+				type: 'get',
+				dataType: "json",
+				data: {sid:$.cookie('sid'),id:id,page:page,num:num},
+				async: false
+			})
+			.done(function(d){
+				$.cnuAction.isLogined(d);
+				if (d.rc==-1) {
+					setFancyBox('查询对象不存在')
+					return;
+				}
+				if (d.rc==0) {
+					setFancyBox('未知错误')
+					return;
+				}
+				if (d.ec==1 && d.rc==1) {
+					$.cnuAction.newfriendsList = d;
+					setNewFriendsList();
+				}
+			})
+			.fail(function(){
+				$.cnuAction.accessFail();
+			});
+			
+		}else{
+			return
+		}
     },
 	
+	
+	//我关注的好友列表
+	friendsList:{},
+	configFriendsList: function(page,num){
+		if(!page){page='1'}
+		if(!num){num='50'}
+		$.ajax({
+			url: this.getBaseUrl('/friends/me/list'),
+			type: 'get',
+			dataType: "json",
+			data: {sid:$.cookie('sid'),page:page,num:num},
+			async: false
+		})
+		.done(function(d){
+			$.cnuAction.isLogined(d);
+			if (d.rc==0) {
+				setFancyBox('未知错误')
+				return;
+			}
+			if (d.ec==1 && d.rc==1) {
+				$.cnuAction.friendsList = d;
+				setFriendsList();
+			}
+		})
+		.fail(function(){
+			$.cnuAction.accessFail();
+		});
+	},
 	
 	//关注
 	configFriendsFollow: function(id){
@@ -545,11 +589,53 @@ jQuery.cnuAction = {
                 return;
 			}
 			if(d.rc==-3){
+				setFancyBox('关注的对象非法')
+                return;
+			}
+            if (d.ec==1 && d.rc==1) {
+				setFancyBox('关注成功')
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000)
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+	},
+	
+	//取消关注
+	configFriendsUnfollow: function(id){
+        $.ajax({
+            url: this.getBaseUrl('/friends/'+id+'/unfollow'),
+            type: 'POST',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),id:id},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+				setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+			if(d.rc==-2){
+				setFancyBox('没有关注过此人')
+                return;
+			}
+			if(d.rc==-3){
 				setFancyBox('取消关注的对象非法')
                 return;
 			}
             if (d.ec==1 && d.rc==1) {
-				window.location.reload(true);
+				setFancyBox('取消成功')
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000)
             }
         })
         .fail(function(){
