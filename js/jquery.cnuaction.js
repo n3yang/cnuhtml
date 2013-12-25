@@ -747,7 +747,7 @@ jQuery.cnuAction = {
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
-            data: '{name:"' + cardname + '",email:"' + cardemail + '",mobile:"' + cardetel+ '"}'
+			data: {sid:$.cookie('sid'),name:cardname,email:cardemail,mobile:cardetel}
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
@@ -784,7 +784,8 @@ jQuery.cnuAction = {
             url: this.getBaseUrl('/college/card/status'),
             type: 'GET',
             contentType: 'application/json',
-            dataType: "json"
+            dataType: "json",
+			data: {sid:$.cookie('sid')}
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
@@ -818,7 +819,7 @@ jQuery.cnuAction = {
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
-            data: '{name:"' + feedbackname + '",email:"' + feedbackemail + '",mobile:"' + feedbacktel+ '"}'
+			data: {sid:$.cookie('sid'),name:feedbackname,email:feedbackemail,mobile:feedbacktel}
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
