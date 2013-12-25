@@ -679,8 +679,7 @@ jQuery.cnuAction = {
 					nextEffect : 'none',
 	
 					closeBtn  : true,
-					arrows    : false,
-					nextClick : true,
+					arrows    : true,
 	
 					helpers : {
 						thumbs : {

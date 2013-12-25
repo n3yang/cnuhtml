@@ -16,7 +16,7 @@ function addFile() {
 $(function(){
 
 	
-	var url = "http://115.47.56.228:8080/alumni/service/admin/media/create?v=1&amp;cid=1&amp;sid=" + $.cookie('sid');
+	var url = "http://115.47.56.228:8080/alumni/service/admin/media/create?v=1&cid=1&sid=" + $.cookie('sid');
 	
 	
 	$("#ff").attr("action", url)
@@ -31,7 +31,7 @@ $(function(){
 		标题：<input type="text" name="title"/><br>
 		置顶：<input type="text" name="top"/><br>
 		正文：<textarea name="content" cols="50" rows="10"></textarea><br>
-		<input type="button" value="加图片" onClick="addFile()"/><br>
+		<input type="button" value="加图片" onclick="addFile()"/><br>
 		<div id="ctn">
 		</div>
 		<input type="submit" value="提交"/>
