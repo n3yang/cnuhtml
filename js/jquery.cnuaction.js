@@ -743,11 +743,11 @@ jQuery.cnuAction = {
 		var msg = '';
 		
         $.ajax({
-            url: this.getBaseUrl('/college/card/apply'),
+            url: this.getBaseUrl('/college/card/apply',$.cookie('sid')),
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
-			data: {sid:$.cookie('sid'),name:cardname,email:cardemail,mobile:cardetel}
+			data: '{name:"' + cardname + '",email:"' + cardemail + '",mobile:"' + cardetel + '"}'
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
@@ -791,7 +791,7 @@ jQuery.cnuAction = {
             $.cnuAction.isLogined(d);
             if(d.rc==1){
 				if(d.status==0){
-					msg = '您于'+ d.applyTime +'提交申请，等待审批';
+					msg = '您于'+ d.applyTime +'提交申请，请耐心等待审批';
 				}else{
 					msg = '审批通过，您的审批时间为'+ d.approveTime;
 				}
@@ -815,11 +815,11 @@ jQuery.cnuAction = {
 		var msg = '';
 		
         $.ajax({
-            url: this.getBaseUrl('/college/feedback/apply'),
+            url: this.getBaseUrl('/college/feedback/apply',$.cookie('sid')),
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
-			data: {sid:$.cookie('sid'),name:feedbackname,email:feedbackemail,mobile:feedbacktel}
+			data: '{name:"' + feedbackname + '",email:"' + feedbackemail + '",mobile:"' + feedbacktel + '"}'
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
