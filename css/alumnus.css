@@ -464,6 +464,7 @@ body{
 	float: left;
 	margin: 5px 5px 10px;
 	border:none;
+	list-style:none;
 }
 .galary-con li img{
 	width: 120px;
