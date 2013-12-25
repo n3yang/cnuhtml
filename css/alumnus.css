@@ -373,3 +373,150 @@ body{
 #card_form .form-row-nolabel{
 	padding-left:65px;
 }
+
+
+.admin-wrap{
+	
+}
+.admin-box{
+	-webkit-border-radius: 0 0 10px 10px;
+	-moz-border-radius:  0 0 10px 10px;
+	-ms-border-radius:  0 0 10px 10px;
+	-o-border-radius:  0 0 10px 10px;
+	border-radius:  0 0 10px 10px;
+	overflow:hidden;
+	border:1px solid #ccc;
+	border-top:none;
+	margin-bottom:20px;
+	display:none;
+}
+.admin-title{
+	height:50px;
+	line-height:50px;
+	border-bottom:1px solid #ccc;
+	padding:0 10px;
+}
+.admin-title h3{
+	float:left;
+	padding-left:22px;
+	background:url(../images/set-icon.png) left center no-repeat;
+}
+.admin-title span{
+	float:right;
+	margin-top:10px;
+}
+.admin-box input.input-btn{
+	background:#666;
+	-webkit-border-radius: 5px;
+	-moz-border-radius:  5px;
+	-ms-border-radius:  5px;
+	-o-border-radius:  5px;
+	border-radius:  5px;
+	color:#fff;
+	font-size:14px;
+	height:25px;
+	line-height:25px;
+	padding:0px 15px;
+	width:auto;
+}
+.admin-box input.input-btn:hover{
+	background:#333;
+}
+
+.admin-box .admin-title input.input-btn{
+	height:30px;
+	line-height:30px;
+	background:#384e8b;
+}
+.admin-box .admin-title input.input-btn:hover{
+	background:#15265a;
+}
+
+.admin-con{
+	padding:10px;
+}
+.admin-con li{
+	width:100%;
+	height:30px;
+	border-bottom:1px dashed #ccc;
+	line-height:30px;
+	overflow:hidden;
+	zoom:1;
+}
+.admin-con li strong{
+	float:left;
+	padding-left:10px;
+	background:url(../images/j.png) left center no-repeat;
+	color:#666
+}
+.admin-con li strong em{
+	margin-right:5px;
+}
+.admin-con li span{
+	float:right;
+}
+.admin-con .m-l-10{
+	margin-left:10px;
+}
+.galary-con li{
+	width: 120px;
+	height: 160px;
+	float: left;
+	margin: 5px 5px 10px;
+	border:none;
+}
+.galary-con li img{
+	width: 120px;
+	height: 120px;
+	float: left;
+	margin: 5px;
+}
+.galary-con li h4{
+	text-align:center;
+}
+
+.admin-menu{
+	height:50px;
+	line-height:50px;
+	background:#666;
+	-webkit-border-radius: 10px 10px 0 0;
+	-moz-border-radius:  10px 10px 0 0;
+	-ms-border-radius:  10px 10px 0 0;
+	-o-border-radius:  10px 10px 0 0;
+	border-radius:  10px 10px 0 0;
+	padding:0 10px;
+}
+.admin-menu a{
+	font-size:16px;
+	color:#fff;
+	display:inline-block;
+	height:50px;
+	padding:0 20px;
+}
+.admin-menu a:hover{
+	text-decoration:none;
+}
+.admin-menu span.active a{
+	background:#333;
+}
+
+#media_admin_box, #galary_admin_box{
+	display:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

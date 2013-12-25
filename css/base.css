@@ -446,3 +446,48 @@ div.jogger a.disabled {
 .menu-wrap p{
 	display:none;
 }
+
+.textarea-text{
+	padding:10px;
+	width:300px;
+	height:150px;
+	vertical-align:bottom
+}
+.form-box .form-row label.a-t{
+	vertical-align:top;
+}
+.form-row dl{
+	float:left;
+	width:400px;
+}
+.form-row dl dt{
+	float:left;
+	width:400px;
+	margin-bottom:10px;
+}
+.form-row dd{
+	float:left;
+	margin-right:10px;
+	margin-bottom:10px;
+}
+.form-row h4{
+	width:120px;
+	text-align:center;
+}
+.form-row dl input.input-btn{
+	background:#666;
+	-webkit-border-radius: 5px;
+	-moz-border-radius:  5px;
+	-ms-border-radius:  5px;
+	-o-border-radius:  5px;
+	border-radius:  5px;
+	color:#fff;
+	font-size:14px;
+	height:25px;
+	line-height:25px;
+	padding:0px 15px;
+	width:auto;
+}
+.form-row dl input.input-btn:hover{
+	background:#333;
+}

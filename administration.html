@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/base.css" type="text/css" />
+<link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-thumbs.css" />
+<script type="text/javascript" src="js/jquery.fancybox-thumbs.js"></script>
+
+<title>首都师范大学校友会</title>
+
+</head>
+
+<body>
+
+<div class="wrap">
+  <div class="logo-wrap">
+    	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
+    </div>
+    
+    
+    <div class="nav-wrap base-clear">
+    	<ul class="nav">
+        	<li><a href="./alumnus.html">校友信息</a></li>
+        	<li><a href="./dynamic.html">母校信息</a></li>
+        	<li><a href="personal.html">个人信息</a></li>
+        	<li id="sid_admin"><a href="./administration.html">管理</a></li>
+        	<li><a href="./setup.html">系统设置</a></li>
+        </ul>
+        <div class="search-box">
+        	<input class="search-text" placeholder="找同学" type="text" />
+            <input class="search-btn" type="button"/>
+        </div>
+    </div>
+    
+    <div class="m-d-20">
+    </div>
+    
+    
+    <div class="admin-menu">
+    	<span class="active"><a href="javascript:;">成员激活</a></span>
+    	<span><a href="javascript:;">校友龙卡申请</a></span>
+    	<span><a href="javascript:;">捐赠申请</a></span>
+    	<span><a href="javascript:;">媒体信息</a></span>
+    	<span><a href="javascript:;">印象首师</a></span>
+    </div>
+    
+    
+    <div id="admin_wrap" class="admin-wrap">
+		
+        <div class="admin-box" style="display:block;">
+        	<div class="admin-title base-clear">
+            	<h3>成员激活</h3>
+                <span></span>
+            </div>
+            <div class="admin-con">
+            	
+                <ul id="account_apply">
+                	<li>
+                    	<strong>
+                        	<em>姓名：</em>
+                            <em>性别：</em>
+                        </strong>
+                        <span>
+                        	<em>2013-10-20</em><input class="input-btn m-l-10" type="button" value="批准" />
+                        </span>
+                    </li>
+                </ul>
+                <p>
+                    <div class="jogger"><a href="javascript:;" id="" date-page-no="0"> &lt; </a>
+                    <a href="javascript:;" id="" data-page-no="2"> &gt; </a></div>
+                </p>
+            </div>
+        </div>
+        
+        <div class="admin-box">
+        	<div class="admin-title base-clear">
+            	<h3>校友龙卡申请</h3>
+                <span></span>
+            </div>
+            <div class="admin-con">
+            	
+                <ul id="college_card_apply">
+                	<li>
+                    	<strong>
+                        	<em>姓名：</em>
+                            <em>邮箱：</em>
+                            <em>手机：</em>
+                        </strong>
+                        <span>
+                        	<em>2013-10-20</em><input class="input-btn m-l-10" type="button" value="批准" />
+                        </span>
+                    </li>
+                </ul>
+                <p>
+                    <div class="jogger"><a href="javascript:;" id="" date-page-no="0"> &lt; </a>
+                    <a href="javascript:;" id="" data-page-no="2"> &gt; </a></div>
+                </p>
+                
+            </div>
+        </div>
+        
+        <div class="admin-box">
+        	<div class="admin-title base-clear">
+            	<h3>捐赠申请</h3>
+                <span></span>
+            </div>
+            <div class="admin-con">
+            	
+                <ul id="college_card_apply">
+                	<li>
+                    	<strong>
+                        	<em>姓名：</em>
+                            <em>邮箱：</em>
+                            <em>手机：</em>
+                        </strong>
+                        <span>
+                        	<em>2013-10-20</em><input class="input-btn m-l-10" type="button" value="处理" />
+                        </span>
+                    </li>
+                </ul>
+                <p>
+                    <div class="jogger"><a href="javascript:;" id="" date-page-no="0"> &lt; </a>
+                    <a href="javascript:;" id="" data-page-no="2"> &gt; </a></div>
+                </p>
+                
+            </div>
+        </div>
+        
+        <div class="admin-box">
+        	<div class="admin-title base-clear">
+            	<h3>媒体信息</h3>
+                <span><input id="new_media" class="input-btn" type="button" value="新建媒体信息" /></span>
+            </div>
+            <div class="admin-con">
+            	
+                <ul id="media_admin">
+                	<li>
+                    	<strong>
+                        	<em>类型：</em>
+                            <em>是否置顶：</em>
+                            <em>标题：</em>
+                        </strong>
+                        <span>
+                        	<em>2013-10-20</em><input class="input-btn m-l-10" type="button" value="编辑" /><input class="input-btn m-l-10" type="button" value="删除" />
+                        </span>
+                    </li>
+                </ul>
+                <p>
+                    <div class="jogger"><a href="javascript:;" id="" date-page-no="0"> &lt; </a>
+                    <a href="javascript:;" id="" data-page-no="2"> &gt; </a></div>
+                </p>
+                
+            </div>
+        </div>
+        
+        <div class="admin-box">
+        	<div class="admin-title base-clear">
+            	<h3>印象首师</h3>
+                <span><input id="new_galary" class="input-btn" type="button" value="新上传" /></span>
+            </div>
+            <div id="galary_admin" class="admin-con galary-con">
+            	
+                <ul class="base-clear">
+                	<li>
+                    	<img src="images/icon06.gif" />
+                        <h4>
+                        	<input class="input-btn m-l-10" type="button" value="删除" />
+                        </h4>
+                    </li>
+                </ul>
+                <p>
+                    <div class="jogger"><a href="javascript:;" id="" date-page-no="0"> &lt; </a>
+                    <a href="javascript:;" id="" data-page-no="2"> &gt; </a></div>
+                </p>
+                
+            </div>
+        </div>
+            	
+    </div>
+    
+</div>
+
+<div class="footer">
+<p>
+    备案号：京公网安备:110402430068号<br>
+    校友会地址：北京市海淀区西三环北路105号首都师范大学学校办公室校友会 邮编：100048   邮箱：cnuxyh@126.com<br>
+    联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
+</p>
+</div>
+
+
+<div id="media_admin_box">
+    <div class="form-box">
+    	<form>
+            <h2 class="form-row-nolabel">编辑媒体信息</h2>
+            <div class="form-row">
+                <label class="label-text">类型：</label>
+                <select class="" id="a_type" name="type">
+                    <option value="1" selected="selected">校友动态</option>
+                    <option value="2" selected="selected">通知公告</option>
+                    <option value="3" selected="selected">母校动态</option>
+                    <option value="4" selected="selected">回馈母校</option>
+                </select>
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row">
+                <label class="label-text">标题：</label>
+                <input id="a_title" name="title" class="input-text" type="text" />
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row">
+                <label class="label-text">发布时间：</label>
+                <input id="a_time" name="time" class="input-text" type="text" />
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row">
+                <label class="label-text">是否置顶：</label>
+                <select class="" id="a_top" name="top">
+                    <option value="1" selected="selected">是</option>
+                    <option value="0" selected="selected">否</option>
+                </select>
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row base-clear">
+                <label class="label-text" style="float:left;">媒体图片：</label>
+                
+                <dl>
+                    <dt><input id="card_btn" class="input-btn" type="button" value="添加图片" /></dt>
+                    <dd>
+                        <img src="images/icon06.gif" />
+                        <h4>
+                            <input class="input-btn" type="button" value="删除" />
+                        </h4>
+                    </dd>
+                    <dd>
+                        <img src="images/icon06.gif" />
+                        <h4>
+                            <input class="input-btn" type="button" value="删除" />
+                        </h4>
+                    </dd>
+                    <dd>
+                        <img src="images/icon06.gif" />
+                        <h4>
+                            <input class="input-btn" type="button" value="删除" />
+                        </h4>
+                    </dd>
+                    <dd>
+                        <img src="images/icon06.gif" />
+                        <h4>
+                            <input class="input-btn" type="button" value="删除" />
+                        </h4>
+                    </dd>
+                </dl>
+                
+            </div>
+            <div class="form-row">
+                <label class="label-text a-t">正文内容：</label>
+                <textarea id="a_content" name="content" class="textarea-text"></textarea>
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row form-row-nolabel">
+                <input id="card_btn" class="input-btn" type="submit" value="保存" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div id="galary_admin_box">
+	<div class="form-box">
+    	<form>
+        	<h2 class="form-row-nolabel">上传印象首师图片</h2>
+            <div class="form-row">
+                <label class="label-text">标题：</label>
+                <input id="a_title" name="title" class="input-text" type="text" />
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row">
+                <label class="label-text">图片：</label>
+                <input type="file" name="pic" />
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row form-row-nolabel">
+                <input id="card_btn" class="input-btn" type="submit" value="提交" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+
+
+	$(".admin-menu span").click(function(){
+		var i = $(this).index()
+		$(".admin-menu span").removeClass("active")
+		$(this).addClass("active");
+		
+		$(".admin-box").hide().eq(i).show();
+		
+	})	
+	
+	$("#new_media").click(function(){
+		
+		$.fancybox($("#media_admin_box"));
+		
+	})
+	
+	$("#new_galary").click(function(){
+		
+		$.fancybox($("#galary_admin_box"));
+		
+	})
+
+		
+});
+</script>
+</body>
+</html>
