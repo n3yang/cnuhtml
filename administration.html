@@ -217,7 +217,7 @@ $(function(){
             </div>
             <div class="admin-con">
             	
-                <ul id="college_card_apply">
+                <ul id="college_feedback_apply">
                 	<li>
                     	<strong>
                         	<em>姓名：</em>
@@ -377,7 +377,7 @@ $(function(){
 
 <div id="galary_admin_box">
 	<div class="form-box">
-    	<form>
+    	<form id="galary_form" method="post" action="" onsubmit="return saveGalary(this);" enctype="multipart/form-data">
         	<h2 class="form-row-nolabel">上传印象首师图片</h2>
             <div class="form-row">
                 <label class="label-text">标题：</label>
@@ -386,11 +386,11 @@ $(function(){
             </div>
             <div class="form-row">
                 <label class="label-text">图片：</label>
-                <input type="file" name="pic" />
+                <input id="update_pic" type="file" name="pic" />
                 <div class="tips-box"></div>
             </div>
             <div class="form-row form-row-nolabel">
-                <input id="card_btn" class="input-btn" type="submit" value="提交" />
+                <input id="galary_btn" class="input-btn" type="submit" value="提交" />
             </div>
         </form>
     </div>
@@ -398,11 +398,41 @@ $(function(){
 
 
 <script type="text/javascript">
+function saveGalary(n){	
+
+	if($("#update_pic").val()==''){
+		setFancyBox('请上传图片');
+		setTimeout(function(){
+			$.fancybox($("#galary_admin_box"));
+		},2000)
+		return false;
+	}
+	
+	$(n).attr("action", $.cnuAction.getBaseUrl("/admin/galary/create",$.cookie('sid')))
+
+	$(n).ajaxSubmit(function(d) {
+		if( d.rc == 1 ){
+			setFancyBox("保存成功");
+		}else{
+			setFancyBox("保存失败");
+		}
+	});
+	
+	
+	return false;
+
+}
+
+
 
 $(function(){
 
 
-
+	$.cnuAction.configAdminAccountApplyList();
+	$.cnuAction.configAdminCollegeCardApplyList();
+	$.cnuAction.configAdminCollegeFeedbackApplyList();
+	$.cnuAction.configAdminGalaryList();
+	
 	$(".admin-menu span").click(function(){
 		var i = $(this).index()
 		$(".admin-menu span").removeClass("active")
@@ -423,7 +453,7 @@ $(function(){
 		$.fancybox($("#galary_admin_box"));
 		
 	})
-
+	
 		
 });
 </script>

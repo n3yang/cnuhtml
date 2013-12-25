@@ -909,5 +909,422 @@ jQuery.cnuAction = {
         .fail(function() {
             $.cnuAction.accessFail();
         });
+	},
+	
+	
+	//------------admin-------------
+	
+	//成员激活
+	configAdminAccountApplyList: function(page, num){
+		if(!page){page=1};
+		if(!num){num=10};
+		
+		var tmp='';
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/account/apply/list'),
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+				
+				var g='';
+				
+				for(var i=0;i<d.list.length;i++){
+					
+					d.list[i].gender==1? g="男" : g="女";
+					tmp += "<li><strong><em>姓名："+ d.list[i].name +"</em><em>性别："+ g +"</em></strong><span><em>"+ d.list[i].createTime +"</em><input data-id="+ d.list[i].id +" class=\"account-ok input-btn m-l-10\" type=\"button\" value=\"批准\" /></span></li>"
+					
+				}
+				
+				
+				$("#account_apply").html(tmp);
+				
+				
+				$(".account-ok").click(function(){
+					$.cnuAction.configAdminAccountApplyApprove($(this).attr('data-id'))
+				})
+				
+				
+				
+            } else if (d.ec==-1 || ec==-5){
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+		
+	},
+	
+	
+	//批准用户注册
+	//admin/account/${id}/apply/approve
+	configAdminAccountApplyApprove: function(id){
+		
+		var msg;
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/account/'+ id +'/apply/approve'),
+            type: 'POST',
+            dataType: "json",
+			data: {sid:$.cookie('sid'),id:id},
+			async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+			
+            if(d.rc==1){
+				msg = '批准成功';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==0) {
+				msg = '未知错误';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-1) {
+				msg = 'ID不存在';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-2) {
+				msg = '该账号不是待审批状态';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+	},
+	
+	
+	//校友龙卡申请
+	configAdminCollegeCardApplyList: function(page, num, status){
+		if(!page){page=1};
+		if(!num){num=10};
+		if(!status){status=0};
+		
+		var tmp='';
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/college/card/apply/list'),
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid'),page:page,num:num,status:status},
+            async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+				
+				for(var i=0;i<d.list.length;i++){
+					
+					tmp += "<li><strong><em>姓名："+ d.list[i].name +"</em><em>邮箱："+ d.list[i].email +"</em><em>手机："+ d.list[i].mobile +"</em></strong><span><em>"+ d.list[i].applyTime +"</em><input data-id="+ d.list[i].id +" class=\"card-ok input-btn m-l-10\" type=\"button\" value=\"批准\" /></span></li>"
+					
+				}
+				
+				
+				$("#college_card_apply").html(tmp);
+				
+				
+				$(".card-ok").click(function(){
+					$.cnuAction.configAdminCollegeCardApplyApprove($(this).attr('data-id'))
+				})
+				
+				
+				
+            } else if (d.ec==-1 || ec==-5){
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+		
+	},
+	
+	
+	//批准校友龙卡申请
+	configAdminCollegeCardApplyApprove: function(id){
+		
+		var msg;
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/college/card/apply/'+ id +'/approve'),
+            type: 'POST',
+            dataType: "json",
+			data: {sid:$.cookie('sid'),id:id},
+			async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+			
+            if(d.rc==1){
+				msg = '批准成功';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==0) {
+				msg = '未知错误';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-1) {
+				msg = 'ID不存在';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-2) {
+				msg = '该账号不是待审批状态';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+	},
+	
+	//捐赠审批
+	configAdminCollegeFeedbackApplyList: function(page, num, status){
+		if(!page){page=1};
+		if(!num){num=10};
+		if(!status){status=0};
+		
+		var tmp='';
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/college/feedback/apply/list'),
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid'),page:page,num:num,status:status},
+            async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+				
+				for(var i=0;i<d.list.length;i++){
+					
+					tmp += "<li><strong><em>姓名："+ d.list[i].name +"</em><em>邮箱："+ d.list[i].email +"</em><em>手机："+ d.list[i].mobile +"</em></strong><span><em>"+ d.list[i].applyTime +"</em><input data-id="+ d.list[i].id +" class=\"feedback-ok input-btn m-l-10\" type=\"button\" value=\"已处理\" /></span></li>"
+					
+				}
+				
+				
+				$("#college_feedback_apply").html(tmp);
+				
+				
+				$(".feedback-ok").click(function(){
+					$.cnuAction.configAdminCollegeFeedbackApplyApprove($(this).attr('data-id'))
+				})
+				
+				
+				
+            } else if (d.ec==-1 || ec==-5){
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+		
+	},
+	
+	
+	//处理捐赠
+	configAdminCollegeFeedbackApplyApprove: function(id){
+		
+		var msg;
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/college/feedback/apply/'+ id +'/approve'),
+            type: 'POST',
+            dataType: "json",
+			data: {sid:$.cookie('sid'),id:id},
+			async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+			
+            if(d.rc==1){
+				msg = '已处理';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==0) {
+				msg = '未知错误';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-1) {
+				msg = 'ID不存在';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-2) {
+				msg = '该账号不是待处理状态';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+	},
+	
+	//印象首师图片列表
+	configAdminGalaryList: function(page,num){
+		if(!page){page=1};
+		if(!num){num=10};
+		
+		var tmp='';
+		
+        $.ajax({
+            url: this.getBaseUrl('/galary/list'),
+            type: 'get',
+            dataType: 'json',
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            if (d.rc==0) {
+				setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+				
+				for(var i=0;i<d.list.length;i++){
+					
+					tmp += "<li><img src="+ d.list[i].thumbnail +"><h4><input data-id="+ d.list[i].id +" class=\"galary-delete input-btn m-l-10\" type=\"button\" value=\"删除\" /></h4></li>"
+					
+				}
+				
+				
+				$("#galary_admin").html(tmp);
+				
+				
+				$(".galary-delete").click(function(){
+					$.cnuAction.configAdminGalaryDelete($(this).attr('data-id'))
+				})
+				
+				
+				
+            } else if (d.ec==-1 || ec==-5){
+				setFancyBox('操作超时,请重新登录')
+				setTimeout(function(){
+					location.href = './alumnus.html';
+				},2000)
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        })
+	},
+	
+	//删除印象首师图片
+	configAdminGalaryDelete: function(id){
+		var msg;
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/galary/'+ id +'/delete'),
+            type: 'POST',
+            dataType: "json",
+			data: {sid:$.cookie('sid'),id:id},
+			async: false
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+			console.log(d)
+			alert(d)
+            if(d.rc==1){
+				alert(2)
+				msg = '已删除';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==0) {
+				alert(3)
+				msg = '未知错误';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+			
+			if(d.rc==-1) {
+				alert(4)
+				msg = '查询对象不存在';
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000);
+            } 
+
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
 	}
+	
 }

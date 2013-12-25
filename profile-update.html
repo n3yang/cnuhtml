@@ -31,16 +31,8 @@
     
     <div class="nav-wrap base-clear">
     	<ul class="nav">
-        	<li><a href="./alumnus.html">校友信息</a></li>
-        	<li><a href="./dynamic.html">母校信息</a></li>
-        	<li><a href="personal.html">个人信息</a></li>
-        	<li id="sid_admin"><a href="./administration.html">管理</a></li>
-        	<li><a href="./setup.html">系统设置</a></li>
+        	<li><a href="javascript:;" onClick="javascript :history.back(-1);">返回上一页</a></li>
         </ul>
-        <div class="search-box">
-        	<input class="search-text" placeholder="找同学" type="text" />
-            <input class="search-btn" type="button"/>
-        </div>
     </div>
     
     <div class="m-d-20">
@@ -228,7 +220,10 @@
 
 
 <script type="text/javascript">
-
+function goHistory()
+{
+	window.history.go(-1);
+}
 //------- save node
 function saveNode(n){
     if ($(n).find("input[name='title']").val()==''){
@@ -253,10 +248,11 @@ function saveNode(n){
 
     $(n).ajaxSubmit(function(d){
         if (d.rc==1) {
-            setFancyBox('保存成功');
+            setFancyBox('保存成功，3秒后自动跳转');
             if (d.id!=undefined){
                 $(n).find('input[name=id]').val(d.id);
             }
+			setTimeout("goHistory()",3000);
         } else {
             setFancyBox('保存失败');
         }
@@ -395,8 +391,9 @@ $(function(){
         $(this).ajaxSubmit(function(d) {
             console.log(d);
             if( d.rc == 1 ){
-                setFancyBox("保存成功");
+                setFancyBox("保存成功，3秒后自动跳转");
                 if( d.id != undefined ){}
+				setTimeout("goHistory()",3000);
             }else{
                 setFancyBox("保存失败");
             }
