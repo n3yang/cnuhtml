@@ -9,8 +9,8 @@ jQuery.cnuAction = {
             rq = rq + '&' + index + '=' + val;
         });
         rq = rq.substring(1, rq.length);
-        // return 'proxy.php?pa='+p+'&'+rq;
-        return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
+         return 'proxy.php?pa='+p+'&'+rq;
+//        return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
@@ -172,6 +172,71 @@ jQuery.cnuAction = {
             $.cnuAction.accessFail();
         })
     },
+    
+    
+    adminMediaList:{},
+    adminMedia: function(type, page, num) {
+    	if (!page||page<1) {page=1;}
+    	if (!num) {num=20;}
+        $.ajax({
+            url: this.getBaseUrl('/media/list'),
+            type: 'get',
+            dataType: "json",
+            async: false,
+            data: {sid:$.cookie('sid'), type:type, page:page, num:num, previewLen:0}
+        })
+        .done(function(d){
+        	$.cnuAction.isLogined(d);
+        	$.cnuAction.adminMediaList = d.list;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+    },
+    
+    adminMediaTopList:{},
+    adminMediaTop: function(type) {
+        $.ajax({
+            url: this.getBaseUrl('/media/top/list'),
+            type: 'get',
+            dataType: "json",
+            async: false,
+            data: {sid:$.cookie('sid'), type:type}
+        })
+        .done(function(d){
+        	$.cnuAction.isLogined(d);
+        	$.cnuAction.adminMediaTopList = d.list;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+    },
+    
+    adminMediaDelete: function(id){
+        if (!id) {return false;}
+        $.ajax({
+            url: this.getBaseUrl('/admin/media/'+id+'/delete', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{id:"' + id + '"}'
+        })
+        .done(function(d) {
+            if (d.rc==1) {
+                setFancyBox('删除成功');
+//                $(box).remove();
+            } else if (d.rc==-1) {
+                setFancyBox('信息不存在');
+            } else {
+                setFancyBox('未知错误');
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+        
+    },
+
 
 	//设置普通列表
     mediaList: function (type, page, num, previewLen) {

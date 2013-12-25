@@ -19,7 +19,104 @@
 
 <link rel="stylesheet" type="text/css" href="css/jquery.fancybox-thumbs.css" />
 <script type="text/javascript" src="js/jquery.fancybox-thumbs.js"></script>
+<script type="text/javascript">
+$(function(){
+	// load media list and render
+	function loadMediaList(type, page, num){
+		$.cnuAction.adminMedia(type, page, num);
+		$.cnuAction.adminMediaTop(type);
+		$('#media_admin').empty();
+		if ($.cnuAction.adminMediaTopList.length>0){
+			$.each($.cnuAction.adminMediaTopList, function(i, v){
+				ml = $('#media_li_tpl').clone();
+				ml.attr('id', 'media_li_'+v.id);
+				ml.css('display','');
+				ml.find('.media-top').css('display', '');
+				ml.find('.media-title').text(v.title);
+				ml.find('.media-time').text(v.time);
+				ml.find("input[name='media_id']").val(v.id);
+				ml.appendTo('#media_admin');
+			});
+		}
+		if ($.cnuAction.adminMediaList.length>0){
+			$.each($.cnuAction.adminMediaList, function(i, v){
+				ml = $('#media_li_tpl').clone();
+				ml.attr('id', 'media_li_'+v.id);
+				ml.css('display','');
+				ml.find('.media-title').text(v.title);
+				ml.find('.media-time').text(v.time);
+				ml.find("input[name='media_id']").val(v.id);
+				ml.appendTo('#media_admin');
+			});
+		}
+	}
+	
+	$('#media_filter_type').change(function(){
+		type = $(this).val();
+		if (type>0){
+			loadMediaList(type);
+			$('#media_page_prev').attr('data-page-no', 0);
+			$('#media_page_next').attr('data-page-no', 2);
+		}
+	});
+	
+	$('#media_page_prev').click(function(){
+		if ($(this).attr('data-page-no')<1) { return false; }
+		loadMediaList($('#media_filter_type').val(), $(this).attr('data-page-no'));
+		$(this).attr('data-page-no', $(this).attr('data-page-no')-1);
+		$('#media_page_next').attr('data-page-no', $('#media_page_next').attr('data-page-no')-1);
+	});
+	$('#media_page_next').click(function(){
+		loadMediaList($('#media_filter_type').val(), $(this).attr('data-page-no'));
+		$(this).attr('data-page-no', $(this).attr('data-page-no')+1);
+		$('#media_page_prev').attr('data-page-no', $('#media_page_prev').attr('data-page-no')+1);
+	});
+	
+	
+	// 添加多张图片
+	media_pic_up_seq = 1;
+	$('#media_form #card_btn').click(function(){
+		dd = $('#media_pic_up_tpl').clone();
+		dd.attr('id', '');
+		dd.find('#n-pic').attr('name', 'pic_' + media_pic_up_seq);
+		media_pic_up_seq++;
+		dd.appendTo('#media_pic_dl');
+	});
+	
+	// 添加媒体
+	$('#media_form').submit(function (){
+		id = $(this).find('input[name=id]').val();
+        if (id==''){
+            formAction = $.cnuAction.getBaseUrl('/admin/media/create', $.cookie('sid'));
+        } else {
+            formAction = $.cnuAction.getBaseUrl('/admin/media/'+id+'/update', $.cookie('sid'));
+        }
+        $(this).attr('action', formAction);
+        // 表单判断
+        if ($('#a_title').val()==''
+            || $('#a_content').val()==''
+            || $('#p-type').val()=='') {
+            setFancyBox('标题，正文为必填项！');
+            return false;
+        }
 
+        // jquery.form 表单提交
+        $(this).ajaxSubmit(function(d) {
+            console.log(d);
+            if( d.rc == 1 ){
+                setFancyBox("保存成功");
+                if( d.id != undefined ){}
+            }else{
+                setFancyBox("保存失败");
+            }
+        });
+        return false;
+    });
+});
+
+
+
+</script>
 <title>首都师范大学校友会</title>
 
 </head>
@@ -142,26 +239,37 @@
         
         <div class="admin-box">
         	<div class="admin-title base-clear">
-            	<h3>媒体信息</h3>
+            	<h3>媒体信息
+            	<select id="media_filter_type">
+            		<option value="0" selected="selected">请选择一个类别</option>
+                    <option value="1">校友动态</option>
+                    <option value="2">通知公告</option>
+                    <option value="3">母校动态</option>
+                    <option value="4">回馈母校</option>
+            	</select>
+            	</h3>
                 <span><input id="new_media" class="input-btn" type="button" value="新建媒体信息" /></span>
             </div>
             <div class="admin-con">
-            	
                 <ul id="media_admin">
-                	<li>
+                </ul>
+                <ul style="display:none">
+                	<li id="media_li_tpl">
                     	<strong>
-                        	<em>类型：</em>
-                            <em>是否置顶：</em>
-                            <em>标题：</em>
+                            <em class="media-top" style="display:none">【置顶】</em>
+                            <em class="media-title"></em>
                         </strong>
                         <span>
-                        	<em>2013-10-20</em><input class="input-btn m-l-10" type="button" value="编辑" /><input class="input-btn m-l-10" type="button" value="删除" />
+                        	<em class="media-time"></em>
+                        	<input type="hidden" name="media_id" value="" />
+                        	<input class="input-btn m-l-10 media-edit" type="button" value="编辑" />
+                        	<input class="input-btn m-l-10 media-remove" type="button" value="删除" />
                         </span>
                     </li>
                 </ul>
                 <p>
-                    <div class="jogger"><a href="javascript:;" id="" date-page-no="0"> &lt; </a>
-                    <a href="javascript:;" id="" data-page-no="2"> &gt; </a></div>
+                    <div class="jogger"><a href="javascript:;" id="media_page_prev" data-page-no="0"> &lt; </a>
+                    <a href="javascript:;" id="media_page_next" data-page-no="2"> &gt; </a></div>
                 </p>
                 
             </div>
@@ -205,15 +313,15 @@
 
 <div id="media_admin_box">
     <div class="form-box">
-    	<form>
+    	<form id="media_form" action="" method="post" onsubmit="return saveMedia(this);" enctype="multipart/form-data">
             <h2 class="form-row-nolabel">编辑媒体信息</h2>
             <div class="form-row">
                 <label class="label-text">类型：</label>
                 <select class="" id="a_type" name="type">
                     <option value="1" selected="selected">校友动态</option>
-                    <option value="2" selected="selected">通知公告</option>
-                    <option value="3" selected="selected">母校动态</option>
-                    <option value="4" selected="selected">回馈母校</option>
+                    <option value="2">通知公告</option>
+                    <option value="3">母校动态</option>
+                    <option value="4">回馈母校</option>
                 </select>
                 <div class="tips-box"></div>
             </div>
@@ -224,45 +332,31 @@
             </div>
             <div class="form-row">
                 <label class="label-text">发布时间：</label>
-                <input id="a_time" name="time" class="input-text" type="text" />
+                <input id="a_time" name="time" class="input-text" type="text" placeholder="不填为当前时间" />
                 <div class="tips-box"></div>
             </div>
             <div class="form-row">
                 <label class="label-text">是否置顶：</label>
                 <select class="" id="a_top" name="top">
-                    <option value="1" selected="selected">是</option>
+                    <option value="1">是</option>
                     <option value="0" selected="selected">否</option>
                 </select>
                 <div class="tips-box"></div>
             </div>
             <div class="form-row base-clear">
                 <label class="label-text" style="float:left;">媒体图片：</label>
-                
-                <dl>
+                <dl id="media_pic_dl">
                     <dt><input id="card_btn" class="input-btn" type="button" value="添加图片" /></dt>
-                    <dd>
-                        <img src="images/icon06.gif" />
-                        <h4>
-                            <input class="input-btn" type="button" value="删除" />
-                        </h4>
+                    
+                </dl>
+                <dl style="display:none">
+                	<dd id="media_pic_up_tpl">
+                    	<input id="n-pic" name="pic" class="input-text" type="file" data-no="1" />
                     </dd>
-                    <dd>
-                        <img src="images/icon06.gif" />
-                        <h4>
-                            <input class="input-btn" type="button" value="删除" />
-                        </h4>
-                    </dd>
-                    <dd>
-                        <img src="images/icon06.gif" />
-                        <h4>
-                            <input class="input-btn" type="button" value="删除" />
-                        </h4>
-                    </dd>
-                    <dd>
-                        <img src="images/icon06.gif" />
-                        <h4>
-                            <input class="input-btn" type="button" value="删除" />
-                        </h4>
+                    <dd id="media_pic_show_tpl">
+                    	<img src="" />
+                        <input type="hidden" name="pic_id" id="pic_id" value="" />
+                        <h4><input id="" class="input-btn" type="button" value="删除" /></h4>
                     </dd>
                 </dl>
                 
@@ -273,6 +367,7 @@
                 <div class="tips-box"></div>
             </div>
             <div class="form-row form-row-nolabel">
+            	<input type="hidden" name="id" value="" />
                 <input id="card_btn" class="input-btn" type="submit" value="保存" />
             </div>
         </form>
