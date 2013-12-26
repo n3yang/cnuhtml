@@ -67,14 +67,18 @@ $(function(){
 		})
 		
 
-
+		//remove
         $('.media-remove').unbind('click').click(function() {
             id = $(this).prevAll("input[name='media_id']").val();
-            $.cnuAction.adminMediaDelete(id);
-            $(this).parent().parent().remove();
+			if($.cnuAction.adminMediaDelete(id)){
+				$(this).parent().parent().remove();
+			}            
         });
 
 	}
+	
+	
+	
 	
 	//NewMediaBtn bind Event
 	$("#new_media").click(function(){
@@ -115,9 +119,9 @@ $(function(){
 	$('#add_pic_btn').click(function(){
 		dd = $('#media_pic_up_tpl').clone();
 		dd.attr('id', '');
-		dd.find('#n-pic').attr('name', 'pic_' + media_pic_up_seq);
+		dd.find('#n-pic').attr('name', 'pic-' + media_pic_up_seq);
 		media_pic_up_seq++;
-		dd.appendTo('#media_pic_dl');
+		dd.insertBefore('#add-site');
 	});
 	
 	// 设置弹出表单
@@ -150,14 +154,28 @@ $(function(){
 						t.attr("id",'media_pic_show'+d.pics[i].id);
 						t.find('img').attr('src',d.pics[i].url);
 						t.find("input[name='pic_id']").val(d.pics[i].id);
-						t.find("input[type='button']").attr('id',d.pics[i].id);
+						t.find("input[type='button']").attr({
+							'data-pic-id': d.pics[i].id,
+							'data-media-id': id
+						});
 						t.appendTo('#media_pic_dl');
 					}
 				}
-				f.find("textarea[name='content']").val(d.content);
+				f.find("textarea[name='content']").text(d.content);
 			}
 		}
+		
+		//removePic(this)
+		$(".remove-pic").click(function(){
+			var mid = $(this).attr('data-pic-id'),
+				pid = $(this).attr('data-media-id');
+			if($.cnuAction.adminMediaPicDelete(mid,pid)){
+				$(this).parent().parent().remove();
+			}
+		})
+		
 	}
+
 	
 	// 添加媒体
 	$('#media_form').submit(function (){
@@ -168,10 +186,13 @@ $(function(){
             formAction = $.cnuAction.getBaseUrl('/admin/media/'+id+'/update', $.cookie('sid'));
         }
         $(this).attr('action', formAction);
+		
         // 表单判断
+		
+		
         if ($('#a_title').val()==''
-            || $('#a_content').val()==''
-            || $('#p-type').val()=='') {
+            || $('#a_content').text()==''
+            || $('#a_type').val()=='') {
             alert('标题，正文为必填项！');
             return false;
         }
@@ -180,6 +201,11 @@ $(function(){
         $(this).ajaxSubmit(function(d) {
             if( d.rc == 1 ){
                 setFancyBox("保存成功");
+				
+				setTimeout(function(){
+					window.location.reload(true);
+				},2000)
+				
                 if( d.id != undefined ){}
             }else{
                 setFancyBox("保存失败");
@@ -421,7 +447,7 @@ $(function(){
             <div class="form-row base-clear">
                 <label class="label-text" style="float:left;">媒体图片：</label>
                 <dl id="media_pic_dl">
-                    <dt><input id="add_pic_btn" class="input-btn" type="button" value="添加图片" /></dt>
+                    <dt id="add-site"><input id="add_pic_btn" class="input-btn" type="button" value="添加图片" /></dt>
                     
                 </dl>
                 <dl style="display:none">
@@ -431,7 +457,7 @@ $(function(){
                     <dd id="media_pic_show_tpl">
                     	<img src="" />
                         <input type="hidden" name="pic_id" id="pic_id" value="" />
-                        <h4><input id="" class="input-btn" type="button" value="删除" onclick="removePic(this)" /></h4>
+                        <h4><input id="" class="input-btn remove-pic" type="button" value="删除" /></h4>
                     </dd>
                 </dl>
                 
@@ -456,7 +482,7 @@ $(function(){
         	<h2 class="form-row-nolabel">上传印象首师图片</h2>
             <div class="form-row">
                 <label class="label-text">标题：</label>
-                <input id="a_title" name="title" class="input-text" type="text" />
+                <input id="p_title" name="p-title" class="input-text" type="text" />
                 <div class="tips-box"></div>
             </div>
             <div class="form-row">

@@ -224,10 +224,13 @@ jQuery.cnuAction = {
         .done(function(d) {
             if (d.rc==1) {
                 setFancyBox('删除成功');
+				return true;
             } else if (d.rc==-1) {
                 setFancyBox('信息不存在');
+				return false;
             } else {
                 setFancyBox('未知错误');
+				return false;
             }
         })
         .fail(function() {
@@ -235,7 +238,36 @@ jQuery.cnuAction = {
         });
         
     },
-
+	
+	//从媒体信息删除图片
+    adminMediaPicDelete: function(mid,pid){
+        if (!mid) {return false;}
+        if (!pid) {return false;}
+		
+        $.ajax({
+            url: this.getBaseUrl('/admin/media/'+ mid +'/pic/'+ pid +'/delete', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{id:"' + mid + '",pid:"' + pid + '"}'
+        })
+        .done(function(d) {
+            if (d.rc==1) {
+                setFancyBox('删除成功');
+				return true;
+            } else if (d.rc==-1) {
+                setFancyBox('信息不存在');
+				return false;
+            } else {
+                setFancyBox('未知错误');
+				return false;
+            }
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+        
+    },
 
 	//设置普通列表
     mediaList: function (type, page, num, previewLen) {
