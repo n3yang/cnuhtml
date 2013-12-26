@@ -70,9 +70,8 @@ $(function(){
 		//remove
         $('.media-remove').unbind('click').click(function() {
             id = $(this).prevAll("input[name='media_id']").val();
-			if($.cnuAction.adminMediaDelete(id)){
-				$(this).parent().parent().remove();
-			}            
+            $.cnuAction.adminMediaDelete(id);
+            $(this).parent().parent().remove();
         });
 
 	}
@@ -148,6 +147,7 @@ $(function(){
 				f.find("input[name='title']").val(d.title);
 				f.find("input[name='time']").val(d.time);
 				f.find("select[name='top']").val(top);
+                f.find("input[name='id']").val(id);
 				$('#media_pic_dl dd').remove();
 				if(d.pics.length>0){
 					for(var i=0;i<d.pics.length;i++){
@@ -190,11 +190,12 @@ $(function(){
         $(this).attr('action', formAction);
 		
         // 表单判断
-		
-		
         if ($('#a_title').val()==''
-            || $('#a_content').text()==''
+            || $('#a_content').val()==''
             || $('#a_type').val()=='') {
+            console.log($('#a_title').val());
+            console.log($('#a_content').val());
+            console.log($('#a_type').val());
             alert('标题，正文为必填项！');
             return false;
         }
@@ -203,11 +204,9 @@ $(function(){
         $(this).ajaxSubmit(function(d) {
             if( d.rc == 1 ){
                 setFancyBox("保存成功");
-				
-				setTimeout(function(){
-					window.location.reload(true);
-				},2000)
-				
+                setTimeout(function(){
+                    loadMediaList($('#media_filter_type').val());
+                },2000)
                 if( d.id != undefined ){}
             }else{
                 setFancyBox("保存失败");

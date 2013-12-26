@@ -250,7 +250,7 @@ jQuery.cnuAction = {
             type: 'POST',
             contentType: 'application/json',
             dataType: "json",
-            data: '{id:"' + mid + '",pid:"' + pid + '"}',
+            data: '{id:"' + mid + '",picId:"' + pid + '"}',
             async: false
         })
         .done(function(d) {
