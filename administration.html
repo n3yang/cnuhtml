@@ -66,6 +66,14 @@ $(function(){
 			$.fancybox($("#media_admin_box"));
 		})
 		
+
+
+        $('.media-remove').unbind('click').click(function() {
+            id = $(this).prevAll("input[name='media_id']").val();
+            $.cnuAction.adminMediaDelete(id);
+            $(this).parent().parent().remove();
+        });
+
 	}
 	
 	//NewMediaBtn bind Event
@@ -73,6 +81,7 @@ $(function(){
 		setMediaForm(-1)
 		$.fancybox($("#media_admin_box"));
 	})
+
 	
 	
 	
@@ -163,7 +172,7 @@ $(function(){
         if ($('#a_title').val()==''
             || $('#a_content').val()==''
             || $('#p-type').val()=='') {
-            setFancyBox('标题，正文为必填项！');
+            alert('标题，正文为必填项！');
             return false;
         }
 
@@ -422,7 +431,7 @@ $(function(){
                     <dd id="media_pic_show_tpl">
                     	<img src="" />
                         <input type="hidden" name="pic_id" id="pic_id" value="" />
-                        <h4><input id="" class="input-btn" type="button" value="删除" /></h4>
+                        <h4><input id="" class="input-btn" type="button" value="删除" onclick="removePic(this)" /></h4>
                     </dd>
                 </dl>
                 
