@@ -9,8 +9,8 @@ jQuery.cnuAction = {
             rq = rq + '&' + index + '=' + val;
         });
         rq = rq.substring(1, rq.length);
-         return 'proxy.php?pa='+p+'&'+rq;
-//        return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
+         //return 'proxy.php?pa='+p+'&'+rq;
+         return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
@@ -1233,7 +1233,7 @@ jQuery.cnuAction = {
 	//印象首师图片列表
 	configAdminGalaryList: function(page,num){
 		if(!page){page=1};
-		if(!num){num=10};
+		if(!num){num=50};
 		
 		var tmp='';
 		
@@ -1293,18 +1293,14 @@ jQuery.cnuAction = {
         })
         .done(function(d) {
             $.cnuAction.isLogined(d);
-			console.log(d)
-			alert(d)
             if(d.rc==1){
-				alert(2)
 				msg = '已删除';
 				setTimeout(function(){
 					window.location.reload(true);
-				},2000);
+				},500);
             } 
 			
 			if(d.rc==0) {
-				alert(3)
 				msg = '未知错误';
 				setTimeout(function(){
 					window.location.reload(true);
@@ -1312,7 +1308,6 @@ jQuery.cnuAction = {
             } 
 			
 			if(d.rc==-1) {
-				alert(4)
 				msg = '查询对象不存在';
 				setTimeout(function(){
 					window.location.reload(true);
