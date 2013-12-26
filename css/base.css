@@ -470,6 +470,10 @@ div.jogger a.disabled {
 	margin-right:10px;
 	margin-bottom:10px;
 }
+.form-row dd img{
+	width:120px;
+	height:120px;
+}
 .form-row h4{
 	width:120px;
 	text-align:center;

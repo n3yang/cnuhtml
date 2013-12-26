@@ -33,6 +33,10 @@ $(function(){
 				ml.attr('id', 'media_li_'+v.id);
 				ml.css('display','');
 				ml.find('.media-top').css('display', '');
+				ml.find('.media-edit').attr({
+					'data-id':v.id,
+					'data-top':1
+				});
 				ml.find('.media-title').text(v.title);
 				ml.find('.media-time').text(v.time);
 				ml.find("input[name='media_id']").val(v.id);
@@ -44,21 +48,44 @@ $(function(){
 				ml = $('#media_li_tpl').clone();
 				ml.attr('id', 'media_li_'+v.id);
 				ml.css('display','');
+				ml.find('.media-top').css('display', 'none');
+				ml.find('.media-edit').attr({
+					'data-id':v.id,
+					'data-top':0
+				});
 				ml.find('.media-title').text(v.title);
 				ml.find('.media-time').text(v.time);
 				ml.find("input[name='media_id']").val(v.id);
 				ml.appendTo('#media_admin');
 			});
 		}
+		
+		//MediaEditBtn bind Event 
+		$('.media-edit').unbind('click').click(function(){
+			setMediaForm($(this).attr('data-id'),$(this).attr('data-top'))
+			$.fancybox($("#media_admin_box"));
+		})
+		
 	}
+	
+	//NewMediaBtn bind Event
+	$("#new_media").click(function(){
+		setMediaForm(-1)
+		$.fancybox($("#media_admin_box"));
+	})
+	
+	
 	
 	$('#media_filter_type').change(function(){
 		type = $(this).val();
 		if (type>0){
+
 			loadMediaList(type);
+			
 			$('#media_page_prev').attr('data-page-no', 0);
 			$('#media_page_next').attr('data-page-no', 2);
 		}
+		
 	});
 	
 	$('#media_page_prev').click(function(){
@@ -76,13 +103,52 @@ $(function(){
 	
 	// 添加多张图片
 	media_pic_up_seq = 1;
-	$('#media_form #card_btn').click(function(){
+	$('#add_pic_btn').click(function(){
 		dd = $('#media_pic_up_tpl').clone();
 		dd.attr('id', '');
 		dd.find('#n-pic').attr('name', 'pic_' + media_pic_up_seq);
 		media_pic_up_seq++;
 		dd.appendTo('#media_pic_dl');
 	});
+	
+	// 设置弹出表单
+	function setMediaForm(id,top){
+		
+		var d = {},
+			f = $('#media_form'),
+			n = 0;
+			
+		$.cnuAction.mediaDetail(id);
+		d = $.cnuAction.mediaDetailList;
+		
+		if(id==-1){
+			f.find("select[name='type']").val('');
+			f.find("input[name='title']").val('');
+			f.find("input[name='time']").val('');
+			f.find("select[name='top']").val('');
+			$('#media_pic_dl dd').remove();
+			f.find("textarea[name='content']").val('');
+		}else{
+			if(!!d){
+				f.find("select[name='type']").val(d.type);
+				f.find("input[name='title']").val(d.title);
+				f.find("input[name='time']").val(d.time);
+				f.find("select[name='top']").val(top);
+				$('#media_pic_dl dd').remove();
+				if(d.pics.length>0){
+					for(var i=0;i<d.pics.length;i++){
+						var t = $('#media_pic_show_tpl').clone();
+						t.attr("id",'media_pic_show'+d.pics[i].id);
+						t.find('img').attr('src',d.pics[i].url);
+						t.find("input[name='pic_id']").val(d.pics[i].id);
+						t.find("input[type='button']").attr('id',d.pics[i].id);
+						t.appendTo('#media_pic_dl');
+					}
+				}
+				f.find("textarea[name='content']").val(d.content);
+			}
+		}
+	}
 	
 	// 添加媒体
 	$('#media_form').submit(function (){
@@ -313,7 +379,7 @@ $(function(){
 
 <div id="media_admin_box">
     <div class="form-box">
-    	<form id="media_form" action="" method="post" onsubmit="return saveMedia(this);" enctype="multipart/form-data">
+    	<form id="media_form" action="" method="post" onsubmit="" enctype="multipart/form-data">
             <h2 class="form-row-nolabel">编辑媒体信息</h2>
             <div class="form-row">
                 <label class="label-text">类型：</label>
@@ -346,7 +412,7 @@ $(function(){
             <div class="form-row base-clear">
                 <label class="label-text" style="float:left;">媒体图片：</label>
                 <dl id="media_pic_dl">
-                    <dt><input id="card_btn" class="input-btn" type="button" value="添加图片" /></dt>
+                    <dt><input id="add_pic_btn" class="input-btn" type="button" value="添加图片" /></dt>
                     
                 </dl>
                 <dl style="display:none">
@@ -416,12 +482,6 @@ $(function(){
 		$(".admin-box").hide().eq(i).show();
 		
 	})	
-	
-	$("#new_media").click(function(){
-		
-		$.fancybox($("#media_admin_box"));
-		
-	})
 	
 	$("#new_galary").click(function(){
 		

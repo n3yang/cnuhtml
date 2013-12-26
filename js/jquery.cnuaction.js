@@ -224,7 +224,6 @@ jQuery.cnuAction = {
         .done(function(d) {
             if (d.rc==1) {
                 setFancyBox('删除成功');
-//                $(box).remove();
             } else if (d.rc==-1) {
                 setFancyBox('信息不存在');
             } else {
@@ -374,22 +373,26 @@ jQuery.cnuAction = {
 	},
 	
 	//设置文章详情
-	mediaDetail: function(){
-		var detailId =  this.getQueryStringByName('detailId');
+	mediaDetailList:{},
+	mediaDetail: function(id){
+		if(!id) { id = this.getQueryStringByName('detailId') };
 		sid = $.cookie('sid');
 		
         $.ajax({
-            url: this.getBaseUrl('/media/'+ detailId +'/detail'),
+            url: this.getBaseUrl('/media/'+ id +'/detail'),
             type: 'get',
             dataType: "json",
-            data: {sid:sid}
+            data: {sid:sid},
+			async:false
         })
         .done(function(d) {
 			$.cnuAction.isLogined(d);
             if (d.rc==1) {
-               bt = baidu.template;
-			   $('#details_wrap').html( bt('t:tpl-new-detail',d) );
-			   $("#detail_content").html($.cnuAction.convert2HTML(d.content));
+				$.cnuAction.mediaDetailList = d;
+				
+                bt = baidu.template;
+			    $('#details_wrap').html( bt('t:tpl-new-detail',d) );
+			    $("#detail_content").html($.cnuAction.convert2HTML(d.content));
             }
         })
         .fail(function() {
