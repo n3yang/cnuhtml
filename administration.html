@@ -169,8 +169,8 @@ $(function(){
 		
 		//removePic(this)
 		$(".remove-pic").click(function(){
-			var mid = $(this).attr('data-pic-id'),
-				pid = $(this).attr('data-media-id');
+			var pid = $(this).attr('data-pic-id'),
+				mid = $(this).attr('data-media-id');
 			if($.cnuAction.adminMediaPicDelete(mid,pid)){
 				$(this).parent().parent().remove();
 			}

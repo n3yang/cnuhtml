@@ -312,12 +312,12 @@ jQuery.cnuAction = {
 					if ($(this).attr('data-page-no')<1) {
 						return false;
 					}
-					this.mediaList(current_type, $(this).attr('data-page-no'));
+					$.cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
 					$(this).attr('data-page-no', $(this).attr('data-page-no')-1);
 					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')-1);
 				});
 				$('#a-next-page').click(function(event) {
-					this.mediaList(current_type, $(this).attr('data-page-no'));
+					$.cnuAction.mediaList(current_type, $(this).attr('data-page-no'));
 					$(this).attr('data-page-no', $(this).attr('data-page-no')+1);
 					$('#a-prev-page').attr('data-page-no', $('#a-prev-page').attr('data-page-no')+1);
 				});
