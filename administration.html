@@ -103,13 +103,13 @@ $(function(){
 	$('#media_page_prev').click(function(){
 		if ($(this).attr('data-page-no')<1) { return false; }
 		loadMediaList($('#media_filter_type').val(), $(this).attr('data-page-no'));
-		$(this).attr('data-page-no', $(this).attr('data-page-no')-1);
-		$('#media_page_next').attr('data-page-no', $('#media_page_next').attr('data-page-no')-1);
+		$(this).attr('data-page-no', $(this).attr('data-page-no')-0-1);
+		$('#media_page_next').attr('data-page-no', $('#media_page_next').attr('data-page-no')-0-1);
 	});
 	$('#media_page_next').click(function(){
 		loadMediaList($('#media_filter_type').val(), $(this).attr('data-page-no'));
-		$(this).attr('data-page-no', $(this).attr('data-page-no')+1);
-		$('#media_page_prev').attr('data-page-no', $('#media_page_prev').attr('data-page-no')+1);
+		$(this).attr('data-page-no', $(this).attr('data-page-no')-0+1);
+		$('#media_page_prev').attr('data-page-no', $('#media_page_prev').attr('data-page-no')-0+1);
 	});
 	
 	
