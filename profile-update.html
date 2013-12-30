@@ -367,21 +367,29 @@ $(function(){
             setFancyBox('姓名、性别、类型为必填项！');
             return false;
         }
+        var errorMsg = '';
         if ($('#p-type').val()==1){
-            if($('#p-deptId').val()==''
-                || $('#p-majorId').val()==''
-                || $('#p-clazz').val()==''
-                || $('#p-adYear').val()==''){
-                setFancyBox('请填写所属院校信息');
+            if($('#p-deptId').val()==''){
+                errorMsg = '请选择院系';
+            } else if ($('#p-majorId').val()==''){
+                errorMsg = '请选择专业';
+            } else if ($('#p-clazz').val()==''){
+                errorMsg = '请输入班级';
+            } else if ($('#p-adYear').val()==''){
+                errorMsg = '请输入入学年份';
+            }
+            if (errorMsg.length>0) {
+                setFancyBox(errorMsg);
                 return false;
             }
         }
         if ($('#p-type').val()==2){
             // org1Id org2Id empNo no null
-            if ($('#p-org1Id').val()==''
-                || $('#p-org2Id').val()==''
-                || $('#p-empNo').val()==''){
-                setFancyBox('请填写所属组织的信息');
+            if ($('#p-org1Id').val()=='' || $('#p-org2Id').val()==''){
+                setFancyBox('请选择组织结构');
+                return false;
+            } else if ($('#p-empNo').val()==''){
+                setFancyBox('请输入工号');
                 return false;
             }
         }
