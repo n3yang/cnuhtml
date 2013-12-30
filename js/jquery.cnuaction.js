@@ -1333,7 +1333,7 @@ jQuery.cnuAction = {
             if(d.rc==1){
 				msg = '已删除';
 				setTimeout(function(){
-					window.location.reload(true);
+					$.cnuAction.configAdminGalaryList();
 				},500);
             } 
 			

@@ -542,8 +542,8 @@ $(function(){
 		
 		$(this).ajaxSubmit(function(d) {
 			if( d.rc == 1 ){
-				alert(1)
 				setFancyBox("保存成功");
+                $.cnuAction.configAdminGalaryList();
 				if( d.id != undefined ){}
 			}else{
 				setFancyBox("保存失败");
