@@ -31,7 +31,7 @@
     
     <div class="nav-wrap base-clear">
     	<ul class="nav">
-        	<li><a href="javascript:;" onClick="javascript :history.back(-1);">返回上一页</a></li>
+        	<li><a href="javascript:;" onclick="javascript :history.back(-1);">返回上一页</a></li>
         </ul>
     </div>
     
@@ -235,6 +235,18 @@ function saveNode(n){
     }
     if ($(n).find("input[name='stime']").val()==''){
         setFancyBox('请输入开始时间');
+        return false;
+    }
+    if (/^1[3|4|5|8][0-9]{9}$/.test($(n).find("input[name='mobile']").val())){
+        setFancyBox('请输入正确的手机号码');
+        return false;
+    }
+    if (/^[0-9a-z_][_.0-9a-z-]{0,31}@([0-9a-z][0-9a-z-]{0,30}\.){1,4}[a-z]{2,4}$/.test($(n).find("input[name='email']").val())){
+        setFancyBox('请输入正确的邮箱地址');
+        return false;
+    }
+    if (/[1-9][0-9]{4,}/.test($(n).find("input[name='qq']").val())){
+        setFancyBox('请输入正确的qq号');
         return false;
     }
     
