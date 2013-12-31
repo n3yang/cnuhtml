@@ -1130,7 +1130,7 @@ jQuery.cnuAction = {
             if(d.rc==1){
 				msg = '批准成功';
 				setTimeout(function(){
-					window.location.reload(true);
+					$.cnuAction.configAdminCollegeCardApplyList();
 				},2000);
             } 
 			
@@ -1234,7 +1234,7 @@ jQuery.cnuAction = {
             if(d.rc==1){
 				msg = '已处理';
 				setTimeout(function(){
-					window.location.reload(true);
+					$.cnuAction.configAdminCollegeFeedbackApplyList();
 				},2000);
             } 
 			
