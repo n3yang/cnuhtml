@@ -261,11 +261,11 @@ function saveNode(n){
 
     $(n).ajaxSubmit(function(d){
         if (d.rc==1) {
-            setFancyBox('保存成功，3秒后自动跳转');
+            setFancyBox('保存成功');
             if (d.id!=undefined){
                 $(n).find('input[name=id]').val(d.id);
             }
-			setTimeout("goHistory()",3000);
+			// setTimeout("goHistory()",3000);
         } else {
             setFancyBox('保存失败');
         }
@@ -413,9 +413,8 @@ $(function(){
         $(this).ajaxSubmit(function(d) {
             console.log(d);
             if( d.rc == 1 ){
-                setFancyBox("保存成功，3秒后自动跳转");
+                setFancyBox("保存成功");
                 if( d.id != undefined ){}
-				setTimeout("goHistory()",3000);
             }else{
                 setFancyBox("保存失败");
             }
