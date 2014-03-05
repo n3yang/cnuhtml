@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
 $(function() {
-    $("#login-btn").click(function() {
+    $("#login-form").submit(function() {
         username = $("#login-email").val();
         password = $("#login-password").val();
         if (username=='') {
@@ -33,6 +33,7 @@ $(function() {
             $(this).html("<img src='images/loadinfo.gif' />登录中")
             $.cnuAction.login(username, password);
         }
+        return false;
     });
 
     $("#reg-btn").click(function() {
@@ -108,24 +109,26 @@ $(function() {
         <div class="login-box">
         	<div class="form-box">
             	<h2 class="form-row-nolabel">登录</h2>
-            	<div class="form-row">
-                	<label class="label-text">邮箱</label>
-                    <input id="login-email" class="input-text" type="text" />
-                    <div class="tips-box"></div>
-                </div>
-            	<div class="form-row">
-                	<label class="label-text">密码</label>
-                    <input id="login-password" class="input-text" type="password" autocomplete="off" />
-                    <div class="tips-box"></div>
-                </div>
-            	<div class="form-row form-row-nolabel">
-                	<input id="login-rememberme" class="input-checkbox" type="checkbox" checked="checked"/>
-                	<label class="label-checkbox">记住我（有效期一个月）</label>
-                    <div class="tips-box"></div>
-                </div>
-            	<div class="form-row form-row-nolabel">
-                    <a id="login-btn" class="input-btn">登录</a>
-                </div>
+                <form id="login-form">
+                	<div class="form-row">
+                    	<label class="label-text">邮箱</label>
+                        <input id="login-email" class="input-text" type="text" />
+                        <div class="tips-box"></div>
+                    </div>
+                	<div class="form-row">
+                    	<label class="label-text">密码</label>
+                        <input id="login-password" class="input-text" type="password" autocomplete="off" />
+                        <div class="tips-box"></div>
+                    </div>
+                	<div class="form-row form-row-nolabel">
+                    	<input id="login-rememberme" class="input-checkbox" type="checkbox" checked="checked" />
+                    	<label class="label-checkbox">记住我（有效期一个月）</label>
+                        <div class="tips-box"></div>
+                    </div>
+                	<div class="form-row form-row-nolabel">
+                        <input type="submit" id="login-btn" class="input-btn" value="登录" />
+                    </div>
+                </form>
             </div>
         </div>
         

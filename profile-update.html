@@ -358,7 +358,8 @@ $(function(){
         if ($.cnuAction.proFile.rc==-1 || $.cnuAction.proFile.rc==0) {
             return;
         }
-        if ($.cnuAction.proFile.length>0){
+
+        if ($.cnuAction.proFile.ec != undefined){
             $.each($.cnuAction.proFile, function(i, v) {
                 $('#p-form #p-'+i).val(v);
             });
@@ -413,7 +414,11 @@ $(function(){
         $(this).ajaxSubmit(function(d) {
             console.log(d);
             if( d.rc == 1 ){
-                setFancyBox("保存成功");
+                if ($.cookie('status')==-1) {
+                    setFancyBox("保存成功，请等待管理员审核");
+                } else {
+                    setFancyBox("保存成功");
+                }
                 if( d.id != undefined ){}
             }else{
                 setFancyBox("保存失败");
@@ -471,7 +476,7 @@ $(function(){
 $.datepicker.setDefaults({
     changeMonth: true,
     changeYear: true,
-    dateFormat: "yyyy-mm-dd",
+    dateFormat: "yy-mm",
     monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"]
 });
 $('.jqueryui-datepicker').datepicker();
