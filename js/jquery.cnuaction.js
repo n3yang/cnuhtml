@@ -1357,6 +1357,367 @@ jQuery.cnuAction = {
         .fail(function() {
             $.cnuAction.accessFail();
         });
-	}
-	
+	},
+
+    
+    //推荐圈子列表
+    groupList : {},
+    configGroupList: function(page,num){
+        if (!page) {page=1}
+        if (!num) {num=10}
+        
+        $.ajax({
+            url: this.getBaseUrl('/group/list'),
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+                setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+                setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.groupList = d;
+                setGroupList();
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+
+    },
+
+    //我创建圈子列表
+    groupMyList : {},
+    configGroupMyList: function(page,num){
+        if (!page) {page=1}
+        if (!num) {num=20}
+        
+        $.ajax({
+            url: this.getBaseUrl('/group/my/list'),
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+                setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+                setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.groupMyList = d;
+                setGroupMyList();
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+
+    },
+
+    //我创建圈子列表
+    groupMeList : {},
+    configGroupMeList: function(page,num){
+        if (!page) {page=1}
+        if (!num) {num=20}
+        
+        $.ajax({
+            url: this.getBaseUrl('/group/me/list'),
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+                setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+                setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.groupMeList = d;
+                setGroupMeList();
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+
+    },
+
+    
+    //加入圈子
+    configGroupJoin: function(id){
+        $.ajax({
+            url: this.getBaseUrl('/group/'+ id +'/join', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: ''
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            
+            if(d.rc==1){
+                msg = '加入成功';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==0) {
+                msg = '未知错误';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==-1) {
+                msg = 'ID不存在';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==-2) {
+                msg = '已经加入过该圈子';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+    },
+
+    //删除圈子
+    configGroupDelete: function(id){
+
+        $.ajax({
+            url: this.getBaseUrl('/group/'+ id +'/delete', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: ''
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            
+            if(d.rc==1){
+                msg = '删除成功';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==0) {
+                msg = '未知错误';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==-1) {
+                msg = 'ID不存在';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+
+        event.stopPropagation();
+    },
+
+    //退出圈子
+    configGroupQuit: function(id){
+        $.ajax({
+            url: this.getBaseUrl('/group/'+ id +'/quit', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: ''
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            
+            if(d.rc==1){
+                msg = '退出成功';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==0) {
+                msg = '未知错误';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==-1) {
+                msg = 'ID不存在';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            if(d.rc==-2) {
+                msg = '没有加入过该圈子';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            } 
+            
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+
+        event.stopPropagation();
+    },
+
+    //创建圈子
+    configGroupCreate: function(name, desc){
+
+        $.ajax({
+            url: this.getBaseUrl('/group/create', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{name:"' + name + '",desc:"' + desc + '"}'
+        })
+        .done(function(d) {
+            $.cnuAction.isLogined(d);
+            
+            if(d.rc==1){
+                msg = '创建成功';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            }else{
+                if(d.rc==0) {
+                    msg = '未知错误';
+                    setTimeout(function(){
+                        window.location.reload(true);
+                    },2000);
+                    return
+                }
+                msg = '创建失败';
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            }
+            
+            
+            setFancyBox(msg);
+            return;
+        })
+        .fail(function() {
+            $.cnuAction.accessFail();
+        });
+
+        event.stopPropagation();
+    },
+
+    //获取圈子发言列表
+    groupCommentList : {},
+    configGroupCommentList: function(id,page,num){
+
+        if (!page) {page=1}
+        if (!num) {num=20}
+
+        $.ajax({
+            url: this.getBaseUrl('/group/'+ id +'/comment/list'),
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),page:page,num:num},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+                setFancyBox('查询对象不存在')
+                return;
+            }
+            if (d.rc==0) {
+                setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.groupCommentList = d;
+                setGroupCommentList();
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+
+    },
+
+    //发言
+    configGroupCommentCreate: function(content, resTo, id){
+
+        if(!id){id=gid}
+        if(!resTo){resTo = 0}
+
+        $.ajax({
+            url: this.getBaseUrl('/group/'+ id +'/comment/create', $.cookie('sid')),
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: "json",
+            data: '{content:"' + content + '",resTo:"' + resTo + '"}'
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==-1) {
+                setFancyBox('圈子ID不存在')
+                return;
+            }
+            if (d.rc==0) {
+                setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                setFancyBox('发布成功')
+                setTimeout(function(){
+                    window.location.reload(true);
+                },2000);
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
+
+    }
+
 }

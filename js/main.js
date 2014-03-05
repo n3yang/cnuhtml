@@ -2,6 +2,7 @@
 $(function(){
 	$.cnuAction.isAdmin();
 	$.cnuAction.setFriendsSearch();
+
 })
 
 
@@ -13,7 +14,6 @@ function setTimeLine(id){
 		c: id
 	};
 	
-		
 	date.a = $.cnuAction.timeLineList;
 	
 	date.b = $.cnuAction.proFile;
@@ -28,7 +28,7 @@ function setTimeLine(id){
 	   $(".main li").click(function(){
 		   
 		    $.cnuAction.configNewfriendsList($(this).attr("data-id"));
-			
+			 
 		}).eq(0).click();
 		
 	}else{
@@ -49,7 +49,6 @@ function setNewFriendsList(){
 	
 };
 
-
 function setFriendsList(){
 	   
 	   bt = baidu.template;
@@ -69,6 +68,47 @@ function setSearchList(){
 		}).click(function(){
 			$.cnuAction.timeline($(this).attr("data-id"));
 		});
+	
+};
+
+
+function setGroupList(){
+	
+	   bt = baidu.template;
+	   $('#rec_circle').html( bt('t:rec-circle-list',$.cnuAction.groupList) ).find("li").hover(function(event){
+			$(this).toggleClass("active");
+		}).click(function(){
+			$.cnuAction.configGroupJoin($(this).attr("data-id"));
+		});
+	
+};
+
+function setGroupMyList(){
+	
+	   bt = baidu.template;
+	   $('#my-circle').html( bt('t:my-circle',$.cnuAction.groupMyList) ).find("li").hover(function(event){
+			$(this).toggleClass("active");
+		}).click(function(){
+			location.href = './group.html?gid='+encodeURIComponent($(this).attr("data-id"))+'&name='+encodeURIComponent($(this).attr("data-name"));	
+		});
+	
+};
+
+function setGroupMeList(){
+	
+	   bt = baidu.template;
+	   $('#my-follow-circle').html( bt('t:my-follow-circle',$.cnuAction.groupMeList) ).find("li").hover(function(event){
+			$(this).toggleClass("active");
+		}).click(function(){
+			location.href = './group.html?gid='+encodeURIComponent($(this).attr("data-id"))+'&name='+encodeURIComponent($(this).attr("data-name"));
+		});
+	
+};
+
+function setGroupCommentList(){
+	
+	   bt = baidu.template;
+	   $('#group-box').html( bt('t:group-list',$.cnuAction.groupCommentList) )
 	
 };
 

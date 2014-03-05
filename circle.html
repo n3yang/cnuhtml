@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/base.css" type="text/css" />
+<link rel="stylesheet" href="css/flexslider.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/placeholder.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/jquery.cnuaction.js"></script>
+<script type="text/javascript" src="js/baiduTemplate.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+<link rel="stylesheet" href="css/alumnus.css" type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-thumbs.css" />
+<script type="text/javascript" src="js/jquery.fancybox-thumbs.js"></script>
+
+<title>首都师范大学校友会</title>
+<script>
+$(function(){
+	// 创建圈子
+	$('#create_group_from').submit(function (){
+
+		var formAction = $.cnuAction.getBaseUrl('/group/create', $.cookie('sid'));
+
+        $(this).attr('action', formAction);
+		
+        // 表单判断
+        if ($('#a_name').val()=='' || $('#a_desc').val()=='') {
+            setFancyBox('标题，描述为必填项！');
+            return false;
+        }
+
+        // jquery.form 表单提交
+        $(this).ajaxSubmit(function(d) {
+            if( d.rc == 1 ){
+                setFancyBox("创建成功");
+
+                if( d.id != undefined ){}
+            }else{
+                setFancyBox("创建失败");
+            }
+        });
+        return false;
+    });
+});
+</script>
+</head>
+
+<body>
+
+<div class="wrap">
+    <div class="logo-wrap">
+    	<img id="logo" src="images/logo.gif" alt="首师大Logo" title="首都师范大学" />
+    </div>
+    
+    
+    <div class="nav-wrap base-clear">
+    	<ul class="nav">
+        	<li><a href="./alumnus.html">校友信息</a></li>
+        	<li><a href="./dynamic.html">母校信息</a></li>
+        	<li><a href="personal.html">个人信息</a></li>
+        	<li class="active"><a href="./circle.html">圈子</a></li>
+        	<li id="sid_admin"><a href="./administration.html">管理</a></li>
+        	<li><a href="./setup.html">系统设置</a></li>
+        </ul>
+        <div class="search-box">
+        	<input class="search-text" placeholder="找同学" type="text" />
+            <input class="search-btn" type="button"/>
+        </div>
+    </div>
+    
+    
+	<div class="m-d-20">
+    </div>
+    
+    <div class="news-wrap base-clear">
+    
+        <div class="main" style="padding:0">
+        	
+        	<div class="circle-wrap">
+        		<h3>我的圈子<a id="create_btn" href="javascript:;">创建圈子</a></h3>
+        		<div class="circle-box">
+        			<ul id="my-circle" class="base-clear">
+        				<li>
+	                    	<div class="newfriends-name">
+	                        	<h4>圈子1</h4>
+	                            <p>圈子描述</p>
+	                        </div>
+	                        <div class="circle_btn">
+	                        	<a href="javascript:;">X</a>
+	                        </div>
+        				</li>
+        			</ul>
+        		</div>
+        	</div>
+        	
+        	<div class="circle-wrap">
+        		<h3>我加入的圈子</h3>
+        		<div class="circle-box">
+        			<ul id="my-follow-circle" class="base-clear">
+        				<li>
+	                    	<div class="newfriends-name">
+	                        	<h4>圈子1</h4>
+	                            <p>圈子描述</p>
+	                        </div>
+        				</li>
+        			</ul>
+        		</div>
+        	</div>
+
+        </div>
+		
+        <div class="newfriends" style="padding-top:0">
+        	<div class="newfriends-title">
+            	推荐的圈子
+            </div>
+            <div class="newfriends-list">
+            	<ul id="rec_circle">
+                	<li>
+                    	<div class="newfriends-name">
+                        	<h4>圈子1</h4>
+                            <p>圈子描述</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    
+</div>
+
+<div class="footer">
+<p>
+    备案号：京公网安备:110402430068号<br>
+    校友会地址：北京市海淀区西三环北路105号首都师范大学学校办公室校友会 邮编：100048   邮箱：cnuxyh@126.com<br>
+    联系方式：电话：86-10-68902418、86-10-68902611  传真：86-10-68902418<br>
+</p>
+</div>
+
+
+<div id="create_group">
+    <div class="form-box">
+    	<form id="create_group_from" action="" method="post" onsubmit="">
+            <h2 class="form-row-nolabel">创建圈子</h2>
+            <div class="form-row">
+                <label class="label-text">标题：</label>
+                <input id="a_name" name="name" class="input-text" type="text" />
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row">
+                <label class="label-text a-t">圈子描述：</label>
+                <textarea id="a_desc" name="desc" class="textarea-text"></textarea>
+                <div class="tips-box"></div>
+            </div>
+            <div class="form-row form-row-nolabel">
+                <input id="create_btn" class="input-btn" type="submit" value="确定" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script id="t:rec-circle-list" type="text/html">
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li data-id="<%=list[i].id%>">
+			<div class="newfriends-name">
+				<h4><%=list[i].name%></h4>
+				<% if( list[i].desc == null) { %>
+					<p></p>
+				<% }else{ %>
+					<p title="<%=list[i].desc%>"><%=list[i].desc%></p>
+				<% } %>
+			</div>
+		</li>
+	<%}%>
+<% }else{ %>
+		<li>
+				<h4>暂时没有推荐的圈子</h4>
+		</li>
+<% } %>
+</script>
+
+
+<script id="t:my-circle" type="text/html">
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li data-id="<%=list[i].id%>" data-name="<%=list[i].name%>">
+			<div class="newfriends-name">
+				<h4><%=list[i].name%></h4>
+				<% if( list[i].desc == null) { %>
+					<p></p>
+				<% }else{ %>
+					<p title="<%=list[i].desc%>"><%=list[i].desc%></p>
+				<% } %>
+			</div>
+            <div class="circle_btn">
+            	<a href="javascript:;" id="<%=list[i].id%>" onclick="$.cnuAction.configGroupDelete(this.id)">X</a>
+            </div>
+		</li>
+	<%}%>
+<% }else{ %>
+		<li>
+				<h4>暂时没有圈子</h4>
+		</li>
+<% } %>
+</script>
+
+
+<script id="t:my-follow-circle" type="text/html">
+<% if(list.length>0) { %>
+	<%for(var i=0;i<list.length;i++){%>
+		<li data-id="<%=list[i].id%>" data-name="<%=list[i].name%>">
+			<div class="newfriends-name">
+				<h4><%=list[i].name%></h4>
+				<% if( list[i].desc == null) { %>
+					<p></p>
+				<% }else{ %>
+					<p title="<%=list[i].desc%>"><%=list[i].desc%></p>
+				<% } %>
+			</div>
+            <div class="circle_btn">
+            	<a href="javascript:;" id="<%=list[i].id%>" onclick="$.cnuAction.configGroupQuit(this.id)">X</a>
+            </div>
+		</li>
+	<%}%>
+<% }else{ %>
+		<li>
+				<h4>暂时没有加入的圈子</h4>
+		</li>
+<% } %>
+</script>
+
+<script type="text/javascript">
+$(function() {
+
+	$.cnuAction.configGroupList();
+	$.cnuAction.configGroupMyList();
+	$.cnuAction.configGroupMeList();
+    
+
+    $("#create_group_from").submit(function(){
+
+        var a = $("#a_name").val();
+        var b = $("#a_desc").val();
+
+        if(a == '' || b==''){
+            $.fancybox("标题和描述不能为空");
+        }else{
+            $.cnuAction.configGroupCreate(a, b);
+        }
+
+        return false
+    })
+
+	$("#create_btn").click(function(){
+		
+		$.fancybox($("#create_group"));
+		
+	})
+
+});
+</script>
+</body>
+</html>

@@ -234,7 +234,7 @@ h1, h2, h3, h4, h5, h6, .title, .input-btn{
 	display:block;
 	font-size:14px;
 	color:#FFF;
-	padding:0px 40px;
+	padding:0px 30px;
 }
 .nav li.active a{
 	background:url(../images/nav-active.gif) center top repeat-x; 
@@ -494,4 +494,177 @@ div.jogger a.disabled {
 }
 .form-row dl input.input-btn:hover{
 	background:#333;
+}
+
+
+.circle-wrap{
+	width: 700px;
+	overflow: hidden;
+	zoom:1;
+	margin-bottom: 20px;
+}
+
+.circle-wrap h3{
+	color: #103391;
+	height: 40px;
+	line-height: 40px;
+	position: relative;
+	background: url(../images/qzbj.gif) left bottom no-repeat;
+}
+
+.circle-box{
+	border-left: 1px solid #ccc; 
+}
+.circle-box li{
+	float: left;
+	width: 212px;
+	padding: 10px;
+	cursor: pointer;
+	border-right:  1px solid #ccc; 
+	border-bottom: 1px solid #ccc;
+	position: relative;
+	background: url(../images/li-active-bg.gif) right 40px no-repeat;
+}
+.circle-box li .circle_btn{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+.circle-box li .circle_btn a{
+	display: block;
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	background: #103391;
+	color: #fff;
+	margin-bottom: 10px;
+	text-decoration: none;
+}
+.circle-box li.active .circle_btn a{
+	background: #fff;
+	color: #103391;
+}
+.newfriends-name p{
+	height: 20px;
+	line-height: 20px;
+	width: 110px;
+	overflow: hidden;
+}
+.circle-wrap li.active{
+	background: #103391 url(../images/li-active-bg-hover.gif) right 40px no-repeat;
+}
+.circle-wrap li.active h4, .circle-wrap li.active p{
+	color: #fff;
+}
+
+#rec_circle li.active{
+	background: url(../images/gz.gif) right center no-repeat;
+}
+
+.circle-wrap h3 a{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 30px;
+	line-height: 30px;
+	padding:0 10px;
+	text-align: center;
+	background:#103391;
+	color: #fff; 
+}
+
+#create_group{
+	display: none;
+}
+
+.group-box{
+	padding: 20px 0;
+}
+.group-box dl{
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0; 
+}
+.group-box dt{
+	height: 100px;
+}
+
+.group-box dt .tx{
+	float: left;
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	-moz-border-radius: 80px;      /* Gecko browsers */
+    -webkit-border-radius: 80px;   /* Webkit browsers */
+    border-radius:80px;            /* W3C syntax */
+}
+.group-box dt .user_infor{
+	float: left;
+	height: 80px;
+	display: inline-block;
+	vertical-align: middle; 
+	padding-left: 20px;   
+}
+.group-box dt .user_infor h4{
+	margin-top: 40px;
+}
+
+.group-box dt .time{
+	float: right;
+	height: 80px;
+	overflow: hidden;
+	line-height: 130px;
+}
+
+.group-box dd{
+	padding-left:100px;
+	margin-bottom: 10px;
+}
+.c_news{
+	padding: 10px 10px 30px 10px;
+	background: #ccc;
+	-moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;   /* Webkit browsers */
+    border-radius:5px;
+    position: relative;
+}
+.pl_form{
+	margin-top: 10px;
+}
+.c_news a.pl{
+	position: absolute;
+	padding: 2px 4px;
+	right: 0px;
+	bottom: 0px;
+}
+
+
+.pl_form{
+	margin:10px auto;
+	display: none;
+}
+
+.pl_form textarea{
+	width: 578px;
+	height: 50px;
+	background: #fff;
+	padding:10px;
+}
+
+.pl_form p{
+	padding-top: 10px;
+	text-align: right;
+}
+.pl_form p a{
+	display: inline-block;
+	padding: 2px 5px;
+	background: #7ac1ed;
+	color: #fff;
+	text-align: center;
+}
+#new_g{
+	display: none;
+}
+#new_g .pl_form{
+	display: block;
 }
