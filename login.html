@@ -30,7 +30,7 @@ $(function() {
         } else if (password=='') {
 			setFancyBox('请输入密码');
         } else {
-            $(this).html("<img src='images/loadinfo.gif' />登录中")
+            setFancyBox("登录中");
             $.cnuAction.login(username, password);
         }
         return false;
@@ -46,7 +46,7 @@ $(function() {
         } else if ( password != $("#reg-re-password").val()){
             error = '两次输入的密码不一致';
 			setFancyBox(error);
-        } else if ($("#reg-idcard-no").val()=='' || $("#reg-stu-no").val()=='') {
+        } else if ($("#reg-idcard-no").val()=='' && $("#reg-stu-no").val()=='') {
             error = '请输入身份证号或学号';
 			setFancyBox(error);
         } else {
