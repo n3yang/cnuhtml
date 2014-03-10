@@ -288,20 +288,23 @@ $(function(){
         	cardetel = $("#card_tel").val();
         if (cardname=='') {
 			setFancyBox('请输入姓名');
+
+        var isMob = /^1\d{10}$/;
+        var isEmail = /^([a-zA-Z0-9]+[-_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;			
+
+			setTimeout(function(){
+				$.fancybox($("#card_form"))
+			},2000)
+			
+        } else if (cardemail=='' || isEmail.test(cardemail)) {
+			setFancyBox('请输入邮箱或邮箱格式错误');
 			
 			setTimeout(function(){
 				$.fancybox($("#card_form"))
 			},2000)
 			
-        } else if (cardemail=='') {
-			setFancyBox('请输入邮箱');
-			
-			setTimeout(function(){
-				$.fancybox($("#card_form"))
-			},2000)
-			
-        } else if (cardetel=='') {
-			setFancyBox('请输入联系电话');
+        } else if (cardetel=='' || isMob.test(cardetel)) {
+			setFancyBox('请输入联系电话或电话格式错误');
 			
 			setTimeout(function(){
 				$.fancybox($("#card_form"))

@@ -195,6 +195,10 @@ $(function() {
         var feedbackname = $("#feedback_name").val(),
         	feedbackemail = $("#feedback_email").val(),
         	feedbacktel = $("#feedback_tel").val();
+
+        var isMob = /^1\d{10}$/;
+        var isEmail = /^([a-zA-Z0-9]+[-_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+
         if (feedbackname=='') {
 			setFancyBox('请输入姓名');
 			
@@ -202,15 +206,15 @@ $(function() {
 				$.fancybox($(".feedback_wrap .form-box"))
 			},2000)
 			
-        } else if (feedbackemail=='') {
-			setFancyBox('请输入邮箱');
+        } else if (feedbackemail=='' || isEmail.test(feedbackemail)) {
+			setFancyBox('请输入邮箱或邮箱格式错误');
 			
 			setTimeout(function(){
 				$.fancybox($(".feedback_wrap .form-box"))
 			},2000)
 			
-        } else if (feedbacktel=='') {
-			setFancyBox('请输入联系电话');
+        } else if (feedbacktel=='' || isMob.test(feedbacktel)) {
+			setFancyBox('请输入联系电话或电话格式错误');
 			
 			setTimeout(function(){
 				$.fancybox($(".feedback_wrap .form-box"))

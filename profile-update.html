@@ -375,13 +375,20 @@ $(function(){
             formAction = $.cnuAction.getBaseUrl('/profile/me/update', $.cookie('sid'));
         }
         $(this).attr('action', formAction);
+
+        var isMob = /^1\d{10}$/;
+        var isEmail = /^([a-zA-Z0-9]+[-_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
         // 表单判断
         if ($('#p-name').val()==''
             || $('#p-gender').val()==''
-            || $('#p-type').val()=='') {
-            setFancyBox('姓名、性别、类型为必填项！');
+            || $('#p-type').val()==''
+            ||($("#p-mobile").val()!="" && isMob.test($("#p-mobile").val()))
+            ||($("#p-email").val()!="" && isEmail.test($("#p-email").val()))) {
+            setFancyBox('姓名、性别、类型为必填项或手机、邮箱格式有误！');
             return false;
         }
+
+
         var errorMsg = '';
         if ($('#p-type').val()==1){
             if($('#p-deptId').val()==''){
