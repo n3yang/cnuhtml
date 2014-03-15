@@ -117,7 +117,7 @@ $(function(){
 		
         <div class="newfriends" style="padding-top:0">
         	<div class="newfriends-title">
-            	推荐的圈子
+            	圈子成员
             </div>
             <div class="newfriends-list">
             	<ul id="rec_circle">
@@ -175,28 +175,99 @@ $(function(){
     </div>
 </div>
 
-
-<script id="t:rec-circle-list" type="text/html">
-<% if(list.length>0) { %>
-	<%for(var i=0;i<list.length;i++){%>
-		<li data-id="<%=list[i].id%>">
-			<div class="newfriends-name">
-				<h4><%=list[i].name%></h4>
-				<% if( list[i].desc == null) { %>
-					<p></p>
-				<% }else{ %>
-					<p title="<%=list[i].desc%>"><%=list[i].desc%></p>
-				<% } %>
-			</div>
-		</li>
-	<%}%>
-<% }else{ %>
-		<li>
-				<h4>暂时没有推荐的圈子</h4>
-		</li>
-<% } %>
+<script id="t:tpl-history" type="text/html">
+<div class="history">
+    <div class="history-date">
+    <h2 class="first">
+        <a class="btn" href="#nogo">我的履历</a>
+        <em>
+            <% if( b.pic == null) { %>
+                <img src="images/icon06.gif" />
+            <% }else{ %>
+                <img src="<%=b.pic%>" />
+            <% } %>
+        </em>
+        <span>
+            <strong><%=b.name%></strong>
+            <p></p>
+            <% if(c == 'me') { %>
+                <a class="input-btn" href="profile-update.html">完善资料</a>
+            <% }else{ %>
+                <% if(a.d == 'myFriend') { %>
+                    <a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsUnfollow(this.id)">取消关注</a>
+                <% }else{ %>
+                    <a class="input-btn" id="<%=c%>" onclick="$.cnuAction.configFriendsFollow(this.id)">关注</a>
+                <% } %>
+            <% } %>
+        </span>
+     </h2>
+     <ul>
+        <% if(a.length>0) { %>
+            <%for(var i=a.length-1;i>=0;i--){%>
+            
+                <% if(i%2 == 1) { %>
+                    <li data-id="<%=a[i].id%>" class="blue">
+                        <h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+                        <dl>
+                            <dt><%=a[i].org%>
+                                <span><%=a[i].stime%>至<%=a[i].etime%></span>
+                            </dt>
+                        </dl>
+                    </li>
+                <% }else{ %>
+                    <li data-id="<%=a[i].id%>" class="">
+                        <h3><%=a[i].stime.substring(5,7)+"月"%><span><%=a[i].stime.substring(0,4)+"年"%></span></h3>
+                        <dl>
+                            <dt><%=a[i].org%>
+                                <span><%=a[i].stime%>至<%=a[i].etime%></span>
+                            </dt>
+                        </dl>
+                    </li>
+                <% } %>
+                
+            <%}%>
+        <% }else{ %>
+            <li data-id="<%=c%>" class="blue">
+                <h3>&nbsp;<span>&nbsp;</span></h3>
+                <dl>
+                    <dt>暂时没有履历信息
+                        <span>快去添加吧</span>
+                    </dt>
+                </dl>
+            </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
 </script>
 
+<script id="t:tpl-friend-list" type="text/html">
+<% if(list.length>0) { %>
+    <%for(var i=0;i<list.length;i++){%>
+        <li data-id="<%=list[i].id%>">
+            <div class="newfriends-pic">
+                <% if( list[i].pic == null) { %>
+                    <img src="images/tx.gif" />
+                <% }else{ %>
+                    <img src="<%=list[i].pic%>" />
+                <% } %>
+            </div>
+            <div class="newfriends-name">
+                <h4><%=list[i].name%></h4>
+                <% if( list[i].org == null) { %>
+                    <p></p>
+                <% }else{ %>
+                    <p><%=list[i].org%></p>
+                <% } %>
+            </div>
+        </li>
+    <%}%>
+<% }else{ %>
+        <li>
+                <h4>暂时没有成员</h4>
+        </li>
+<% } %>
+</script>
 
 <script id="t:my-circle" type="text/html">
 <% if(list.length>0) { %>
@@ -292,7 +363,7 @@ var gid = $.cnuAction.getQueryStringByName("gid");
 
 $(function() {
     
-	$.cnuAction.configGroupList();
+	$.cnuAction.configParticipantList(gid);
     $.cnuAction.configGroupCommentList(gid);
     $('#group_name').html(decodeURIComponent($.cnuAction.getQueryStringByName("name")))
 

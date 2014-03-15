@@ -60,6 +60,17 @@ function setFriendsList(){
 	
 };
 
+function setParticipantsList(){
+	   
+	   bt = baidu.template;
+	   $('#rec_circle').html( bt('t:tpl-friend-list',$.cnuAction.participantList) ).find("li").hover(function(event){
+			$(this).toggleClass("active");
+		}).click(function(){
+			$.cnuAction.timeline($(this).attr("data-id"),true);
+		});
+	
+};
+
 function setSearchList(){
 	
 	   bt = baidu.template;

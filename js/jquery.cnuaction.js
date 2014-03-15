@@ -10,7 +10,7 @@ jQuery.cnuAction = {
         });
         rq = rq.substring(1, rq.length);
          //return 'proxy.php?pa='+p+'&'+rq;
-         return 'http://115.47.56.228:8080/alumni/service'+p+'?'+rq;
+         return 'http://115.47.56.228:80/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
@@ -1718,6 +1718,34 @@ jQuery.cnuAction = {
             $.cnuAction.accessFail();
         });
 
+    },
+
+    //我关注的好友列表
+    participantList:{},
+    configParticipantList: function(id,page,num){
+        if(!page){page='1'}
+        if(!num){num='50'}
+        $.ajax({
+            url: this.getBaseUrl('/group/'+ id +'/participant/list'),
+            type: 'get',
+            dataType: "json",
+            data: {sid:$.cookie('sid'),id:id,page:page,num:num},
+            async: false
+        })
+        .done(function(d){
+            $.cnuAction.isLogined(d);
+            if (d.rc==0) {
+                setFancyBox('未知错误')
+                return;
+            }
+            if (d.ec==1 && d.rc==1) {
+                $.cnuAction.participantList = d;
+                setParticipantsList();
+            }
+        })
+        .fail(function(){
+            $.cnuAction.accessFail();
+        });
     }
 
 }
