@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-row">
                         <label class="label-text">入学年份</label>
-                        <input id="p-adYear" name="adYear" class="input-text jqueryui-datepicker" type="input" />
+                        <input id="p-adYear" name="adYear" class="input-text" type="input" />
                         <div class="tips-box"></div>
                     </div>
                     <div class="form-row">
@@ -363,6 +363,7 @@ $(function(){
             $.each($.cnuAction.proFile, function(i, v) {
                 $('#p-form #p-'+i).val(v);
             });
+            selectType($('#p-type').val());
         }
     }
     loadProfile();
@@ -381,9 +382,9 @@ $(function(){
         // 表单判断
         if ($('#p-name').val()==''
             || $('#p-gender').val()==''
-            || $('#p-type').val()==''
-            ||($("#p-mobile").val()!="" && isMob.test($("#p-mobile").val()))
-            ||($("#p-email").val()!="" && isEmail.test($("#p-email").val()))) {
+            || $('#p-type').val()=='') {
+
+            
             setFancyBox('姓名、性别、类型为必填项或手机、邮箱格式有误！');
             return false;
         }
@@ -399,6 +400,10 @@ $(function(){
                 errorMsg = '请输入班级';
             } else if ($('#p-adYear').val()==''){
                 errorMsg = '请输入入学年份';
+            } else if( !isMob.test($("#p-mobile").val()) ){
+                    errorMsg = '输入的手机号有误';
+            } else if( !isEmail.test($("#p-email").val()) ){
+                    errorMsg = '输入的邮箱有误';
             }
             if (errorMsg.length>0) {
                 setFancyBox(errorMsg);
@@ -419,7 +424,7 @@ $(function(){
 
         // jquery.form 表单提交
         $(this).ajaxSubmit(function(d) {
-            console.log(d);
+            //console.log(d);
             if( d.rc == 1 ){
                 if ($.cookie('status')==-1) {
                     setFancyBox("保存成功，请等待管理员审核");
@@ -488,6 +493,10 @@ $.datepicker.setDefaults({
 });
 $('.jqueryui-datepicker').datepicker();
 
+$( "#p-adYear" ).datepicker({ 
+    dateFormat: "yy",
+    changeMonth: false,
+});
 
 });
 </script>

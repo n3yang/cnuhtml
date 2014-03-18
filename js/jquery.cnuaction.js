@@ -10,7 +10,7 @@ jQuery.cnuAction = {
         });
         rq = rq.substring(1, rq.length);
          //return 'proxy.php?pa='+p+'&'+rq;
-         return 'http://115.47.56.228:80/alumni/service'+p+'?'+rq;
+         return 'http://115.47.56.228/alumni/service'+p+'?'+rq;
     },
 
     isLogined: function(d){
